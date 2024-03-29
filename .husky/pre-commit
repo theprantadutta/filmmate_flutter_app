@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echoDesign="--------##########---------"
+
+printf "%s\n" "$echoDesign"
+echo "Running Pre Commit Hook..."
+printf "%s\n" "$echoDesign"
+dart run lint_staged
+printf "%s\n" "$echoDesign"
+echo "Pre Commit Ran Successfully"
+printf "%s\n" "$echoDesign"
