@@ -1,6 +1,7 @@
-import 'package:filmmate_flutter_app/components/common/custom_text_input.dart';
 import 'package:filmmate_flutter_app/constants/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../components/common/custom_text_input.dart';
 
 class LoginScreen extends StatelessWidget {
   static const kRouteName = '/login';
@@ -15,7 +16,7 @@ class LoginScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(
+            const Center(
               child: Text(
                 'Login',
                 style: TextStyle(
@@ -25,10 +26,10 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-            CustomTextInput(
+            const CustomTextInput(
               labelText: 'Enter your email',
             ),
-            CustomTextInput(
+            const CustomTextInput(
               labelText: 'Enter your Password',
             ),
             ElevatedButton(
