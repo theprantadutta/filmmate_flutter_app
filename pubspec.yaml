@@ -28,4 +28,4 @@ flutter:
     - .env
 
 lint_staged:
-  "lib/**.dart": dart format . && dart fix --apply
+  "lib/**.dart": dart fix --apply
