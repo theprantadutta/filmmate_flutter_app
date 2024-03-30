@@ -1,5 +1,8 @@
+import 'package:filmmate_flutter_app/screens/initial_screen.dart';
+import 'package:filmmate_flutter_app/screens/signup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -12,8 +15,16 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // Ideal time to initialize
-  await FirebaseAuth.instance.useAuthEmulator('192.168.0.106', 9099);
+
+  if (kDebugMode) {
+    try {
+      //  FirebaseFirestore.instance.useFirestoreEmulator('192.168.0.106', 8080);
+      await FirebaseAuth.instance.useAuthEmulator('192.168.0.106', 9099);
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
+  }
   // To load the .env file contents into dotenv.
   // NOTE: fileName defaults to .env and can be omitted in this case.
   // Ensure that the filename corresponds to the path in step 1 and 2.
@@ -57,9 +68,12 @@ class _MyAppState extends State<MyApp> {
       themeMode: _themeMode,
       // home: const HomeScreen(),
       initialRoute: '/',
+      // home: const InitialScreen(),
       routes: {
-        HomeScreen.kRouteName: (context) => const HomeScreen(),
+        InitialScreen.kRouteName: (context) => const InitialScreen(),
+        HomeScreen.kRouteName: (context) => HomeScreen(),
         LoginScreen.kRouteName: (context) => const LoginScreen(),
+        SignupScreen.kRouteName: (context) => const SignupScreen(),
       },
     );
   }

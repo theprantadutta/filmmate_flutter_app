@@ -1,32 +1,36 @@
-import 'package:filmmate_flutter_app/constants/colors.dart';
-import 'package:filmmate_flutter_app/screens/signup_screen.dart';
+import 'package:filmmate_flutter_app/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../components/common/custom_text_input.dart';
-import '../services/auth_service.dart';
+import '../constants/colors.dart';
+import './../screens/login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  static const kRouteName = '/login';
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  static const kRouteName = '/signup';
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   String email = '';
   String password = '';
 
-  Future<void> login() async {
+  Future<void> signup() async {
     debugPrint("email: $email , pass: $password");
     try {
+      await AuthService().createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
       final credential = await AuthService().signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       debugPrint(credential.toString());
-
       // Navigator.pushReplacementNamed(
       //   // ignore: use_build_context_synchronously
       //   context,
@@ -41,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } catch (e) {
       debugPrint(e.toString());
     } finally {
-      debugPrint('Login Function Finished');
+      debugPrint('Signup Function Finished');
     }
   }
 
@@ -56,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             const Center(
               child: Text(
-                'Login',
+                'Signup',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.w700,
@@ -74,14 +78,14 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: true,
             ),
             ElevatedButton(
-              onPressed: login,
+              onPressed: signup,
               style: ElevatedButton.styleFrom(
                 backgroundColor: kPrimaryColor,
                 foregroundColor: Colors.white,
                 fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 50),
               ),
               child: const Text(
-                'LOGIN',
+                'Signup',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -93,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ElevatedButton(
               onPressed: () => Navigator.pushReplacementNamed(
                 context,
-                SignupScreen.kRouteName,
+                LoginScreen.kRouteName,
               ),
               style: OutlinedButton.styleFrom(
                 backgroundColor: Colors.transparent,
@@ -101,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 50),
               ),
               child: const Text(
-                'Signup Instead?',
+                'Login Instead?',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,

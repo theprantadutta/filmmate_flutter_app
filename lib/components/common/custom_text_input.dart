@@ -5,11 +5,13 @@ import '../../constants/colors.dart';
 class CustomTextInput extends StatelessWidget {
   final void Function(String)? onChanged;
   final String labelText;
+  final bool obscureText;
 
   const CustomTextInput({
     super.key,
     this.onChanged,
     required this.labelText,
+    this.obscureText = false,
   });
 
   @override
@@ -33,6 +35,7 @@ class CustomTextInput extends StatelessWidget {
             color: kPrimaryColor,
           ),
         ),
+        obscureText: obscureText,
         cursorColor: kPrimaryColor,
         onChanged: onChanged,
       ),
