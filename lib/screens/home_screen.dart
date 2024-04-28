@@ -1,45 +1,30 @@
-import 'package:filmmate_flutter_app/services/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/layouts/main_layout.dart';
+import '../components/home/home_header.dart';
+import '../components/home/home_trending_section.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const kRouteName = '/home';
+  static const kRouteName = '/';
 
-  final User? _user = AuthService().currentUser;
+  // final User? _user = AuthService().currentUser;
 
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MainLayout(
-      body: Column(
-        children: [
-          Center(
-            child: Text('UserEmail: ${_user?.email}'),
+    return const MainLayout(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
+          child: Column(
+            children: [
+              HomeHeader(),
+              HomeTrendingSection(),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () async => AuthService().signOut(),
-            child: const Text(
-              'SignOut',
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 }
-
-//  @override
-//   void initState() {
-//     FirebaseAuth.instance.authStateChanges().listen((User? user) {
-//       if (user == null) {
-//         // print('User is currently signed out!');
-//         Navigator.pushReplacementNamed(context, LoginScreen.kRouteName);
-//       } else {
-//         print('User is signed in!');
-//       }
-//     });
-//     super.initState();
-//   }

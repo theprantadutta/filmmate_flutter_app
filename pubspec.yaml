@@ -9,14 +9,12 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.6
-  firebase_auth: ^4.18.0
-  firebase_core: ^2.27.2
   flutter:
     sdk: flutter
-  flutter_dotenv: ^5.1.0
+  http: ^1.2.1
 
 dev_dependencies:
-  flutter_lints: ^3.0.0
+  flutter_lints: ^3.0.2
   flutter_test:
     sdk: flutter
   husky: ^0.1.7
@@ -24,8 +22,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - .env
 
 lint_staged:
   "lib/**.dart": dart fix --apply
