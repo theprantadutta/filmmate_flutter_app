@@ -1,27 +1,25 @@
-class Cast {
-  String id;
-  int actorId;
-  bool adult;
-  int gender;
-  String knownForDepartment;
-  String name;
-  double popularity;
-  String? profilePath;
-  int castId;
-  String character;
-  int order;
+import 'package:isar/isar.dart';
 
-  Cast({
-    required this.id,
-    required this.actorId,
-    required this.adult,
-    required this.gender,
-    required this.knownForDepartment,
-    required this.name,
-    required this.popularity,
-    required this.castId,
-    required this.character,
-    required this.order,
-    this.profilePath,
-  });
+import 'movie.dart';
+
+part '../generated/entities/cast.g.dart';
+
+@collection
+class Cast {
+  Id autoId = Isar.autoIncrement;
+
+  late String id;
+  late int actorId;
+  late bool adult;
+  late int gender;
+  late String knownForDepartment;
+  late String name;
+  late double popularity;
+  late String? profilePath;
+  late int castId;
+  late String character;
+  late int order;
+
+  @Backlink(to: 'casts')
+  final movie = IsarLink<Movie>();
 }

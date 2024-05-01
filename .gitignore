@@ -70,3 +70,6 @@ coverage
 
 # Ignoring environment variables
 *.env
+
+# Ignore Generated Files
+lib/generated/

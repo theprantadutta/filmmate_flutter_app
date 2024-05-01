@@ -1,21 +1,22 @@
-class Video {
-  String id;
-  String name;
-  String key;
-  String site;
-  int size;
-  String type;
-  bool official;
-  DateTime publishedAt;
+import 'package:isar/isar.dart';
 
-  Video({
-    required this.id,
-    required this.name,
-    required this.key,
-    required this.site,
-    required this.size,
-    required this.type,
-    required this.official,
-    required this.publishedAt,
-  });
+import 'movie.dart';
+
+part '../generated/entities/video.g.dart';
+
+@collection
+class Video {
+  Id autoId = Isar.autoIncrement;
+
+  late String id;
+  late String name;
+  late String key;
+  late String site;
+  late int size;
+  late String type;
+  late bool official;
+  late DateTime publishedAt;
+
+  @Backlink(to: 'videos')
+  final movie = IsarLink<Movie>();
 }

@@ -1,13 +1,18 @@
+import 'package:isar/isar.dart';
+
 import 'image.dart';
+import 'movie.dart';
 
+part '../generated/entities/images.g.dart';
+
+@collection
 class Images {
-  List<Image> backdrops;
-  List<Image> posters;
-  List<Image> logos;
+  Id autoId = Isar.autoIncrement;
 
-  Images({
-    required this.backdrops,
-    required this.posters,
-    required this.logos,
-  });
+  final backdrops = IsarLinks<Image>();
+  final posters = IsarLinks<Image>();
+  final logos = IsarLinks<Image>();
+
+  @Backlink(to: 'images')
+  final movie = IsarLink<Movie>();
 }

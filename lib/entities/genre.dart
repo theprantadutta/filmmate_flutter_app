@@ -1,6 +1,16 @@
-class Genre {
-  int id;
-  String name;
+import 'package:isar/isar.dart';
 
-  Genre({required this.id, required this.name});
+import 'movie.dart';
+
+part '../generated/entities/genre.g.dart';
+
+@collection
+class Genre {
+  Id autoId = Isar.autoIncrement;
+
+  late int id;
+  late String name;
+
+  @Backlink(to: 'genres')
+  final movie = IsarLink<Movie>();
 }

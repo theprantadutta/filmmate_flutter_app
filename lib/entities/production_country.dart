@@ -1,9 +1,16 @@
-class ProductionCountry {
-  int id;
-  String name;
+import 'package:isar/isar.dart';
 
-  ProductionCountry({
-    required this.id,
-    required this.name,
-  });
+import 'movie.dart';
+
+part '../generated/entities/production_country.g.dart';
+
+@collection
+class ProductionCountry {
+  Id autoId = Isar.autoIncrement;
+
+  late int id;
+  late String name;
+
+  @Backlink(to: 'productionCountries')
+  final movie = IsarLink<Movie>();
 }
