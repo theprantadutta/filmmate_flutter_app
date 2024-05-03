@@ -1,0 +1,62 @@
+import 'package:json_annotation/json_annotation.dart';
+
+import 'cast_dto.dart';
+import 'images_dto.dart';
+import 'movie_credit_dto.dart';
+import 'production_company_dto.dart';
+import 'production_country_dto.dart';
+import 'spoken_language_dto.dart';
+import 'video_dto.dart';
+
+part '../generated/dtos/movie_detail_dto.g.dart';
+
+@JsonSerializable()
+class MovieDetailDto {
+  final int budget;
+  String? homePage;
+  String? imdbId;
+  String? originalLanguage;
+  String? originalTitle;
+  final String overView;
+
+  final int revenue;
+  final int runtime;
+  final String status;
+  final String tagline;
+
+  final List<ProductionCompanyDto> productionCompanies;
+  final List<ProductionCountryDto> productionCountries;
+  final List<SpokenLanguageDto> spokenLanguages;
+  final List<CastDto> casts;
+  final MovieCreditDto movieCredit;
+  final ImagesDto images;
+  final List<VideoDto> videos;
+
+  MovieDetailDto({
+    required this.overView,
+    required this.budget,
+    required this.revenue,
+    required this.runtime,
+    required this.status,
+    required this.tagline,
+    required this.productionCompanies,
+    required this.productionCountries,
+    required this.spokenLanguages,
+    required this.casts,
+    required this.movieCredit,
+    required this.images,
+    required this.videos,
+    this.homePage,
+    this.imdbId,
+    this.originalLanguage,
+    this.originalTitle,
+  });
+
+  /// Connect the generated [_$MovieDtoFromJson] function to the `fromJson`
+  /// factory.
+  factory MovieDetailDto.fromJson(Map<String, dynamic> json) =>
+      _$MovieDetailDtoFromJson(json);
+
+  /// Connect the generated [_$CastDtoToJson] function to the `toJson` method.
+  Map<String, dynamic> toJson() => _$MovieDetailDtoToJson(this);
+}

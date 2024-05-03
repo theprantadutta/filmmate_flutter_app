@@ -1,6 +1,6 @@
 import 'package:isar/isar.dart';
 
-import 'movie.dart';
+import 'movie_detail.dart';
 
 part '../generated/entities/cast.g.dart';
 
@@ -21,5 +21,5 @@ class Cast {
   late int order;
 
   @Backlink(to: 'casts')
-  final movie = IsarLink<Movie>();
+  final movieDetail = IsarLink<MovieDetail>();
 }

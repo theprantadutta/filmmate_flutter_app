@@ -1,6 +1,6 @@
 import 'package:isar/isar.dart';
 
-import 'movie.dart';
+import 'movie_detail.dart';
 
 part '../generated/entities/movie_credit.g.dart';
 
@@ -16,5 +16,5 @@ class MovieCredit {
   late List<String> musicBy;
 
   @Backlink(to: 'movieCredit')
-  final movie = IsarLink<Movie>();
+  final movieDetail = IsarLink<MovieDetail>();
 }

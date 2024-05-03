@@ -1,6 +1,6 @@
 import 'package:isar/isar.dart';
 
-import 'movie.dart';
+import 'movie_detail.dart';
 
 part '../generated/entities/production_company.g.dart';
 
@@ -14,5 +14,5 @@ class ProductionCompany {
   late String originCountry;
 
   @Backlink(to: 'productionCompanies')
-  final movie = IsarLink<Movie>();
+  final movieDetail = IsarLink<MovieDetail>();
 }

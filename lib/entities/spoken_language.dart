@@ -1,6 +1,6 @@
 import 'package:isar/isar.dart';
 
-import 'movie.dart';
+import 'movie_detail.dart';
 
 part '../generated/entities/spoken_language.g.dart';
 
@@ -12,5 +12,5 @@ class SpokenLanguage {
   late String name;
 
   @Backlink(to: 'spokenLanguages')
-  final movie = IsarLink<Movie>();
+  final movieDetail = IsarLink<MovieDetail>();
 }

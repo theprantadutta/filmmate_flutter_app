@@ -1,7 +1,7 @@
 import 'package:isar/isar.dart';
 
-import 'image.dart';
-import 'movie.dart';
+import 'movie_detail.dart';
+import 'single_image.dart';
 
 part '../generated/entities/images.g.dart';
 
@@ -9,10 +9,10 @@ part '../generated/entities/images.g.dart';
 class Images {
   Id autoId = Isar.autoIncrement;
 
-  final backdrops = IsarLinks<Image>();
-  final posters = IsarLinks<Image>();
-  final logos = IsarLinks<Image>();
+  final backdrops = IsarLinks<SingleImage>();
+  final posters = IsarLinks<SingleImage>();
+  final logos = IsarLinks<SingleImage>();
 
   @Backlink(to: 'images')
-  final movie = IsarLink<Movie>();
+  final movieDetail = IsarLink<MovieDetail>();
 }

@@ -1,6 +1,6 @@
 import 'package:isar/isar.dart';
 
-import 'movie.dart';
+import 'movie_detail.dart';
 
 part '../generated/entities/video.g.dart';
 
@@ -18,5 +18,5 @@ class Video {
   late DateTime publishedAt;
 
   @Backlink(to: 'videos')
-  final movie = IsarLink<Movie>();
+  final movieDetail = IsarLink<MovieDetail>();
 }

@@ -2,10 +2,10 @@ import 'package:isar/isar.dart';
 
 import 'images.dart';
 
-part '../generated/entities/image.g.dart';
+part '../generated/entities/single_image.g.dart';
 
 @collection
-class Image {
+class SingleImage {
   Id autoId = Isar.autoIncrement;
 
   late double aspectRatio;
