@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'cast_dto.dart';
+import 'genre_dto.dart';
 import 'images_dto.dart';
 import 'movie_credit_dto.dart';
 import 'production_company_dto.dart';
@@ -12,6 +13,9 @@ part '../generated/dtos/movie_detail_dto.g.dart';
 
 @JsonSerializable()
 class MovieDetailDto {
+  final int id;
+  final bool adult;
+  String? backdropPath;
   final int budget;
   String? homePage;
   String? imdbId;
@@ -19,11 +23,18 @@ class MovieDetailDto {
   String? originalTitle;
   final String overView;
 
+  String? posterPath;
+  String? releaseDate;
+
   final int revenue;
   final int runtime;
   final String status;
   final String tagline;
 
+  final String title;
+  final int orderBy;
+
+  final List<GenreDto> genres;
   final List<ProductionCompanyDto> productionCompanies;
   final List<ProductionCountryDto> productionCountries;
   final List<SpokenLanguageDto> spokenLanguages;
@@ -33,6 +44,14 @@ class MovieDetailDto {
   final List<VideoDto> videos;
 
   MovieDetailDto({
+    required this.id,
+    required this.adult,
+    required this.title,
+    required this.genres,
+    required this.orderBy,
+    this.backdropPath,
+    this.posterPath,
+    this.releaseDate,
     required this.overView,
     required this.budget,
     required this.revenue,

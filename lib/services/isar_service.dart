@@ -1,3 +1,7 @@
+import 'package:filmmate_flutter_app/entities/now_playing_movie.dart';
+import 'package:filmmate_flutter_app/entities/popular_movie.dart';
+import 'package:filmmate_flutter_app/entities/top_rated_movie.dart';
+import 'package:filmmate_flutter_app/entities/upcoming_movie.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -33,6 +37,19 @@ class IsarService {
           CastSchema,
           DiscoverMovieSchema,
           GenreSchema,
+          ImagesSchema,
+          MovieCreditSchema,
+          MovieDetailSchema,
+          MovieSchema,
+          NowPlayingMovieSchema,
+          PopularMovieSchema,
+          ProductionCompanySchema,
+          ProductionCountrySchema,
+          SingleImageSchema,
+          SpokenLanguageSchema,
+          TopRatedMovieSchema,
+          UpcomingMovieSchema,
+          VideoSchema,
         ],
         directory: dir.path,
         inspector: true,
@@ -54,9 +71,9 @@ class IsarService {
           ..id = genre.id
           ..name = genre.name);
       }
-      await isar.genres.putAll(genres);
 
       final theMovie = Movie()
+        ..id = movie.id
         ..adult = movie.adult
         ..backdropPath = movie.backdropPath
         ..orderBy = movie.orderBy
@@ -64,9 +81,11 @@ class IsarService {
         ..releaseDate = movie.releaseDate
         ..title = movie.title;
 
-      theMovie.genres.addAll(genres);
-
-      await isar.writeTxn(() => isar.movies.put(theMovie));
+      await isar.writeTxn(() async {
+        await isar.genres.putAll(genres);
+        theMovie.genres.addAll(genres);
+        await isar.movies.put(theMovie);
+      });
       savingMovieList.add(theMovie);
     }
 
@@ -187,7 +206,19 @@ class IsarService {
     theMovie.images.value = dbImages;
     theMovie.videos.addAll(videos);
 
-    await isar.writeTxn(() => isar.movieDetails.put(theMovie));
+    // Get the actualMovie
+    final actualMovie =
+        await isar.movies.filter().idEqualTo(movie.id).findFirst();
+
+    if (actualMovie == null) {
+      throw Exception("Actual Movie Not Found");
+    }
+
+    await isar.writeTxn(() async {
+      actualMovie.movieDetail.value = theMovie;
+      await actualMovie.movieDetail.save();
+      await isar.movieDetails.put(theMovie);
+    });
     return theMovie;
   }
 
