@@ -14,8 +14,14 @@ class HomeHeader extends StatelessWidget {
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CircleAvatar(
-            child: Text('PD'),
+          // CircleAvatar(
+          //   child: Text('PD'),
+          // ),
+          Center(
+            child: Icon(
+              Icons.menu,
+              size: 24,
+            ),
           ),
           Text(
             'FilmMate',

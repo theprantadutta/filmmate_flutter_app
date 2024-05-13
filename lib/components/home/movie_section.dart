@@ -1,4 +1,10 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:filmmate_flutter_app/components/common/cached_movie_image.dart';
+import 'package:filmmate_flutter_app/screen_arguments/movie_detail_screen_arguments.dart';
+import 'package:filmmate_flutter_app/screens/movie_detail_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../dtos/movie_dto.dart';
 import 'movie_section/movie_section_top_bar.dart';
@@ -15,7 +21,6 @@ class MovieSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [
         MovieSectionTopBar(
@@ -23,30 +28,46 @@ class MovieSection extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.28,
+          height: MediaQuery.of(context).size.height * 0.30,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: movies.length,
             itemBuilder: (context, index) {
               final movie = movies[index];
+              final tagName = '$title-${movie.posterPath}';
               return Column(
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.25,
-                    margin: const EdgeInsets.only(right: 10),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
+                  Hero(
+                    tag: tagName,
+                    child: GestureDetector(
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        MovieDetailScreen.kRouteName,
+                        arguments: MovieDetailScreenArguments(
+                          movie: movie,
+                          tagName: tagName,
                         ),
-                        fit: BoxFit.cover,
                       ),
-                      borderRadius: BorderRadius.circular(10),
+                      child: CachedMovieImage(
+                          imageUrl:
+                              'https://image.tmdb.org/t/p/w500/${movie.posterPath}'),
                     ),
-                    // child: Text(movie.title),
                   ),
-                  // Text(data)
+                  FadeInUp(
+                    duration: Duration(milliseconds: (index + 1) * 200),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.39,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      child: Center(
+                        child: Text(
+                          movie.title,
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               );
             },

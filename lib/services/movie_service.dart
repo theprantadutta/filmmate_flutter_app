@@ -11,14 +11,23 @@ class MovieService {
         urlPath: kGetDiscoverMovies,
       );
       // final isar = await IsarService().openDB();
+      // await isar.writeTxn(() => isar.discoverMovies.clear());
       // List<Movie> allSavedDiscoverMovies =
       //     await IsarService().saveSomeMovies(discoverMovies.movies);
-      // List<DiscoverMovie> discoverMoviesForIsar = [];
+      // // List<DiscoverMovie> discoverMoviesForIsar = [];
       // for (var singleMovie in allSavedDiscoverMovies) {
-      //   discoverMoviesForIsar.add(DiscoverMovie()..movie.value = singleMovie);
+      //   final movie = DiscoverMovie();
+      //   movie.movie.value = singleMovie;
+      //   // discoverMoviesForIsar.add(movie);
+      //   // await isar.writeTxn(() => movie.movie.save());
+      //   await isar.writeTxn(() async {
+      //     // await movie.movie.save();
+      //     await isar.discoverMovies.put(movie);
+      //   });
       // }
-      // await isar
-      //     .writeTxn(() => isar.discoverMovies.putAll(discoverMoviesForIsar));
+      // await isar.writeTxn(() async {
+      //   await isar.discoverMovies.putAll(discoverMoviesForIsar);
+      // });
       return discoverMovies;
     } catch (e) {
       if (kDebugMode) {
@@ -28,56 +37,60 @@ class MovieService {
     }
   }
 
-  static Future<void> getNowPlayingMovies() async {
+  static Future<MovieResponseDto> getNowPlayingMovies() async {
     try {
       final nowPlayingMovies =
           await DatabaseService().getSomeMoviesFromDatabase(
         urlPath: kGetNowPlayingMovies,
       );
-      print(nowPlayingMovies.movies.length);
+      return nowPlayingMovies;
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
+      rethrow;
     }
   }
 
-  static Future<void> getPopularMovies() async {
+  static Future<MovieResponseDto> getPopularMovies() async {
     try {
       final popularMovies = await DatabaseService().getSomeMoviesFromDatabase(
         urlPath: kGetPopularMovies,
       );
-      print(popularMovies.movies.length);
+      return popularMovies;
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
+      rethrow;
     }
   }
 
-  static Future<void> getTopRatedMovies() async {
+  static Future<MovieResponseDto> getTopRatedMovies() async {
     try {
       final topRatedMovies = await DatabaseService().getSomeMoviesFromDatabase(
         urlPath: kGetTopRatedMovies,
       );
-      print(topRatedMovies.movies.length);
+      return topRatedMovies;
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
+      rethrow;
     }
   }
 
-  static Future<void> getUpcomingMovies() async {
+  static Future<MovieResponseDto> getUpcomingMovies() async {
     try {
       final upcomingMovies = await DatabaseService().getSomeMoviesFromDatabase(
         urlPath: kGetUpcomingMovies,
       );
-      print(upcomingMovies.movies.length);
+      return upcomingMovies;
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
+      rethrow;
     }
   }
 }

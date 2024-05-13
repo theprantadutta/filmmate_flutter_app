@@ -1,8 +1,8 @@
-import 'package:filmmate_flutter_app/components/home/categories_section.dart';
-import 'package:filmmate_flutter_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 
+import '../../components/home/categories_section.dart';
 import '../../components/layouts/main_layout.dart';
+import '../../services/database_service.dart';
 import '../components/home/home_header.dart';
 import '../components/home/movie_section.dart';
 
@@ -41,6 +41,14 @@ class HomeScreen extends StatelessWidget {
                   }
                   final discoverMovies =
                       snapshot.data!.discoverMovieResponse.movies;
+                  final nowPlayingMovies =
+                      snapshot.data!.nowPlayingMovieResponse.movies;
+                  final popularMovies =
+                      snapshot.data!.popularMovieResponse.movies;
+                  final topRatedMovies =
+                      snapshot.data!.topRatedMovieResponse.movies;
+                  final upcomingMovies =
+                      snapshot.data!.upcomingMovieResponse.movies;
                   final genres = snapshot.data!.genres;
                   return Column(
                     children: [
@@ -51,6 +59,26 @@ class HomeScreen extends StatelessWidget {
                       MovieSection(
                         title: 'Discover Movies',
                         movies: discoverMovies,
+                      ),
+                      const SizedBox(height: 10),
+                      MovieSection(
+                        title: 'Popular Movies',
+                        movies: popularMovies,
+                      ),
+                      const SizedBox(height: 10),
+                      MovieSection(
+                        title: 'Now Playing Movies',
+                        movies: nowPlayingMovies,
+                      ),
+                      const SizedBox(height: 10),
+                      MovieSection(
+                        title: 'Top Rated Movies',
+                        movies: topRatedMovies,
+                      ),
+                      const SizedBox(height: 10),
+                      MovieSection(
+                        title: 'Upcoming Movies',
+                        movies: upcomingMovies,
                       ),
                     ],
                   );

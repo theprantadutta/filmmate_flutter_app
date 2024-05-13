@@ -10,20 +10,38 @@ import 'parser_background_service.dart';
 
 class DatabaseService {
   Future<HomeScreenResponse> getAllHomeScreenData() async {
-    final moviesFuture = MovieService.getDiscoverMovies();
     final genresFuture = getAllGenresFromDatabase();
+    final discoverMoviesFuture = MovieService.getDiscoverMovies();
+    final nowPlayingMoviesFuture = MovieService.getNowPlayingMovies();
+    final popularMoviesFuture = MovieService.getPopularMovies();
+    final topRatedMoviesFuture = MovieService.getTopRatedMovies();
+    final upcomingMoviesFuture = MovieService.getUpcomingMovies();
 
     // Wait for both futures to complete
-    final List<dynamic> results =
-        await Future.wait([moviesFuture, genresFuture]);
+    final List<dynamic> results = await Future.wait([
+      genresFuture,
+      discoverMoviesFuture,
+      nowPlayingMoviesFuture,
+      popularMoviesFuture,
+      topRatedMoviesFuture,
+      upcomingMoviesFuture,
+    ]);
 
     // Extract results
-    final MovieResponseDto discoverMovieResponse = results[0];
-    final List<GenreDto> genres = results[1];
+    final List<GenreDto> genres = results[0];
+    final MovieResponseDto discoverMovieResponse = results[1];
+    final MovieResponseDto nowPlayingMovieResponse = results[2];
+    final MovieResponseDto popularMovieResponse = results[3];
+    final MovieResponseDto topRatedMovieResponse = results[4];
+    final MovieResponseDto upcomingMovieResponse = results[5];
 
     return HomeScreenResponse(
-      discoverMovieResponse: discoverMovieResponse,
       genres: genres,
+      discoverMovieResponse: discoverMovieResponse,
+      nowPlayingMovieResponse: nowPlayingMovieResponse,
+      popularMovieResponse: popularMovieResponse,
+      topRatedMovieResponse: topRatedMovieResponse,
+      upcomingMovieResponse: upcomingMovieResponse,
     );
   }
 
@@ -34,14 +52,14 @@ class DatabaseService {
     var url = '$kApiUrl/$urlPath?pageNumber=$pageNumber';
     var response = await HttpService.get(url);
     if (response.statusCode == 200) {
-      // log(response.body);
       // Use compute to parse the response body in a background isolate
       return await ParserBackgroundService.parseMovieResponseInBackground(
-          response.body);
+        response.data,
+      );
     } else {
       debugPrint('UrlPath: $urlPath, Status Code: ${response.statusCode}');
-      debugPrint('Reason: ${response.reasonPhrase}');
-      throw Exception(response.reasonPhrase);
+      debugPrint('Reason: ${response.statusMessage}');
+      throw Exception(response.statusMessage);
     }
   }
 
@@ -52,12 +70,13 @@ class DatabaseService {
       // log(response.body);
       // Use compute to parse the response body in a background isolate
       return await ParserBackgroundService.parseGenresResponseInBackground(
-          response.body);
+        response.data,
+      );
     } else {
       debugPrint(
           'UrlPath: $kGetAllGenres, Status Code: ${response.statusCode}');
-      debugPrint('Reason: ${response.reasonPhrase}');
-      throw Exception(response.reasonPhrase);
+      debugPrint('Reason: ${response.statusMessage}');
+      throw Exception(response.statusMessage);
     }
   }
 }

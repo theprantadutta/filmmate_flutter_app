@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../components/home/movie_section/movie_section_top_bar.dart';
 import '../../dtos/genre_dto.dart';
+import '../common/custom_outlined_button.dart';
 
 class CategoriesSection extends StatelessWidget {
   final List<GenreDto> genres;
@@ -24,26 +25,9 @@ class CategoriesSection extends StatelessWidget {
               itemCount: genres.length,
               itemBuilder: (context, index) {
                 final genre = genres[index];
-                // return Column(
-                //   children: [
-                //     Text(genre.name),
-                //   ],
-                // );
                 return Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 5,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: Text(genre.name),
-                  ),
+                  child: CustomOutlinedButton(title: genre.name),
                 );
               },
             ),
