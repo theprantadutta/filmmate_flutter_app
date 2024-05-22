@@ -1,3 +1,4 @@
+import 'package:filmmate_flutter_app/dtos/movie_detail_dto.dart';
 import 'package:flutter/foundation.dart';
 
 import '../dtos/genre_dto.dart';
@@ -17,5 +18,12 @@ class ParserBackgroundService {
     String responseBody,
   ) async {
     return compute(ParserService.parseGenresResponse, responseBody);
+  }
+
+  // This function is executed in a background isolate
+  static Future<MovieDetailDto> parseMovieDetailResponseInBackground(
+    String responseBody,
+  ) async {
+    return compute(ParserService.parseMovieDetailResponse, responseBody);
   }
 }

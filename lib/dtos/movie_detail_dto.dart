@@ -32,7 +32,6 @@ class MovieDetailDto {
   final String tagline;
 
   final String title;
-  final int orderBy;
 
   final List<GenreDto> genres;
   final List<ProductionCompanyDto> productionCompanies;
@@ -48,7 +47,6 @@ class MovieDetailDto {
     required this.adult,
     required this.title,
     required this.genres,
-    required this.orderBy,
     this.backdropPath,
     this.posterPath,
     this.releaseDate,

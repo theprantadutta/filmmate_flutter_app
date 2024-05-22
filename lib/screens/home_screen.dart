@@ -1,4 +1,6 @@
+import 'package:filmmate_flutter_app/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../components/home/categories_section.dart';
 import '../../components/layouts/main_layout.dart';
@@ -26,8 +28,11 @@ class HomeScreen extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return SizedBox(
                       height: MediaQuery.of(context).size.height * 0.8,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
+                      child: Center(
+                        child: LoadingAnimationWidget.fourRotatingDots(
+                          color: kPrimaryColor,
+                          size: 50,
+                        ),
                       ),
                     );
                   }

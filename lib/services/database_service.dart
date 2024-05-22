@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import '../constants/urls.dart';
 import '../dtos/genre_dto.dart';
+import '../dtos/movie_detail_dto.dart';
 import '../dtos/movie_response_dto.dart';
 import '../models/home_screen_response.dart';
 import 'http_service.dart';
@@ -9,6 +10,21 @@ import 'movie_service.dart';
 import 'parser_background_service.dart';
 
 class DatabaseService {
+  Future<MovieDetailDto> getMovieDetailFromDatabase(int movieId) async {
+    var url = '$kApiUrl/$kGetMovieDetail?movieId=$movieId';
+    var response = await HttpService.get(url);
+    if (response.statusCode == 200) {
+      // Use compute to parse the response body in a background isolate
+      return await ParserBackgroundService.parseMovieDetailResponseInBackground(
+        response.data,
+      );
+    } else {
+      debugPrint('UrlPath: $url, Status Code: ${response.statusCode}');
+      debugPrint('Reason: ${response.statusMessage}');
+      throw Exception(response.statusMessage);
+    }
+  }
+
   Future<HomeScreenResponse> getAllHomeScreenData() async {
     final genresFuture = getAllGenresFromDatabase();
     final discoverMoviesFuture = MovieService.getDiscoverMovies();

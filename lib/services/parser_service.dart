@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../dtos/genre_dto.dart';
+import '../dtos/movie_detail_dto.dart';
 import '../dtos/movie_response_dto.dart';
 
 class ParserService {
@@ -14,5 +15,11 @@ class ParserService {
   static List<GenreDto> parseGenresResponse(String responseBody) {
     final parsed = jsonDecode(responseBody);
     return List<GenreDto>.from(parsed.map((json) => GenreDto.fromJson(json)));
+  }
+
+  // Parse the response body to MovieDetailDto list
+  static MovieDetailDto parseMovieDetailResponse(String responseBody) {
+    final parsed = jsonDecode(responseBody);
+    return MovieDetailDto.fromJson(parsed);
   }
 }

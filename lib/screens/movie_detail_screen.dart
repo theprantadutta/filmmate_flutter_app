@@ -1,11 +1,18 @@
-import 'package:filmmate_flutter_app/components/common/custom_outlined_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../components/layouts/main_layout.dart';
+import '../components/movie_detail/movie_detail_another_section.dart';
+import '../components/movie_detail/movie_detail_section.dart';
+import '../components/movie_detail/movie_detail_stack_on_poster.dart';
+import '../constants/colors.dart';
 import '../screen_arguments/movie_detail_screen_arguments.dart';
+import '../services/database_service.dart';
 
 class MovieDetailScreen extends StatelessWidget {
   static const kRouteName = '/movie-detail';
+
   const MovieDetailScreen({super.key});
 
   @override
@@ -15,60 +22,75 @@ class MovieDetailScreen extends StatelessWidget {
     final args = ModalRoute.of(context)!.settings.arguments
         as MovieDetailScreenArguments;
     final movie = args.movie;
-    return MainLayout(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        toolbarHeight: MediaQuery.of(context).size.height * 0.55,
-        leading: Stack(
-          children: [
-            IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: const Icon(Icons.arrow_back),
-            ),
-          ],
+    return Scaffold(
+      body: AnnotatedRegion(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
         ),
-        flexibleSpace: Hero(
-          tag: args.tagName,
-          child: Image(
-            image: NetworkImage(
-              'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
-            ),
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            Row(
+        child: SafeArea(
+          top: false,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  movie.title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                  ),
+                MovieDetailStackOnPoster(tagName: args.tagName, movie: movie),
+                FutureBuilder(
+                  future:
+                      DatabaseService().getMovieDetailFromDatabase(movie.id),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return SizedBox(
+                        height: 100,
+                        child: Center(
+                          child: LoadingAnimationWidget.fourRotatingDots(
+                            color: kPrimaryColor,
+                            size: 40,
+                          ),
+                        ),
+                      );
+                    }
+                    if ((snapshot.hasError)) {
+                      if (kDebugMode) {
+                        print(snapshot.error);
+                      }
+                      return const SizedBox(
+                        height: 100,
+                        child: Center(
+                          child: Text('Something Went Wrong'),
+                        ),
+                      );
+                    }
+                    final movieDetail = snapshot.data!;
+                    return Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          MovieDetailAnotherSection(
+                            title: 'Status',
+                            value: movieDetail.status,
+                          ),
+                          MovieDetailAnotherSection(
+                            title: 'Release Date',
+                            value: movieDetail.releaseDate ?? 'N/A',
+                          ),
+                          MovieDetailSection(
+                            title: 'Tagline',
+                            value: movieDetail.tagline,
+                          ),
+                          MovieDetailSection(
+                            title: 'Overview',
+                            value: movieDetail.overView,
+                          ),
+                          const SizedBox(height: 10),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                itemCount: movie.genres.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  final genre = movie.genres[index];
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: CustomOutlinedButton(title: genre.name),
-                  );
-                },
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

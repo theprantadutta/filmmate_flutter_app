@@ -16,6 +16,8 @@ class MovieDto {
   final String title;
   final int orderBy;
 
+  final double? voteAverage;
+
   final List<GenreDto> genres;
 
   MovieDto({
@@ -27,6 +29,7 @@ class MovieDto {
     this.backdropPath,
     this.posterPath,
     this.releaseDate,
+    this.voteAverage,
   });
 
   /// Connect the generated [_$MovieDtoFromJson] function to the `fromJson`
