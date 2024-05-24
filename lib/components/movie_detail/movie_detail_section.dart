@@ -23,6 +23,7 @@ class MovieDetailSection extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
         ),
+        const SizedBox(height: 5),
         Text(
           value,
           style: const TextStyle(

@@ -27,3 +27,22 @@ String formatSpecialDate(DateTime date) {
   // Return the formatted date string
   return '$day$suffix ${monthYearFormat.format(date)}';
 }
+
+String truncateText(
+  String text, {
+  int maxLength = 400,
+}) {
+  print('text length: ${text.length}');
+  if (text.length <= maxLength) {
+    return text;
+  }
+
+  // Find the last space within the limit
+  int endIndex = text.lastIndexOf(' ', maxLength);
+  if (endIndex == -1) {
+    // If there's no space, just truncate normally (this handles the edge case where a word is longer than maxLength)
+    endIndex = maxLength;
+  }
+
+  return '${text.substring(0, endIndex)}...';
+}
