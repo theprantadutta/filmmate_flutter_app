@@ -1,15 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:filmmate_flutter_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../components/common/movie_image_wrapper.dart';
+import '../../constants/colors.dart';
 
-class CachedMovieImage extends StatelessWidget {
+class MovieSectionCachedMovieImage extends StatelessWidget {
   final String imageUrl;
 
-  const CachedMovieImage({super.key, required this.imageUrl});
+  const MovieSectionCachedMovieImage({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {

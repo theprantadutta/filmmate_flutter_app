@@ -1,11 +1,12 @@
-import 'package:filmmate_flutter_app/components/movie_detail/movie_detail_sections/movie_detail_casts.dart';
-import 'package:filmmate_flutter_app/components/movie_detail/movie_detail_sections/movie_detail_credits.dart';
-import 'package:filmmate_flutter_app/components/movie_detail/movie_detail_sections/movie_detail_overview.dart';
-import 'package:filmmate_flutter_app/components/movie_detail/movie_detail_sections/movie_detail_posters.dart';
-import 'package:filmmate_flutter_app/components/movie_detail/movie_detail_sections/movie_detail_videos.dart';
-import 'package:filmmate_flutter_app/constants/colors.dart';
-import 'package:filmmate_flutter_app/dtos/movie_detail_dto.dart';
 import 'package:flutter/material.dart';
+
+import '../../../components/movie_detail/movie_detail_sections/movie_detail_casts.dart';
+import '../../../components/movie_detail/movie_detail_sections/movie_detail_credits.dart';
+import '../../../components/movie_detail/movie_detail_sections/movie_detail_overview.dart';
+import '../../../components/movie_detail/movie_detail_sections/movie_detail_posters.dart';
+import '../../../components/movie_detail/movie_detail_sections/movie_detail_videos.dart';
+import '../../../constants/colors.dart';
+import '../../../dtos/movie_detail_dto.dart';
 
 final List<String> allSections = [
   "Overview",
@@ -16,14 +17,10 @@ final List<String> allSections = [
 ];
 
 class SingleMovieSectionButtons extends StatefulWidget {
-  // final String selected;
-  // final void Function(String value) onPressed;
   final MovieDetailDto movieDetail;
   const SingleMovieSectionButtons({
     super.key,
     required this.movieDetail,
-    // required this.selected,
-    // required this.onPressed,
   });
 
   @override
@@ -32,7 +29,7 @@ class SingleMovieSectionButtons extends StatefulWidget {
 }
 
 class _SingleMovieSectionButtonsState extends State<SingleMovieSectionButtons> {
-  final int _currentPageIndex = 0;
+  int _currentPageIndex = 0;
   late PageController pageController;
 
   @override
@@ -50,6 +47,9 @@ class _SingleMovieSectionButtonsState extends State<SingleMovieSectionButtons> {
   }
 
   void _updateCurrentPageIndex(int index) {
+    setState(() {
+      _currentPageIndex = index;
+    });
     pageController.animateToPage(
       index,
       duration: const Duration(milliseconds: 400),
@@ -102,15 +102,16 @@ class _SingleMovieSectionButtonsState extends State<SingleMovieSectionButtons> {
           height: 380,
           child: PageView(
             controller: pageController,
+            onPageChanged: _updateCurrentPageIndex,
             children: [
               MovieDetailOverview(
                 movieDetail: widget.movieDetail,
               ),
               MovieDetailCasts(
-                movieDetail: widget.movieDetail,
+                casts: widget.movieDetail.casts,
               ),
               MovieDetailCredits(
-                movieDetail: widget.movieDetail,
+                movieCredit: widget.movieDetail.movieCredit,
               ),
               MovieDetailVideos(
                 movieDetail: widget.movieDetail,

@@ -1,5 +1,5 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:filmmate_flutter_app/components/common/cached_movie_image.dart';
+import 'package:filmmate_flutter_app/components/common/movie_section_cached_movie_image.dart';
 import 'package:filmmate_flutter_app/screen_arguments/movie_detail_screen_arguments.dart';
 import 'package:filmmate_flutter_app/screens/movie_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,7 +48,7 @@ class MovieSection extends StatelessWidget {
                           tagName: tagName,
                         ),
                       ),
-                      child: CachedMovieImage(
+                      child: MovieSectionCachedMovieImage(
                           imageUrl:
                               'https://image.tmdb.org/t/p/w500/${movie.posterPath}'),
                     ),

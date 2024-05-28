@@ -32,7 +32,6 @@ String truncateText(
   String text, {
   int maxLength = 400,
 }) {
-  print('text length: ${text.length}');
   if (text.length <= maxLength) {
     return text;
   }
