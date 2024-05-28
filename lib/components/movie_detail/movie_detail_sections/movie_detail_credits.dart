@@ -14,6 +14,7 @@ class MovieDetailCredits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // height: MediaQuery.sizeOf(context).height * 0.,
       decoration: BoxDecoration(
         color: kPrimaryColor.withOpacity(0.2),
       ),
