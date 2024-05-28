@@ -30,7 +30,7 @@ String formatSpecialDate(DateTime date) {
 
 String truncateText(
   String text, {
-  int maxLength = 400,
+  int maxLength = 450,
 }) {
   if (text.length <= maxLength) {
     return text;

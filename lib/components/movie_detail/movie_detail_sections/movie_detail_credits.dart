@@ -1,6 +1,8 @@
-import 'package:filmmate_flutter_app/constants/colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
+import '../../../components/movie_detail/movie_detail_sections/credit_section.dart';
 import '../../../dtos/movie_credit_dto.dart';
 
 class MovieDetailCredits extends StatelessWidget {
@@ -14,9 +16,38 @@ class MovieDetailCredits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: MediaQuery.sizeOf(context).height * 0.,
+      margin: const EdgeInsets.symmetric(
+        horizontal: 10,
+      ),
       decoration: BoxDecoration(
-        color: kPrimaryColor.withOpacity(0.2),
+        // color: kPrimaryColor.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CreditSection(
+            title: 'Directed By',
+            names: movieCredit.directors,
+          ),
+          CreditSection(
+            title: 'Written By',
+            names: movieCredit.writers,
+          ),
+          CreditSection(
+            title: 'Story By',
+            names: movieCredit.storyBy,
+          ),
+          CreditSection(
+            title: 'Produced By',
+            names: movieCredit.producers,
+          ),
+          CreditSection(
+            title: 'Music By',
+            names: movieCredit.musicBy,
+          ),
+        ],
       ),
     );
   }

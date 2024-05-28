@@ -26,7 +26,7 @@ class MovieDetail {
   late int revenue;
   late int runtime;
   late String status;
-  late String tagline;
+  late String? tagline;
 
   @Backlink(to: 'movieDetail')
   final movie = IsarLink<Movie>();

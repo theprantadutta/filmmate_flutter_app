@@ -29,7 +29,7 @@ class MovieDetailDto {
   final int revenue;
   final int runtime;
   final String status;
-  final String tagline;
+  final String? tagline;
 
   final String title;
 
