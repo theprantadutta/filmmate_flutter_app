@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PlayYoutubeVideo extends StatefulWidget {
-  const PlayYoutubeVideo({super.key});
+  final String youtubeId;
+
+  const PlayYoutubeVideo({
+    super.key,
+    required this.youtubeId,
+  });
 
   @override
   State<PlayYoutubeVideo> createState() => _PlayYoutubeVideoState();
@@ -14,9 +19,9 @@ class _PlayYoutubeVideoState extends State<PlayYoutubeVideo> {
   @override
   void initState() {
     _youtubePlayerController = YoutubePlayerController(
-      initialVideoId: 'iLnmTe5Q2Qw',
+      initialVideoId: widget.youtubeId,
       flags: const YoutubePlayerFlags(
-        autoPlay: true,
+        autoPlay: false,
         mute: true,
       ),
     );
@@ -34,18 +39,11 @@ class _PlayYoutubeVideoState extends State<PlayYoutubeVideo> {
     return YoutubePlayer(
       controller: _youtubePlayerController,
       showVideoProgressIndicator: true,
-      progressIndicatorColor: Colors.amber,
+      progressIndicatorColor: Colors.green,
       progressColors: const ProgressBarColors(
-        playedColor: Colors.amber,
-        handleColor: Colors.amberAccent,
+        playedColor: Colors.green,
+        handleColor: Colors.greenAccent,
       ),
-      onReady: () {
-        _youtubePlayerController.addListener(
-          () {
-            print('Ready to Play Music');
-          },
-        );
-      },
     );
   }
 }

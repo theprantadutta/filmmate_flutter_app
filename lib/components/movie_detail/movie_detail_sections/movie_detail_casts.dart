@@ -67,6 +67,12 @@ class MovieDetailCasts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
+      padding: const EdgeInsets.only(
+        top: 10,
+        left: 0,
+        right: 0,
+        bottom: 10,
+      ),
       childAspectRatio: 0.7,
       crossAxisCount: 3,
       mainAxisSpacing: 4,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../dtos/movie_detail_dto.dart';
-import '../../../util/functions.dart';
 
 class MovieDetailOverview extends StatelessWidget {
   const MovieDetailOverview({
@@ -59,7 +58,8 @@ class MovieDetailOverview extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            truncateText(movieDetail.overView),
+            // truncateText(movieDetail.overView),
+            movieDetail.overView,
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w200,

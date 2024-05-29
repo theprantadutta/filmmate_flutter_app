@@ -99,10 +99,12 @@ class _SingleMovieSectionButtonsState extends State<SingleMovieSectionButtons> {
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: 380,
+          height: MediaQuery.of(context).size.height * 0.6,
           child: PageView(
             controller: pageController,
-            onPageChanged: _updateCurrentPageIndex,
+            onPageChanged: (value) => setState(
+              () => _currentPageIndex = value,
+            ),
             children: [
               MovieDetailOverview(
                 movieDetail: widget.movieDetail,

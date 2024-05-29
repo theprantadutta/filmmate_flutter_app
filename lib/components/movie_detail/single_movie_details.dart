@@ -49,12 +49,8 @@ class _SingleMovieDetailsState extends State<SingleMovieDetails> {
           );
         }
         final movieDetail = snapshot.data!;
-        return Column(
-          children: [
-            SingleMovieSectionButtons(
-              movieDetail: movieDetail,
-            ),
-          ],
+        return SingleMovieSectionButtons(
+          movieDetail: movieDetail,
         );
       },
     );
