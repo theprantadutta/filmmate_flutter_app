@@ -20,7 +20,6 @@ class MovieDetailCredits extends StatelessWidget {
         horizontal: 10,
       ),
       decoration: BoxDecoration(
-        // color: kPrimaryColor.withOpacity(0.2),
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(

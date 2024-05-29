@@ -47,4 +47,4 @@ flutter:
     - assets/videos/
 
 lint_staged:
-  "lib/**.dart": dart fix --apply
+  'lib/**.dart': dart format --fix && dart fix --apply

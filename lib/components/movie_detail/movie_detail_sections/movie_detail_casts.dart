@@ -79,9 +79,5 @@ class MovieDetailCasts extends StatelessWidget {
       crossAxisSpacing: 8,
       children: _generateCastView(context),
     );
-    // return Wrap(
-    //   alignment: WrapAlignment.spaceBetween,
-    //   children: _generateCastView(context),
-    // );
   }
 }
