@@ -1,7 +1,7 @@
-import 'package:filmmate_flutter_app/dtos/movie_dto.dart';
+import '../entities/movie.dart';
 
 class MovieDetailScreenArguments {
-  final MovieDto movie;
+  final Movie movie;
   final String tagName;
 
   MovieDetailScreenArguments({

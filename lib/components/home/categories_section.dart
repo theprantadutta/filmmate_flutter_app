@@ -1,11 +1,11 @@
+import 'package:filmmate_flutter_app/entities/genre.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/home/movie_section/movie_section_top_bar.dart';
-import '../../dtos/genre_dto.dart';
 import '../common/custom_outlined_button.dart';
 
 class CategoriesSection extends StatelessWidget {
-  final List<GenreDto> genres;
+  final List<Genre> genres;
 
   const CategoriesSection({
     super.key,

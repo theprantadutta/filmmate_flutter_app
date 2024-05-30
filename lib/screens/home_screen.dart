@@ -44,16 +44,11 @@ class HomeScreen extends StatelessWidget {
                       ),
                     );
                   }
-                  final discoverMovies =
-                      snapshot.data!.discoverMovieResponse.movies;
-                  final nowPlayingMovies =
-                      snapshot.data!.nowPlayingMovieResponse.movies;
-                  final popularMovies =
-                      snapshot.data!.popularMovieResponse.movies;
-                  final topRatedMovies =
-                      snapshot.data!.topRatedMovieResponse.movies;
-                  final upcomingMovies =
-                      snapshot.data!.upcomingMovieResponse.movies;
+                  final discoverMovies = snapshot.data!.discoverMovies;
+                  final nowPlayingMovies = snapshot.data!.nowPlayings;
+                  final popularMovies = snapshot.data!.popularMovies;
+                  final topRatedMovies = snapshot.data!.topRatedMovies;
+                  final upcomingMovies = snapshot.data!.upcomingMovies;
                   final genres = snapshot.data!.genres;
                   return Column(
                     children: [

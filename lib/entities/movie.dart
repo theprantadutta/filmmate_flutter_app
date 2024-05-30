@@ -22,6 +22,7 @@ class Movie {
   String? releaseDate;
   late String title;
   late int orderBy;
+  late double? voteAverage;
 
   final genres = IsarLinks<Genre>();
   final movieDetail = IsarLink<MovieDetail>();

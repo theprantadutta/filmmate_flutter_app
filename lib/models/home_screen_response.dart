@@ -1,20 +1,20 @@
-import '../dtos/genre_dto.dart';
-import '../dtos/movie_response_dto.dart';
+import '../entities/genre.dart';
+import '../entities/movie.dart';
 
 class HomeScreenResponse {
-  final List<GenreDto> genres;
-  final MovieResponseDto discoverMovieResponse;
-  final MovieResponseDto nowPlayingMovieResponse;
-  final MovieResponseDto popularMovieResponse;
-  final MovieResponseDto topRatedMovieResponse;
-  final MovieResponseDto upcomingMovieResponse;
+  final List<Genre> genres;
+  final List<Movie> discoverMovies;
+  final List<Movie> nowPlayings;
+  final List<Movie> popularMovies;
+  final List<Movie> topRatedMovies;
+  final List<Movie> upcomingMovies;
 
   HomeScreenResponse({
     required this.genres,
-    required this.discoverMovieResponse,
-    required this.nowPlayingMovieResponse,
-    required this.popularMovieResponse,
-    required this.topRatedMovieResponse,
-    required this.upcomingMovieResponse,
+    required this.discoverMovies,
+    required this.nowPlayings,
+    required this.popularMovies,
+    required this.topRatedMovies,
+    required this.upcomingMovies,
   });
 }

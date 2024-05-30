@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../constants/colors.dart';
-import '../../dtos/movie_dto.dart';
+import '../../entities/movie.dart';
 import '../../services/database_service.dart';
 import 'movie_detail_sections/single_movie_section_buttons.dart';
 
@@ -14,7 +14,7 @@ class SingleMovieDetails extends StatefulWidget {
     required this.movie,
   });
 
-  final MovieDto movie;
+  final Movie movie;
 
   @override
   State<SingleMovieDetails> createState() => _SingleMovieDetailsState();

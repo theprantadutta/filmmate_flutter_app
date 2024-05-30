@@ -12,5 +12,5 @@ class Genre {
   late String name;
 
   @Backlink(to: 'genres')
-  final movie = IsarLink<Movie>();
+  final movies = IsarLinks<Movie>();
 }

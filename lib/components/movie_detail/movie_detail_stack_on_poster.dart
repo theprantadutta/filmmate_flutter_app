@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../dtos/movie_dto.dart';
+import '../../entities/movie.dart';
 
 class MovieDetailStackOnPoster extends StatelessWidget {
   final String tagName;
-  final MovieDto movie;
+  final Movie movie;
 
   const MovieDetailStackOnPoster({
     super.key,
@@ -78,7 +78,7 @@ class MovieDetailStackOnPoster extends StatelessWidget {
                           itemCount: movie.genres.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            final genre = movie.genres[index];
+                            final genre = movie.genres.toList()[index];
                             return Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: ElevatedButton(

@@ -67,24 +67,40 @@ class IsarService {
       // save genres
       List<Genre> genres = [];
       for (final genre in movie.genres) {
-        genres.add(Genre()
-          ..id = genre.id
-          ..name = genre.name);
+        final existingGenre =
+            await isar.genres.filter().idEqualTo(genre.id).findFirst();
+        if (existingGenre == null) {
+          genres.add(Genre()
+            ..id = genre.id
+            ..name = genre.name);
+        } else {
+          genres.add(existingGenre);
+        }
       }
 
-      final theMovie = Movie()
-        ..id = movie.id
-        ..adult = movie.adult
-        ..backdropPath = movie.backdropPath
-        ..orderBy = movie.orderBy
-        ..posterPath = movie.posterPath
-        ..releaseDate = movie.releaseDate
-        ..title = movie.title;
+      final existingMovie =
+          await isar.movies.filter().idEqualTo(movie.id).findFirst();
+
+      Movie theMovie;
+      if (existingMovie == null) {
+        theMovie = Movie()
+          ..id = movie.id
+          ..adult = movie.adult
+          ..backdropPath = movie.backdropPath
+          ..orderBy = movie.orderBy
+          ..posterPath = movie.posterPath
+          ..releaseDate = movie.releaseDate
+          ..voteAverage = movie.voteAverage
+          ..title = movie.title;
+      } else {
+        theMovie = existingMovie;
+      }
 
       await isar.writeTxn(() async {
         await isar.genres.putAll(genres);
         theMovie.genres.addAll(genres);
         await isar.movies.put(theMovie);
+        theMovie.genres.save();
       });
       savingMovieList.add(theMovie);
     }
