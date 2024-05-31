@@ -25,6 +25,7 @@ dependencies:
   youtube_player_flutter: ^9.0.1
 
 dev_dependencies:
+  analyzer: ^5.13.0
   build_runner: ^2.4.9
   flutter_lints: ^4.0.0
   flutter_test:
@@ -33,6 +34,10 @@ dev_dependencies:
   isar_generator: ^3.1.0+1
   json_serializable: ^6.8.0
   lint_staged: ^0.5.1
+
+dependency_overrides:
+  analyzer: ^6.3.0
+  js: ^0.7.1
 
 flutter:
   uses-material-design: true

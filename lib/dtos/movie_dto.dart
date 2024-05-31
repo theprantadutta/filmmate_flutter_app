@@ -11,7 +11,8 @@ class MovieDto {
   String? backdropPath;
 
   String? posterPath;
-  String? releaseDate;
+  DateTime? releaseDate;
+  String? certification;
 
   final String title;
   final int orderBy;

@@ -19,7 +19,8 @@ class Movie {
   String? backdropPath;
 
   String? posterPath;
-  String? releaseDate;
+  DateTime? releaseDate;
+  String? certification;
   late String title;
   late int orderBy;
   late double? voteAverage;

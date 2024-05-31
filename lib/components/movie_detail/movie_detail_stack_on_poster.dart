@@ -1,6 +1,12 @@
+import 'package:filmmate_flutter_app/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../entities/movie.dart';
+import 'movie_poster/movie_average_vote.dart';
+import 'movie_poster/movie_poster.dart';
+import 'movie_poster/movie_poster_genres.dart';
+import 'movie_poster/poster_back_button.dart';
 
 class MovieDetailStackOnPoster extends StatelessWidget {
   final String tagName;
@@ -12,43 +18,17 @@ class MovieDetailStackOnPoster extends StatelessWidget {
     required this.movie,
   });
 
-  String _doubleToPercentageString(double value) {
-    return '${(value * 10).toInt().toString()}%';
-  }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.6,
-          width: double.infinity,
-          child: Hero(
-            tag: tagName,
-            child: Image(
-              image: NetworkImage(
-                'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Positioned(
-          top: 25,
-          left: 10,
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(
-              Icons.arrow_back,
-              size: 30,
-            ),
-          ),
-        ),
+        MoviePoster(tagName: tagName, posterPath: movie.posterPath),
+        const PosterBackButton(),
         Positioned(
           bottom: 0,
           left: 0,
           child: Container(
-            color: Colors.black.withOpacity(0.7),
+            color: Colors.black.withOpacity(0.5),
             padding: const EdgeInsets.symmetric(
               vertical: 5,
               horizontal: 5,
@@ -62,7 +42,7 @@ class MovieDetailStackOnPoster extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 10),
+                      const Divider(),
                       Text(
                         movie.title,
                         style: const TextStyle(
@@ -70,48 +50,42 @@ class MovieDetailStackOnPoster extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width,
-                        child: ListView.builder(
-                          itemCount: movie.genres.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            final genre = movie.genres.toList()[index];
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                  ),
-                                ),
-                                child: Text(genre.name),
+                      const Divider(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 5.0,
+                          vertical: 5,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              movie.releaseDate != null
+                                  ? DateFormat('d MMM, yyyy')
+                                      .format(movie.releaseDate!)
+                                  : 'N/A',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w300,
                               ),
-                            );
-                          },
+                            ),
+                            const VerticalDivider(
+                              color: kPrimaryColor,
+                              width: 2,
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const Divider(),
+                      MoviePosterGenres(
+                        genres: movie.genres.toList(),
+                      ),
+                      const Divider(),
                     ],
                   ),
                 ),
                 if (movie.voteAverage != null)
-                  Center(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.25,
-                      child: CircleAvatar(
-                        radius: 25,
-                        child: Text(
-                          _doubleToPercentageString(movie.voteAverage!),
-                        ),
-                      ),
-                    ),
+                  MovieAverageVote(
+                    voteAverage: movie.voteAverage!,
                   ),
               ],
             ),
@@ -119,5 +93,16 @@ class MovieDetailStackOnPoster extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class Divider extends StatelessWidget {
+  const Divider({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(height: 5);
   }
 }

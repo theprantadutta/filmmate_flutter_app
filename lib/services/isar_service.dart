@@ -90,6 +90,7 @@ class IsarService {
           ..orderBy = movie.orderBy
           ..posterPath = movie.posterPath
           ..releaseDate = movie.releaseDate
+          ..certification = movie.certification
           ..voteAverage = movie.voteAverage
           ..title = movie.title;
       } else {
