@@ -21,6 +21,7 @@ class Movie {
   String? posterPath;
   DateTime? releaseDate;
   String? certification;
+  int? runtime;
   late String title;
   late int orderBy;
   late double? voteAverage;

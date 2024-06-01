@@ -13,6 +13,7 @@ class MovieDto {
   String? posterPath;
   DateTime? releaseDate;
   String? certification;
+  int? runtime;
 
   final String title;
   final int orderBy;
@@ -27,6 +28,7 @@ class MovieDto {
     required this.title,
     required this.genres,
     required this.orderBy,
+    this.runtime,
     this.backdropPath,
     this.posterPath,
     this.releaseDate,

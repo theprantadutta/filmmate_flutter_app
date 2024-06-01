@@ -1,7 +1,3 @@
-import 'package:filmmate_flutter_app/entities/now_playing_movie.dart';
-import 'package:filmmate_flutter_app/entities/popular_movie.dart';
-import 'package:filmmate_flutter_app/entities/top_rated_movie.dart';
-import 'package:filmmate_flutter_app/entities/upcoming_movie.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -15,10 +11,14 @@ import '../entities/images.dart';
 import '../entities/movie.dart';
 import '../entities/movie_credit.dart';
 import '../entities/movie_detail.dart';
+import '../entities/now_playing_movie.dart';
+import '../entities/popular_movie.dart';
 import '../entities/production_company.dart';
 import '../entities/production_country.dart';
 import '../entities/single_image.dart';
 import '../entities/spoken_language.dart';
+import '../entities/top_rated_movie.dart';
+import '../entities/upcoming_movie.dart';
 import '../entities/video.dart';
 
 class IsarService {
@@ -91,6 +91,7 @@ class IsarService {
           ..posterPath = movie.posterPath
           ..releaseDate = movie.releaseDate
           ..certification = movie.certification
+          ..runtime = movie.runtime
           ..voteAverage = movie.voteAverage
           ..title = movie.title;
       } else {

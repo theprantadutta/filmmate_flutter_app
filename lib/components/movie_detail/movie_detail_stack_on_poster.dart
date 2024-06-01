@@ -1,12 +1,11 @@
-import 'package:filmmate_flutter_app/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../entities/movie.dart';
 import 'movie_poster/movie_average_vote.dart';
 import 'movie_poster/movie_poster.dart';
 import 'movie_poster/movie_poster_genres.dart';
 import 'movie_poster/poster_back_button.dart';
+import 'movie_poster/poster_middle_part.dart';
 
 class MovieDetailStackOnPoster extends StatelessWidget {
   final String tagName;
@@ -28,7 +27,7 @@ class MovieDetailStackOnPoster extends StatelessWidget {
           bottom: 0,
           left: 0,
           child: Container(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withOpacity(0.8),
             padding: const EdgeInsets.symmetric(
               vertical: 5,
               horizontal: 5,
@@ -50,36 +49,13 @@ class MovieDetailStackOnPoster extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const Divider(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 5.0,
-                          vertical: 5,
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              movie.releaseDate != null
-                                  ? DateFormat('d MMM, yyyy')
-                                      .format(movie.releaseDate!)
-                                  : 'N/A',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                            const VerticalDivider(
-                              color: kPrimaryColor,
-                              width: 2,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Divider(),
+                      // const Divider(),
+                      PosterMiddlePart(movie: movie),
+                      // const Divider(),
                       MoviePosterGenres(
                         genres: movie.genres.toList(),
                       ),
-                      const Divider(),
+                      // const Divider(),
                     ],
                   ),
                 ),
