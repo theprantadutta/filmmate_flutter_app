@@ -122,7 +122,7 @@ class _SingleMovieSectionButtonsState extends State<SingleMovieSectionButtons> {
                 videos: widget.movieDetail.videos,
               ),
               MovieDetailPosters(
-                movieDetail: widget.movieDetail,
+                posters: widget.movieDetail.images.posters,
               ),
             ],
           ),
