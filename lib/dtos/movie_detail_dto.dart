@@ -16,7 +16,7 @@ class MovieDetailDto {
   final int id;
   final bool adult;
   String? backdropPath;
-  final int budget;
+  int? budget;
   String? homePage;
   String? imdbId;
   String? originalLanguage;
@@ -26,10 +26,10 @@ class MovieDetailDto {
   String? posterPath;
   String? releaseDate;
 
-  final int revenue;
-  final int runtime;
+  int? revenue;
+  int? runtime;
   final String status;
-  final String? tagline;
+  String? tagline;
 
   final String title;
 
@@ -51,9 +51,9 @@ class MovieDetailDto {
     this.posterPath,
     this.releaseDate,
     required this.overView,
-    required this.budget,
-    required this.revenue,
-    required this.runtime,
+    this.budget,
+    this.revenue,
+    this.runtime,
     required this.status,
     required this.tagline,
     required this.productionCompanies,

@@ -38,22 +38,25 @@ class PosterMiddlePart extends StatelessWidget {
           if (movie.certification != null)
             Row(
               children: [
-                Chip(
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  side: const BorderSide(
-                    color: kPrimaryColor,
-                  ),
+                Container(
+                  height: 30,
+                  // width: 60,
                   padding: const EdgeInsets.symmetric(
                     vertical: 0,
-                    horizontal: 0,
+                    horizontal: 10,
                   ),
-                  backgroundColor: kPrimaryColor.withOpacity(0.2),
-                  label: Text(
-                    movie.certification!,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor.withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Center(
+                    child: Text(
+                      movie.certification!,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -67,6 +70,7 @@ class PosterMiddlePart extends StatelessWidget {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
+              color: Colors.white,
             ),
           ),
           const CircleDivider(),
@@ -75,6 +79,7 @@ class PosterMiddlePart extends StatelessWidget {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
+              color: Colors.white,
             ),
           ),
         ],

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_casts.dart';
-import '../../../components/movie_detail/movie_detail_sections/movie_detail_credits.dart';
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_overview.dart';
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_posters.dart';
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_videos.dart';
@@ -11,7 +10,6 @@ import '../../../dtos/movie_detail_dto.dart';
 final List<String> allSections = [
   "Overview",
   "Cast",
-  "Credits",
   "Videos",
   "Posters",
 ];
@@ -64,37 +62,45 @@ class _SingleMovieSectionButtonsState extends State<SingleMovieSectionButtons> {
         SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 0.05,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: allSections.length,
-            itemBuilder: (context, index) {
-              final section = allSections[index];
-              final isSelected = _currentPageIndex == index;
-              return GestureDetector(
-                onTap: () => _updateCurrentPageIndex(index),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  height: MediaQuery.of(context).size.height * 0.04,
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 5,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: isSelected ? kPrimaryColor : Colors.transparent,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
-                      section,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
+          child: Row(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: allSections.length,
+                  itemBuilder: (context, index) {
+                    final section = allSections[index];
+                    final isSelected = _currentPageIndex == index;
+                    return GestureDetector(
+                      onTap: () => _updateCurrentPageIndex(index),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.22,
+                        height: MediaQuery.of(context).size.height * 0.04,
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 5,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color:
+                              isSelected ? kPrimaryColor : Colors.transparent,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            section,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: isSelected ? Colors.white : kPrimaryColor,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
-              );
-            },
+              ),
+            ],
           ),
         ),
         SizedBox(
@@ -111,9 +117,6 @@ class _SingleMovieSectionButtonsState extends State<SingleMovieSectionButtons> {
               ),
               MovieDetailCasts(
                 casts: widget.movieDetail.casts,
-              ),
-              MovieDetailCredits(
-                movieCredit: widget.movieDetail.movieCredit,
               ),
               MovieDetailVideos(
                 videos: widget.movieDetail.videos,

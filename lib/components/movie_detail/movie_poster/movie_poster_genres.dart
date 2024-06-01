@@ -1,3 +1,4 @@
+import 'package:filmmate_flutter_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../entities/genre.dart';
@@ -25,14 +26,24 @@ class MoviePosterGenres extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
+                backgroundColor: kPrimaryColor.withOpacity(0.1),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
+                  side: const BorderSide(
+                    color: kPrimaryColor,
+                    width: 2,
+                  ),
                 ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10,
                 ),
               ),
-              child: Text(genre.name),
+              child: Text(
+                genre.name,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
           );
         },

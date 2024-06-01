@@ -15,7 +15,7 @@ part '../generated/entities/movie_detail.g.dart';
 class MovieDetail {
   Id autoId = Isar.autoIncrement;
 
-  late int budget;
+  int? budget;
   String? homePage;
   String? imdbId;
 
@@ -23,8 +23,8 @@ class MovieDetail {
   String? originalTitle;
   late String overView;
 
-  late int revenue;
-  late int runtime;
+  int? revenue;
+  int? runtime;
   late String status;
   late String? tagline;
 

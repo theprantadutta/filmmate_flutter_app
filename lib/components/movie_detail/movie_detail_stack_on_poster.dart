@@ -19,6 +19,10 @@ class MovieDetailStackOnPoster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+    final bgColor = isDarkTheme
+        ? Colors.black.withOpacity(0.8)
+        : Colors.black.withOpacity(0.3);
     return Stack(
       children: [
         MoviePoster(tagName: tagName, posterPath: movie.posterPath),
@@ -27,42 +31,45 @@ class MovieDetailStackOnPoster extends StatelessWidget {
           bottom: 0,
           left: 0,
           child: Container(
-            color: Colors.black.withOpacity(0.8),
+            color: bgColor,
             padding: const EdgeInsets.symmetric(
               vertical: 5,
               horizontal: 5,
             ),
-            child: Row(
+            child: Column(
               children: [
-                SizedBox(
-                  width: movie.voteAverage != null
-                      ? MediaQuery.of(context).size.width * 0.75
-                      : MediaQuery.of(context).size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Divider(),
-                      Text(
-                        movie.title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: movie.voteAverage != null
+                          ? MediaQuery.of(context).size.width * 0.75
+                          : MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Divider(),
+                          Text(
+                            movie.title,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                          PosterMiddlePart(movie: movie),
+                          const Divider(),
+                        ],
                       ),
-                      // const Divider(),
-                      PosterMiddlePart(movie: movie),
-                      // const Divider(),
-                      MoviePosterGenres(
-                        genres: movie.genres.toList(),
+                    ),
+                    if (movie.voteAverage != null)
+                      MovieAverageVote(
+                        voteAverage: movie.voteAverage!,
                       ),
-                      // const Divider(),
-                    ],
-                  ),
+                  ],
                 ),
-                if (movie.voteAverage != null)
-                  MovieAverageVote(
-                    voteAverage: movie.voteAverage!,
-                  ),
+                MoviePosterGenres(
+                  genres: movie.genres.toList(),
+                ),
               ],
             ),
           ),

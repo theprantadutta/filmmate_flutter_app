@@ -26,6 +26,7 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
         side: const BorderSide(
           color: kPrimaryColor,
+          width: 2,
         ),
       ),
       child: Text(title),

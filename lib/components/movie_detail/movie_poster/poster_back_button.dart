@@ -13,6 +13,7 @@ class PosterBackButton extends StatelessWidget {
         icon: const Icon(
           Icons.arrow_back,
           size: 30,
+          color: Colors.white,
         ),
       ),
     );
