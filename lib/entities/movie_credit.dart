@@ -6,9 +6,8 @@ part '../generated/entities/movie_credit.g.dart';
 
 @collection
 class MovieCredit {
-  Id autoId = Isar.autoIncrement;
+  Id id = Isar.autoIncrement;
 
-  late int id;
   late List<String> writers;
   late List<String> storyBy;
   late List<String> directors;

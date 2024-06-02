@@ -1,6 +1,7 @@
+import 'package:filmmate_flutter_app/util/functions.dart';
 import 'package:flutter/material.dart';
 
-import '../../../dtos/movie_detail_dto.dart';
+import '../../../entities/movie_detail.dart';
 import 'movie_overview_section.dart';
 
 class MovieDetailOverview extends StatelessWidget {
@@ -9,10 +10,10 @@ class MovieDetailOverview extends StatelessWidget {
     required this.movieDetail,
   });
 
-  final MovieDetailDto movieDetail;
+  final MovieDetail movieDetail;
 
-  String getNamesFromArray(List<String> names) {
-    if (names.isEmpty) {
+  String getNamesFromArray(List<String>? names) {
+    if (names == null || names.isEmpty) {
       return 'N/A';
     }
 
@@ -67,23 +68,25 @@ class MovieDetailOverview extends StatelessWidget {
             const SizedBox(height: 10),
             MovieOverviewSection(
               title: 'Directed By: ',
-              value: getNamesFromArray(movieDetail.movieCredit.directors),
+              value:
+                  getNamesFromArray(movieDetail.movieCredit.value?.directors),
             ),
             MovieOverviewSection(
               title: 'Written By: ',
-              value: getNamesFromArray(movieDetail.movieCredit.writers),
+              value: getNamesFromArray(movieDetail.movieCredit.value?.writers),
             ),
             MovieOverviewSection(
               title: 'Story By: ',
-              value: getNamesFromArray(movieDetail.movieCredit.storyBy),
+              value: getNamesFromArray(movieDetail.movieCredit.value?.storyBy),
             ),
             MovieOverviewSection(
               title: 'Produced By: ',
-              value: getNamesFromArray(movieDetail.movieCredit.producers),
+              value:
+                  getNamesFromArray(movieDetail.movieCredit.value?.producers),
             ),
             MovieOverviewSection(
               title: 'Music By: ',
-              value: getNamesFromArray(movieDetail.movieCredit.musicBy),
+              value: getNamesFromArray(movieDetail.movieCredit.value?.musicBy),
             ),
             MovieOverviewSection(
               title: 'Budget: ',
@@ -106,7 +109,7 @@ class MovieDetailOverview extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              movieDetail.overView,
+              truncateText(movieDetail.overView),
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w200,

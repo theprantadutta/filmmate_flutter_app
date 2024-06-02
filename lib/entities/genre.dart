@@ -6,9 +6,8 @@ part '../generated/entities/genre.g.dart';
 
 @collection
 class Genre {
-  Id autoId = Isar.autoIncrement;
+  Id id = Isar.autoIncrement;
 
-  late int id;
   late String name;
 
   @Backlink(to: 'genres')

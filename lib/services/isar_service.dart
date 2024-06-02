@@ -1,6 +1,7 @@
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../dtos/genre_dto.dart';
 import '../dtos/image_dto.dart';
 import '../dtos/movie_detail_dto.dart';
 import '../dtos/movie_dto.dart';
@@ -70,9 +71,11 @@ class IsarService {
         final existingGenre =
             await isar.genres.filter().idEqualTo(genre.id).findFirst();
         if (existingGenre == null) {
-          genres.add(Genre()
-            ..id = genre.id
-            ..name = genre.name);
+          genres.add(
+            Genre()
+              ..id = genre.id
+              ..name = genre.name,
+          );
         } else {
           genres.add(existingGenre);
         }
@@ -124,7 +127,6 @@ class IsarService {
           ..originCountry = productionCompany.originCountry,
       );
     }
-    await isar.productionCompanys.putAll(productionCompanies);
 
     // save production countries
     List<ProductionCountry> productionCountries = [];
@@ -133,7 +135,6 @@ class IsarService {
         ..id = productionCountry.id
         ..name = productionCountry.name);
     }
-    await isar.productionCountrys.putAll(productionCountries);
 
     // save spoken languages
     List<SpokenLanguage> spokenLanguages = [];
@@ -142,7 +143,6 @@ class IsarService {
         ..englishName = spokenLanguage.englishName
         ..name = spokenLanguage.name);
     }
-    await isar.spokenLanguages.putAll(spokenLanguages);
 
     // save casts
     List<Cast> casts = [];
@@ -162,7 +162,6 @@ class IsarService {
           ..profilePath = cast.profilePath,
       );
     }
-    await isar.casts.putAll(casts);
 
     // save movieCredit
     final credit = movie.movieCredit;
@@ -174,8 +173,6 @@ class IsarService {
       ..producers = credit.producers
       ..storyBy = credit.storyBy;
 
-    await isar.movieCredits.put(movieCredit);
-
     // save images
     final allImages = movie.images;
 
@@ -184,11 +181,6 @@ class IsarService {
     final posters = await processSomeImages(allImages.posters);
     final logos = await processSomeImages(allImages.logos);
     final dbImages = Images();
-    dbImages.backdrops.addAll(backdrops);
-    dbImages.posters.addAll(posters);
-    dbImages.backdrops.addAll(logos);
-
-    await isar.images.put(dbImages);
 
     // save videos
     List<Video> videos = [];
@@ -203,9 +195,9 @@ class IsarService {
         ..size = video.size
         ..type = video.type);
     }
-    await isar.videos.putAll(videos);
 
-    final theMovie = MovieDetail()
+    final theMovieDetails = MovieDetail()
+      ..id = movie.id
       ..budget = movie.budget
       ..homePage = movie.homePage
       ..imdbId = movie.imdbId
@@ -216,14 +208,6 @@ class IsarService {
       ..status = movie.status
       ..tagline = movie.tagline;
 
-    theMovie.productionCompanies.addAll(productionCompanies);
-    theMovie.productionCountries.addAll(productionCountries);
-    theMovie.spokenLanguages.addAll(spokenLanguages);
-    theMovie.casts.addAll(casts);
-    theMovie.movieCredit.value = movieCredit;
-    theMovie.images.value = dbImages;
-    theMovie.videos.addAll(videos);
-
     // Get the actualMovie
     final actualMovie =
         await isar.movies.filter().idEqualTo(movie.id).findFirst();
@@ -233,11 +217,45 @@ class IsarService {
     }
 
     await isar.writeTxn(() async {
-      actualMovie.movieDetail.value = theMovie;
+      await isar.productionCompanys.putAll(productionCompanies);
+      theMovieDetails.productionCompanies.addAll(productionCompanies);
+
+      await isar.productionCountrys.putAll(productionCountries);
+      theMovieDetails.productionCountries.addAll(productionCountries);
+
+      await isar.spokenLanguages.putAll(spokenLanguages);
+      theMovieDetails.spokenLanguages.addAll(spokenLanguages);
+
+      await isar.casts.putAll(casts);
+      theMovieDetails.casts.addAll(casts);
+
+      await isar.movieCredits.put(movieCredit);
+      theMovieDetails.movieCredit.value = movieCredit;
+
+      dbImages.backdrops.addAll(backdrops);
+      dbImages.posters.addAll(posters);
+      dbImages.backdrops.addAll(logos);
+
+      await isar.images.put(dbImages);
+      theMovieDetails.images.value = dbImages;
+
+      await isar.videos.putAll(videos);
+      theMovieDetails.videos.addAll(videos);
+
+      actualMovie.movieDetail.value = theMovieDetails;
+      await isar.movieDetails.put(theMovieDetails);
       await actualMovie.movieDetail.save();
-      await isar.movieDetails.put(theMovie);
+
+      theMovieDetails.productionCompanies.save();
+      theMovieDetails.productionCountries.save();
+      theMovieDetails.spokenLanguages.save();
+      theMovieDetails.casts.save();
+      theMovieDetails.movieCredit.save();
+
+      theMovieDetails.images.save();
+      theMovieDetails.videos.save();
     });
-    return theMovie;
+    return theMovieDetails;
   }
 
   Future<List<SingleImage>> processSomeImages(List<ImageDto> images) async {
@@ -253,5 +271,29 @@ class IsarService {
     }
     await isar.writeTxn(() => isar.singleImages.putAll(allImages));
     return allImages;
+  }
+
+  Future<List<Genre>> saveAllGenres(List<GenreDto> genreDtos) async {
+    final isar = await IsarService().openDB();
+    List<Genre> genres = [];
+    List<Genre> genresToBeAdded = [];
+
+    for (final genre in genreDtos) {
+      final existingGenre =
+          await isar.genres.filter().idEqualTo(genre.id).findFirst();
+
+      if (existingGenre != null) {
+        genres.add(existingGenre);
+        continue;
+      }
+      final newGenre = Genre()
+        ..id = genre.id
+        ..name = genre.name;
+
+      genres.add(newGenre);
+      genresToBeAdded.add(newGenre);
+    }
+    await isar.writeTxn(() => isar.genres.putAll(genresToBeAdded));
+    return genres;
   }
 }

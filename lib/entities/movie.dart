@@ -12,9 +12,8 @@ part '../generated/entities/movie.g.dart';
 
 @collection
 class Movie {
-  Id autoId = Isar.autoIncrement;
+  Id id = Isar.autoIncrement;
 
-  late int id;
   late bool adult;
   String? backdropPath;
 

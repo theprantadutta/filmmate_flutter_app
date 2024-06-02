@@ -6,9 +6,8 @@ part '../generated/entities/production_company.g.dart';
 
 @collection
 class ProductionCompany {
-  Id autoId = Isar.autoIncrement;
+  Id id = Isar.autoIncrement;
 
-  late int id;
   late String? logoPath;
   late String name;
   late String originCountry;

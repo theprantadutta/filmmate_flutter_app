@@ -6,7 +6,7 @@ part '../generated/entities/single_image.g.dart';
 
 @collection
 class SingleImage {
-  Id autoId = Isar.autoIncrement;
+  Id id = Isar.autoIncrement;
 
   late double aspectRatio;
   late int height;

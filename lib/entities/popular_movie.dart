@@ -6,7 +6,7 @@ part '../generated/entities/popular_movie.g.dart';
 
 @collection
 class PopularMovie {
-  Id autoId = Isar.autoIncrement;
+  Id id = Isar.autoIncrement;
 
   final movie = IsarLink<Movie>();
 }

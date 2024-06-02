@@ -1,14 +1,15 @@
 import 'package:isar/isar.dart';
 
+import '../util/functions.dart';
 import 'movie_detail.dart';
 
 part '../generated/entities/video.g.dart';
 
 @collection
 class Video {
-  Id autoId = Isar.autoIncrement;
+  String? id;
+  Id get isarId => fastHash(id!);
 
-  late String id;
   late String name;
   late String key;
   late String site;

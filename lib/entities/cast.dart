@@ -1,14 +1,15 @@
 import 'package:isar/isar.dart';
 
+import '../util/functions.dart';
 import 'movie_detail.dart';
 
 part '../generated/entities/cast.g.dart';
 
 @collection
 class Cast {
-  Id autoId = Isar.autoIncrement;
+  String? id;
+  Id get isarId => fastHash(id!);
 
-  late String id;
   late int actorId;
   late bool adult;
   late int gender;

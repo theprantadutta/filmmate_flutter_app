@@ -1,6 +1,6 @@
-import 'package:filmmate_flutter_app/entities/movie.dart';
 import 'package:isar/isar.dart';
 
+import '../../entities/movie.dart';
 import 'cast.dart';
 import 'images.dart';
 import 'movie_credit.dart';
@@ -13,7 +13,7 @@ part '../generated/entities/movie_detail.g.dart';
 
 @collection
 class MovieDetail {
-  Id autoId = Isar.autoIncrement;
+  Id id = Isar.autoIncrement;
 
   int? budget;
   String? homePage;

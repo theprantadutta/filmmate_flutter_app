@@ -6,7 +6,7 @@ part '../generated/entities/spoken_language.g.dart';
 
 @collection
 class SpokenLanguage {
-  Id autoId = Isar.autoIncrement;
+  Id id = Isar.autoIncrement;
 
   late String englishName;
   late String name;

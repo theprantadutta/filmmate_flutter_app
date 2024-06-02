@@ -1,33 +1,43 @@
 import 'dart:async';
 
-import 'package:filmmate_flutter_app/entities/discover_movie.dart';
-import 'package:filmmate_flutter_app/entities/genre.dart';
-import 'package:filmmate_flutter_app/entities/movie.dart';
-import 'package:filmmate_flutter_app/entities/now_playing_movie.dart';
-import 'package:filmmate_flutter_app/entities/popular_movie.dart';
-import 'package:filmmate_flutter_app/entities/top_rated_movie.dart';
-import 'package:filmmate_flutter_app/entities/upcoming_movie.dart';
-import 'package:filmmate_flutter_app/services/isar_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:isar/isar.dart';
 
 import '../constants/urls.dart';
-import '../dtos/movie_detail_dto.dart';
 import '../dtos/movie_response_dto.dart';
+import '../entities/discover_movie.dart';
+import '../entities/genre.dart';
+import '../entities/movie.dart';
+import '../entities/movie_detail.dart';
+import '../entities/now_playing_movie.dart';
+import '../entities/popular_movie.dart';
+import '../entities/top_rated_movie.dart';
+import '../entities/upcoming_movie.dart';
 import '../models/home_screen_response.dart';
+import '../services/isar_service.dart';
 import 'http_service.dart';
 import 'movie_service.dart';
 import 'parser_background_service.dart';
 
 class DatabaseService {
-  Future<MovieDetailDto> getMovieDetailFromDatabase(int movieId) async {
+  Future<MovieDetail> getMovieDetailFromDatabase(int movieId) async {
+    final isar = await IsarService().openDB();
+    final movieDetail =
+        await isar.movieDetails.filter().idEqualTo(movieId).findFirst();
+
+    if (movieDetail != null) {
+      return movieDetail;
+    }
+
     var url = '$kApiUrl/$kGetMovieDetail?movieId=$movieId';
     var response = await HttpService.get(url);
     if (response.statusCode == 200) {
       // Use compute to parse the response body in a background isolate
-      return await ParserBackgroundService.parseMovieDetailResponseInBackground(
+      final movieDetailDto =
+          await ParserBackgroundService.parseMovieDetailResponseInBackground(
         response.data,
       );
+      return await IsarService().saveTheMovieDetail(movieDetailDto);
     } else {
       debugPrint('UrlPath: $url, Status Code: ${response.statusCode}');
       debugPrint('Reason: ${response.statusMessage}');
@@ -43,7 +53,7 @@ class DatabaseService {
     if (existingMovieCount > 0) {
       Timer(
         const Duration(
-          seconds: 3,
+          seconds: 10,
         ),
         () async {
           debugPrint('##########################');
@@ -60,7 +70,7 @@ class DatabaseService {
   }
 
   Future<void> fetchLatestMovieData() async {
-    // final genresFuture = getAllGenresFromDatabase();
+    final genresFuture = getAllGenresFromDatabase();
     final discoverMoviesFuture = MovieService.getDiscoverMovies();
     final nowPlayingMoviesFuture = MovieService.getNowPlayingMovies();
     final popularMoviesFuture = MovieService.getPopularMovies();
@@ -69,7 +79,7 @@ class DatabaseService {
 
     // Wait for both futures to complete
     await Future.wait([
-      // genresFuture,
+      genresFuture,
       discoverMoviesFuture,
       nowPlayingMoviesFuture,
       popularMoviesFuture,
@@ -171,24 +181,48 @@ class DatabaseService {
     }
   }
 
-  // Future<List<GenreDto>> getAllGenresFromDatabase() async {
-  //   var url = '$kApiUrl/$kGetAllGenres';
-  //   var response = await HttpService.get(url);
-  //   if (response.statusCode == 200) {
-  //     // log(response.body);
-  //     // Use compute to parse the response body in a background isolate
-  //     return await ParserBackgroundService.parseGenresResponseInBackground(
-  //       response.data,
-  //     );
-  //   } else {
-  //     debugPrint(
-  //         'UrlPath: $kGetAllGenres, Status Code: ${response.statusCode}');
-  //     debugPrint('Reason: ${response.statusMessage}');
-  //     throw Exception(response.statusMessage);
-  //   }
-  // }
-
   Future<List<Genre>> getAllGenresFromDatabase() async {
+    final isar = await IsarService().openDB();
+    final existingGenreCount = await isar.genres.count();
+
+    if (existingGenreCount > 0) {
+      Timer(
+        const Duration(
+          seconds: 20,
+        ),
+        () async {
+          debugPrint('##########################');
+          debugPrint('Fetching Latest Genres...');
+          await fetchAllGenresFromDatabase();
+          debugPrint('Fetched Latest Genres Successfully');
+          debugPrint('##########################');
+        },
+      );
+      return getAllGenresFromLocalDb();
+    }
+    return fetchAllGenresFromDatabase();
+  }
+
+  Future<List<Genre>> fetchAllGenresFromDatabase() async {
+    var url = '$kApiUrl/$kGetAllGenres';
+    var response = await HttpService.get(url);
+    if (response.statusCode == 200) {
+      // log(response.body);
+      // Use compute to parse the response body in a background isolate
+      final allDbGenres =
+          await ParserBackgroundService.parseGenresResponseInBackground(
+        response.data,
+      );
+      return await IsarService().saveAllGenres(allDbGenres);
+    } else {
+      debugPrint(
+          'UrlPath: $kGetAllGenres, Status Code: ${response.statusCode}');
+      debugPrint('Reason: ${response.statusMessage}');
+      throw Exception(response.statusMessage);
+    }
+  }
+
+  Future<List<Genre>> getAllGenresFromLocalDb() async {
     final isar = await IsarService().openDB();
     return await isar.genres.where().findAll();
   }

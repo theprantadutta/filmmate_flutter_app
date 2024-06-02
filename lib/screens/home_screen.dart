@@ -2,9 +2,9 @@ import 'package:filmmate_flutter_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../components/home/categories_section.dart';
 import '../../components/layouts/main_layout.dart';
 import '../../services/database_service.dart';
+import '../components/home/genres_section.dart';
 import '../components/home/home_header.dart';
 import '../components/home/movie_section.dart';
 
@@ -50,9 +50,10 @@ class HomeScreen extends StatelessWidget {
                   final topRatedMovies = snapshot.data!.topRatedMovies;
                   final upcomingMovies = snapshot.data!.upcomingMovies;
                   final genres = snapshot.data!.genres;
+                  genres.sort((a, b) => a.name.compareTo(b.name));
                   return Column(
                     children: [
-                      CategoriesSection(
+                      GenresSection(
                         genres: genres,
                       ),
                       const SizedBox(height: 10),

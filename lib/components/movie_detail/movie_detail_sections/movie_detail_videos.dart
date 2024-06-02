@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../components/movie_detail/movie_detail_sections/play_youtube_video.dart';
 import '../../../constants/colors.dart';
-import '../../../dtos/video_dto.dart';
+import '../../../entities/video.dart';
 
 class MovieDetailVideos extends StatelessWidget {
   const MovieDetailVideos({
@@ -10,12 +10,12 @@ class MovieDetailVideos extends StatelessWidget {
     required this.videos,
   });
 
-  final List<VideoDto> videos;
+  final List<Video> videos;
 
-  List<VideoDto> sortTrailersFirst() {
-    List<VideoDto> sortedVideos = [];
+  List<Video> sortTrailersFirst() {
+    List<Video> sortedVideos = [];
 
-    List<VideoDto> trailerVideos = [];
+    List<Video> trailerVideos = [];
     for (var video in videos) {
       if (video.type == 'Trailer') {
         trailerVideos.add(video);

@@ -7,7 +7,7 @@ part '../generated/entities/images.g.dart';
 
 @collection
 class Images {
-  Id autoId = Isar.autoIncrement;
+  Id id = Isar.autoIncrement;
 
   final backdrops = IsarLinks<SingleImage>();
   final posters = IsarLinks<SingleImage>();

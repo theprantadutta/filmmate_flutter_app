@@ -1,7 +1,7 @@
-import 'package:filmmate_flutter_app/components/common/movie_section_cached_movie_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../dtos/image_dto.dart';
+import '../../../components/common/movie_section_cached_movie_image.dart';
+import '../../../entities/single_image.dart';
 
 class MovieDetailPosters extends StatelessWidget {
   const MovieDetailPosters({
@@ -9,7 +9,7 @@ class MovieDetailPosters extends StatelessWidget {
     required this.posters,
   });
 
-  final List<ImageDto> posters;
+  final List<SingleImage> posters;
 
   @override
   Widget build(BuildContext context) {

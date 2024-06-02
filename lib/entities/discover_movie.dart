@@ -6,7 +6,7 @@ part '../generated/entities/discover_movie.g.dart';
 
 @collection
 class DiscoverMovie {
-  Id autoId = Isar.autoIncrement;
+  Id id = Isar.autoIncrement;
 
   final movie = IsarLink<Movie>();
 }

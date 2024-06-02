@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import '../../components/home/movie_section/movie_section_top_bar.dart';
 import '../common/custom_outlined_button.dart';
 
-class CategoriesSection extends StatelessWidget {
+class GenresSection extends StatelessWidget {
   final List<Genre> genres;
 
-  const CategoriesSection({
+  const GenresSection({
     super.key,
     required this.genres,
   });
