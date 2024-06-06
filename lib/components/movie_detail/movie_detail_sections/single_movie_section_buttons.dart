@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_casts.dart';
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_overview.dart';
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_posters.dart';
+import '../../../components/movie_detail/movie_detail_sections/movie_detail_recommendations.dart';
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_videos.dart';
 import '../../../constants/colors.dart';
 import '../../../entities/movie_detail.dart';
@@ -12,6 +13,7 @@ final List<String> allSections = [
   "Cast",
   "Videos",
   "Posters",
+  "Top Picks",
 ];
 
 class SingleMovieSectionButtons extends StatefulWidget {
@@ -50,7 +52,7 @@ class _SingleMovieSectionButtonsState extends State<SingleMovieSectionButtons> {
     });
     pageController.animateToPage(
       index,
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 200),
       curve: Curves.easeInOut,
     );
   }
@@ -59,54 +61,43 @@ class _SingleMovieSectionButtonsState extends State<SingleMovieSectionButtons> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.05,
-          child: Row(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: allSections.length,
-                  itemBuilder: (context, index) {
-                    final section = allSections[index];
-                    final isSelected = _currentPageIndex == index;
-                    return GestureDetector(
-                      onTap: () => _updateCurrentPageIndex(index),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.22,
-                        height: MediaQuery.of(context).size.height * 0.04,
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 5,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color:
-                              isSelected ? kPrimaryColor : Colors.transparent,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text(
-                            section,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: isSelected ? Colors.white : kPrimaryColor,
-                            ),
-                          ),
-                        ),
+        Row(
+          children: allSections.map((section) {
+            final index = allSections.indexOf(section);
+            final isSelected = _currentPageIndex == index;
+            return Expanded(
+              child: GestureDetector(
+                onTap: () => _updateCurrentPageIndex(index),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.04,
+                  margin: const EdgeInsets.symmetric(
+                    // horizontal: 5,
+                    vertical: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isSelected ? kPrimaryColor : Colors.transparent,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      section,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: isSelected ? Colors.white : kPrimaryColor,
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 ),
               ),
-            ],
-          ),
+            );
+          }).toList(),
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 0.6,
           child: PageView(
+            physics: const ClampingScrollPhysics(),
             controller: pageController,
             onPageChanged: (value) => setState(
               () => _currentPageIndex = value,
@@ -125,6 +116,10 @@ class _SingleMovieSectionButtonsState extends State<SingleMovieSectionButtons> {
                 posters: widget.movieDetail.images.value != null
                     ? widget.movieDetail.images.value!.posters.toList()
                     : [],
+              ),
+              MovieDetailRecommendations(
+                recommendedMovies:
+                    widget.movieDetail.recommendedMovies.toList(),
               ),
             ],
           ),

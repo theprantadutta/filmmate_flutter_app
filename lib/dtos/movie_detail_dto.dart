@@ -4,6 +4,7 @@ import 'cast_dto.dart';
 import 'genre_dto.dart';
 import 'images_dto.dart';
 import 'movie_credit_dto.dart';
+import 'movie_dto.dart';
 import 'production_company_dto.dart';
 import 'production_country_dto.dart';
 import 'spoken_language_dto.dart';
@@ -42,6 +43,8 @@ class MovieDetailDto {
   final ImagesDto images;
   final List<VideoDto> videos;
 
+  final List<MovieDto> recommendedMovies;
+
   MovieDetailDto({
     required this.id,
     required this.adult,
@@ -67,6 +70,7 @@ class MovieDetailDto {
     this.imdbId,
     this.originalLanguage,
     this.originalTitle,
+    required this.recommendedMovies,
   });
 
   /// Connect the generated [_$MovieDtoFromJson] function to the `fromJson`

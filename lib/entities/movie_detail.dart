@@ -31,6 +31,8 @@ class MovieDetail {
   @Backlink(to: 'movieDetail')
   final movie = IsarLink<Movie>();
 
+  final recommendedMovies = IsarLinks<Movie>();
+
   final productionCompanies = IsarLinks<ProductionCompany>();
   final productionCountries = IsarLinks<ProductionCountry>();
   final spokenLanguages = IsarLinks<SpokenLanguage>();

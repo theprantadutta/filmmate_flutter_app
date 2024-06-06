@@ -185,16 +185,20 @@ class IsarService {
     // save videos
     List<Video> videos = [];
     for (final video in movie.videos) {
-      videos.add(Video()
-        ..id = video.id
-        ..key = video.key
-        ..name = video.name
-        ..official = video.official
-        ..publishedAt = video.publishedAt
-        ..site = video.site
-        ..size = video.size
-        ..type = video.type);
+      videos.add(
+        Video()
+          ..id = video.id
+          ..key = video.key
+          ..name = video.name
+          ..official = video.official
+          ..publishedAt = video.publishedAt
+          ..site = video.site
+          ..size = video.size
+          ..type = video.type,
+      );
     }
+
+    final recommendedMovies = await saveSomeMovies(movie.recommendedMovies);
 
     final theMovieDetails = MovieDetail()
       ..id = movie.id
@@ -238,6 +242,10 @@ class IsarService {
 
       await isar.images.put(dbImages);
       theMovieDetails.images.value = dbImages;
+      dbImages.backdrops.save();
+      dbImages.posters.save();
+      dbImages.backdrops.save();
+      dbImages.movieDetail.save();
 
       await isar.videos.putAll(videos);
       theMovieDetails.videos.addAll(videos);
@@ -254,6 +262,9 @@ class IsarService {
 
       theMovieDetails.images.save();
       theMovieDetails.videos.save();
+
+      theMovieDetails.recommendedMovies.addAll(recommendedMovies);
+      theMovieDetails.recommendedMovies.save();
     });
     return theMovieDetails;
   }
