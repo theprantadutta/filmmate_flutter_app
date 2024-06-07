@@ -198,7 +198,7 @@ class DatabaseService {
           debugPrint('##########################');
         },
       );
-      return getAllGenresFromLocalDb();
+      return IsarService().getAllGenresFromLocalDb();
     }
     return fetchAllGenresFromDatabase();
   }
@@ -222,8 +222,23 @@ class DatabaseService {
     }
   }
 
-  Future<List<Genre>> getAllGenresFromLocalDb() async {
-    final isar = await IsarService().openDB();
-    return await isar.genres.where().findAll();
+  Future<MovieResponseDto> fetchMoviesByGenreId({
+    required int genreId,
+    int pageNumber = 1,
+  }) async {
+    var url =
+        '$kApiUrl/$kGetGenreWiseMovies?genreId=$genreId&pageNumber=$pageNumber';
+    var response = await HttpService.get(url);
+    if (response.statusCode == 200) {
+      // Use compute to parse the response body in a background isolate
+      return await ParserBackgroundService.parseMovieResponseInBackground(
+        response.data,
+      );
+    } else {
+      debugPrint(
+          'UrlPath: $kGetGenreWiseMovies, Status Code: ${response.statusCode}');
+      debugPrint('Reason: ${response.statusMessage}');
+      throw Exception(response.statusMessage);
+    }
   }
 }

@@ -1,6 +1,6 @@
-import 'package:filmmate_flutter_app/components/movie_detail/movie_detail_sections/movie_detail_recommendation_section.dart';
 import 'package:flutter/material.dart';
 
+import '../../../components/common/vertical_movie_section.dart';
 import '../../../entities/movie.dart';
 
 class MovieDetailRecommendations extends StatelessWidget {
@@ -11,8 +11,8 @@ class MovieDetailRecommendations extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MovieDetailRecommendationSection(
-      recommendedMovies: recommendedMovies,
+    return VerticalMovieSection(
+      movies: recommendedMovies,
     );
   }
 }

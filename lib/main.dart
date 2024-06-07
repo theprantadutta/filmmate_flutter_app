@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'screens/genre_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/movie_detail_screen.dart';
 
@@ -52,6 +53,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         HomeScreen.kRouteName: (context) => const HomeScreen(),
         MovieDetailScreen.kRouteName: (context) => const MovieDetailScreen(),
+        GenreScreen.kRouteName: (context) => const GenreScreen(),
       },
     );
   }

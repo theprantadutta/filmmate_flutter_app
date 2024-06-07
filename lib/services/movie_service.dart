@@ -293,4 +293,23 @@ class MovieService {
       rethrow;
     }
   }
+
+  static Future<List<Movie>> getMoviesByGenreId(int genreId) async {
+    try {
+      final genreWiseMovies = await DatabaseService().fetchMoviesByGenreId(
+        genreId: genreId,
+      );
+
+      // Save the fetched movies to the Isar database and get the list of saved movies.
+      List<Movie> savedMovies =
+          await IsarService().saveSomeMovies(genreWiseMovies.movies);
+
+      return savedMovies;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
+  }
 }

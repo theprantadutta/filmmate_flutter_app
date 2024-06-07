@@ -2,25 +2,21 @@ import 'package:animate_do/animate_do.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-import '../../../entities/movie.dart';
-import '../../../screen_arguments/movie_detail_screen_arguments.dart';
-import '../../../screens/movie_detail_screen.dart';
-import '../../common/movie_section_cached_movie_image.dart';
+import '../../entities/movie.dart';
+import '../../screen_arguments/movie_detail_screen_arguments.dart';
+import '../../screens/movie_detail_screen.dart';
+import 'movie_section_cached_movie_image.dart';
 
-class MovieDetailRecommendationSection extends StatelessWidget {
-  final List<Movie> recommendedMovies;
+class VerticalMovieSection extends StatelessWidget {
+  final List<Movie> movies;
+  const VerticalMovieSection({super.key, required this.movies});
 
-  const MovieDetailRecommendationSection({
-    super.key,
-    required this.recommendedMovies,
-  });
-
-  List<Widget> getAllRecommendedMovies(BuildContext context) {
-    List<Widget> allRecommendedMovies = [];
-    recommendedMovies.forEachIndexed((index, movie) {
+  List<Widget> getAllMovies(BuildContext context) {
+    List<Widget> allMovies = [];
+    movies.forEachIndexed((index, movie) {
       // final movie = recommendedMovies[index];
       final tagName = '${movie.title}-${movie.posterPath}';
-      allRecommendedMovies.add(
+      allMovies.add(
         Column(
           children: [
             Hero(
@@ -54,7 +50,7 @@ class MovieDetailRecommendationSection extends StatelessWidget {
         ),
       );
     });
-    return allRecommendedMovies;
+    return allMovies;
   }
 
   @override
@@ -70,7 +66,7 @@ class MovieDetailRecommendationSection extends StatelessWidget {
       crossAxisCount: 2,
       mainAxisSpacing: 4,
       crossAxisSpacing: 8,
-      children: getAllRecommendedMovies(context),
+      children: getAllMovies(context),
     );
   }
 }

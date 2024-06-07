@@ -21,11 +21,14 @@ class MainLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+    final theDarkness = isDarkTheme ? Brightness.light : Brightness.dark;
     return Scaffold(
       body: AnnotatedRegion(
-        value: isDarkTheme
-            ? SystemUiOverlayStyle.light
-            : SystemUiOverlayStyle.dark,
+        value: SystemUiOverlayStyle(
+          statusBarBrightness: theDarkness,
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: theDarkness,
+        ),
         child: SafeArea(child: body),
       ),
       // appBar: AppBar(

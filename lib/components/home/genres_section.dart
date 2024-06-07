@@ -1,24 +1,32 @@
-import 'package:filmmate_flutter_app/entities/genre.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/home/movie_section/movie_section_top_bar.dart';
+import '../../entities/genre.dart';
+import '../../screen_arguments/genre_screen_arguments.dart';
+import '../../screens/genre_screen.dart';
 import '../common/custom_outlined_button.dart';
 
 class GenresSection extends StatelessWidget {
+  final Genre? selectedGenre;
+  final bool goWhenClicked;
+
   final List<Genre> genres;
+  final void Function(Genre currentGenre)? onPressed;
 
   const GenresSection({
     super.key,
     required this.genres,
+    this.selectedGenre,
+    this.goWhenClicked = true,
+    this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
+    genres.sort((a, b) => a.name.compareTo(b.name));
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.1,
+      height: MediaQuery.of(context).size.height * 0.075,
       child: Column(
         children: [
-          const MovieSectionTopBar(title: 'Categories'),
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -27,7 +35,23 @@ class GenresSection extends StatelessWidget {
                 final genre = genres[index];
                 return Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: CustomOutlinedButton(title: genre.name),
+                  child: CustomOutlinedButton(
+                    title: genre.name,
+                    selected: selectedGenre?.id == genre.id,
+                    onPressed: () {
+                      if (goWhenClicked) {
+                        Navigator.pushNamed(
+                          context,
+                          GenreScreen.kRouteName,
+                          arguments: GenreScreenArguments(
+                            genre: genre,
+                          ),
+                        );
+                      } else {
+                        onPressed?.call(genre);
+                      }
+                    },
+                  ),
                 );
               },
             ),

@@ -307,4 +307,20 @@ class IsarService {
     await isar.writeTxn(() => isar.genres.putAll(genresToBeAdded));
     return genres;
   }
+
+  Future<List<Genre>> getAllGenresFromLocalDb() async {
+    final isar = await openDB();
+    return await isar.genres.where().findAll();
+  }
+
+  Future<List<Movie>> getAllGenresByGenreName(Genre genre) async {
+    final isar = await openDB();
+    final genreWiseMoviesFromDb = await isar.movies
+        .filter()
+        .genres(
+          (q) => q.idEqualTo(genre.id),
+        )
+        .findAll();
+    return genreWiseMoviesFromDb;
+  }
 }

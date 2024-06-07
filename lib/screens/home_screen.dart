@@ -7,6 +7,7 @@ import '../../services/database_service.dart';
 import '../components/home/genres_section.dart';
 import '../components/home/home_header.dart';
 import '../components/home/movie_section.dart';
+import '../components/home/movie_section/movie_section_top_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   static const kRouteName = '/';
@@ -50,9 +51,12 @@ class HomeScreen extends StatelessWidget {
                   final topRatedMovies = snapshot.data!.topRatedMovies;
                   final upcomingMovies = snapshot.data!.upcomingMovies;
                   final genres = snapshot.data!.genres;
-                  genres.sort((a, b) => a.name.compareTo(b.name));
+
                   return Column(
                     children: [
+                      const MovieSectionTopBar(
+                        title: 'Genres',
+                      ),
                       GenresSection(
                         genres: genres,
                       ),

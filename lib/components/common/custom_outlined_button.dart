@@ -4,12 +4,14 @@ import '../../constants/colors.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   final String title;
+  final bool selected;
   final void Function()? onPressed;
 
   const CustomOutlinedButton({
     super.key,
     required this.title,
     this.onPressed,
+    required this.selected,
   });
 
   @override
@@ -24,12 +26,19 @@ class CustomOutlinedButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
-        side: const BorderSide(
+        backgroundColor:
+            selected ? kPrimaryColor.withOpacity(0.8) : Colors.transparent,
+        side: BorderSide(
           color: kPrimaryColor,
-          width: 2,
+          width: selected ? 0 : 2,
         ),
       ),
-      child: Text(title),
+      child: Text(
+        title,
+        style: TextStyle(
+          color: selected ? Colors.white : kPrimaryColor,
+        ),
+      ),
     );
   }
 }
