@@ -7,8 +7,14 @@ import '../../constants/colors.dart';
 class FutureHandler extends StatelessWidget {
   final Future future;
   final Widget Function(BuildContext, AsyncSnapshot) builder;
+  final double defaultHeight;
 
-  const FutureHandler({super.key, required this.future, required this.builder});
+  const FutureHandler({
+    super.key,
+    required this.future,
+    required this.builder,
+    this.defaultHeight = 100,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,7 @@ class FutureHandler extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return SizedBox(
-            height: 100,
+            height: defaultHeight,
             child: Center(
               child: LoadingAnimationWidget.fourRotatingDots(
                 color: kPrimaryColor,
@@ -30,9 +36,9 @@ class FutureHandler extends StatelessWidget {
           if (kDebugMode) {
             print(snapshot.error);
           }
-          return const SizedBox(
-            height: 100,
-            child: Center(
+          return SizedBox(
+            height: defaultHeight,
+            child: const Center(
               child: Text('Something Went Wrong'),
             ),
           );

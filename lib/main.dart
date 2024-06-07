@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'screens/genre_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/movie_detail_screen.dart';
+import 'screens/movie_section_screen.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -54,6 +55,7 @@ class _MyAppState extends State<MyApp> {
         HomeScreen.kRouteName: (context) => const HomeScreen(),
         MovieDetailScreen.kRouteName: (context) => const MovieDetailScreen(),
         GenreScreen.kRouteName: (context) => const GenreScreen(),
+        MovieSectionScreen.kRouteName: (context) => const MovieSectionScreen(),
       },
     );
   }

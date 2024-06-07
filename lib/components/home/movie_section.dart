@@ -1,5 +1,5 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:filmmate_flutter_app/enums/movie_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -12,11 +12,13 @@ import 'movie_section/movie_section_top_bar.dart';
 class MovieSection extends StatelessWidget {
   final String title;
   final List<Movie> movies;
+  final MovieType movieType;
 
   const MovieSection({
     super.key,
     required this.title,
     required this.movies,
+    required this.movieType,
   });
 
   @override
@@ -25,6 +27,7 @@ class MovieSection extends StatelessWidget {
       children: [
         MovieSectionTopBar(
           title: title,
+          movieType: movieType,
         ),
         const SizedBox(height: 10),
         SizedBox(
@@ -49,8 +52,9 @@ class MovieSection extends StatelessWidget {
                         ),
                       ),
                       child: MovieSectionCachedMovieImage(
-                          imageUrl:
-                              'https://image.tmdb.org/t/p/w500/${movie.posterPath}'),
+                        imageUrl:
+                            'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
+                      ),
                     ),
                   ),
                   FadeInUp(
