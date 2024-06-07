@@ -29,6 +29,10 @@ class MovieDetailOverview extends StatelessWidget {
   }
 
   String formatNumber(int number) {
+    if (number == 0) {
+      return 'N/A';
+    }
+
     if (number >= 1000000000) {
       // Convert to billions
       double billions = number / 1000000000;

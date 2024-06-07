@@ -1,8 +1,8 @@
-import 'package:filmmate_flutter_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../components/layouts/main_layout.dart';
+import '../../constants/colors.dart';
 import '../../services/database_service.dart';
 import '../components/home/genres_section.dart';
 import '../components/home/home_header.dart';

@@ -25,17 +25,62 @@ class MovieDetailScreen extends StatelessWidget {
         ),
         child: SafeArea(
           top: false,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                MovieDetailStackOnPoster(tagName: args.tagName, movie: movie),
-                SingleMovieDetails(movie: movie),
-              ],
-            ),
+          child: CustomScrollView(
+            slivers: [
+              SliverPersistentHeader(
+                delegate: _SliverAppBarDelegate(
+                  minHeight: 0.0,
+                  maxHeight: MediaQuery.of(context).size.height * 0.6,
+                  child: MovieDetailStackOnPoster(
+                    tagName: args.tagName,
+                    movie: movie,
+                  ),
+                ),
+                pinned: true,
+              ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return SingleMovieDetails(movie: movie);
+                  },
+                  childCount: 1,
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }
