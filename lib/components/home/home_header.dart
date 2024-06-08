@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../screens/search_screen.dart';
+
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
 
@@ -11,19 +13,19 @@ class HomeHeader extends StatelessWidget {
       //   border: Border.all(color: Colors.blueAccent),
       // ),
       padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // CircleAvatar(
           //   child: Text('PD'),
           // ),
-          Center(
+          const Center(
             child: Icon(
               Icons.menu,
               size: 24,
             ),
           ),
-          Text(
+          const Text(
             'FilmMate',
             style: TextStyle(
               fontSize: 18,
@@ -31,10 +33,15 @@ class HomeHeader extends StatelessWidget {
               letterSpacing: 2,
             ),
           ),
-          Center(
-            child: Icon(
-              Icons.search,
-              size: 24,
+          GestureDetector(
+            onTap: () => Navigator.of(context).pushNamed(
+              SearchScreen.kRouteName,
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.search,
+                size: 24,
+              ),
             ),
           ),
         ],

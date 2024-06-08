@@ -1,3 +1,4 @@
+import 'package:filmmate_flutter_app/components/common/main_layout_header.dart';
 import 'package:filmmate_flutter_app/constants/urls.dart';
 import 'package:filmmate_flutter_app/services/database_service.dart';
 import 'package:filmmate_flutter_app/services/isar_service.dart';
@@ -116,32 +117,36 @@ class _MovieSectionScreenState extends State<MovieSectionScreen> {
         child: Column(
           children: [
             const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    args.title,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.4,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  if (fetchingAdditionalMovies)
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.04,
-                      child: Center(
-                        child: LoadingAnimationWidget.fourRotatingDots(
-                          color: kPrimaryColor,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         args.title,
+            //         style: const TextStyle(
+            //           fontSize: 20,
+            //           fontWeight: FontWeight.w600,
+            //           letterSpacing: 1.4,
+            //         ),
+            //       ),
+            //       const SizedBox(width: 10),
+            //       if (fetchingAdditionalMovies)
+            //         SizedBox(
+            //           height: MediaQuery.of(context).size.height * 0.04,
+            //           child: Center(
+            //             child: LoadingAnimationWidget.fourRotatingDots(
+            //               color: kPrimaryColor,
+            //               size: 20,
+            //             ),
+            //           ),
+            //         ),
+            //     ],
+            //   ),
+            // ),
+            MainLayoutHeader(
+              title: args.title,
+              fetching: fetchingAdditionalMovies,
             ),
             const SizedBox(height: 10),
             SizedBox(

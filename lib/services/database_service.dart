@@ -241,4 +241,20 @@ class DatabaseService {
       throw Exception(response.statusMessage);
     }
   }
+
+  Future<MovieResponseDto> searchMoviesByTitle(String title) async {
+    var url = '$kApiUrl/$kGetSearchMovies?title=${Uri.encodeComponent(title)}';
+    var response = await HttpService.get(url);
+    if (response.statusCode == 200) {
+      // Use compute to parse the response body in a background isolate
+      return await ParserBackgroundService.parseMovieResponseInBackground(
+        response.data,
+      );
+    } else {
+      debugPrint(
+          'UrlPath: $kGetSearchMovies, Status Code: ${response.statusCode}');
+      debugPrint('Reason: ${response.statusMessage}');
+      throw Exception(response.statusMessage);
+    }
+  }
 }

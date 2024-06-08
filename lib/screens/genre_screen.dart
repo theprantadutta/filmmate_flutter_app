@@ -5,6 +5,7 @@ import '../../components/common/vertical_movie_section.dart';
 import '../../components/home/genres_section.dart';
 import '../../components/layouts/main_layout.dart';
 import '../../services/isar_service.dart';
+import '../components/common/main_layout_header.dart';
 import '../constants/colors.dart';
 import '../entities/genre.dart';
 import '../entities/movie.dart';
@@ -97,32 +98,9 @@ class _GenreScreenState extends State<GenreScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Genre Films',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.4,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  if (fetchingAdditionalMovies)
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.04,
-                      child: Center(
-                        child: LoadingAnimationWidget.fourRotatingDots(
-                          color: kPrimaryColor,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
+            MainLayoutHeader(
+              title: currentGenre.name,
+              fetching: fetchingAdditionalMovies,
             ),
             const SizedBox(height: 10),
             Padding(

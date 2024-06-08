@@ -4,6 +4,7 @@ import 'screens/genre_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/movie_detail_screen.dart';
 import 'screens/movie_section_screen.dart';
+import 'screens/search_screen.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -56,6 +57,7 @@ class _MyAppState extends State<MyApp> {
         MovieDetailScreen.kRouteName: (context) => const MovieDetailScreen(),
         GenreScreen.kRouteName: (context) => const GenreScreen(),
         MovieSectionScreen.kRouteName: (context) => const MovieSectionScreen(),
+        SearchScreen.kRouteName: (context) => const SearchScreen(),
       },
     );
   }

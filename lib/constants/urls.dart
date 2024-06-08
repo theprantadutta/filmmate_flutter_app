@@ -13,3 +13,4 @@ const kGetTopRatedMovies = 'Movie/GetTopRatedMovies';
 const kGetUpcomingMovies = 'Movie/GetUpcomingMovies';
 
 const kGetMovieDetail = 'Movie/GetMovieDetail';
+const kGetSearchMovies = 'Movie/SearchMovies';

@@ -1,8 +1,8 @@
-import 'package:filmmate_flutter_app/enums/movie_type.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/common/future_handler.dart';
 import '../../components/layouts/main_layout.dart';
+import '../../enums/movie_type.dart';
 import '../../services/database_service.dart';
 import '../components/home/genres_section.dart';
 import '../components/home/home_header.dart';
