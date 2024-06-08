@@ -1,3 +1,4 @@
+import 'package:filmmate_flutter_app/dtos/movie_response_dto.dart';
 import 'package:filmmate_flutter_app/entities/now_playing_movie.dart';
 import 'package:flutter/foundation.dart';
 import 'package:isar/isar.dart';
@@ -305,6 +306,27 @@ class MovieService {
           await IsarService().saveSomeMovies(genreWiseMovies.movies);
 
       return savedMovies;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
+  }
+
+  static Future<MovieResponseDto> getAllMoviesByGenreId(
+      int genreId, pageNumber) async {
+    try {
+      final genreWiseMovies = await DatabaseService().fetchMoviesByGenreId(
+        genreId: genreId,
+        pageNumber: pageNumber,
+      );
+
+      // // Save the fetched movies to the Isar database and get the list of saved movies.
+      // List<Movie> savedMovies =
+      //     await IsarService().saveSomeMovies(genreWiseMovies.movies);
+
+      return genreWiseMovies;
     } catch (e) {
       if (kDebugMode) {
         print(e);

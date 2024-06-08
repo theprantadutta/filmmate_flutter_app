@@ -11,6 +11,7 @@ import '../entities/movie.dart';
 import '../screen_arguments/genre_screen_arguments.dart';
 import '../services/movie_service.dart';
 import '../util/default_entities.dart';
+import '../util/functions.dart';
 
 class GenreScreen extends StatefulWidget {
   static const kRouteName = '/genre';
@@ -26,6 +27,9 @@ class _GenreScreenState extends State<GenreScreen> {
   List<Genre> allGenres = [];
   List<Movie> genreWiseMovies = [];
   bool fetchingMovies = false;
+  bool fetchingAdditionalMovies = false;
+  int pageNumber = 1;
+  bool reachedEndOfMovies = false;
 
   @override
   void initState() {
@@ -48,9 +52,9 @@ class _GenreScreenState extends State<GenreScreen> {
 
   setGenreWiseMovies(Genre genre) async {
     setState(() => fetchingMovies = true);
-    // await Future.delayed(const Duration(seconds: 5));
-    final genreWiseMoviesFromDb =
-        await MovieService.getMoviesByGenreId(genre.id);
+    final genreWiseMoviesFromDb = await MovieService.getMoviesByGenreId(
+      genre.id,
+    );
     setState(() {
       genreWiseMovies = genreWiseMoviesFromDb;
       fetchingMovies = false;
@@ -65,6 +69,27 @@ class _GenreScreenState extends State<GenreScreen> {
     setGenreWiseMovies(selectedGenre);
   }
 
+  setAdditionalGenreWiseMovies() async {
+    if (reachedEndOfMovies) {
+      return;
+    }
+    setState(() {
+      fetchingAdditionalMovies = true;
+      pageNumber = pageNumber + 1;
+    });
+    final genreWiseMoviesFromDb = await MovieService.getAllMoviesByGenreId(
+      currentGenre.id,
+      pageNumber,
+    );
+    final response =
+        await IsarService().saveSomeMovies(genreWiseMoviesFromDb.movies);
+    setState(() {
+      genreWiseMovies.addAll(response);
+      fetchingAdditionalMovies = false;
+      reachedEndOfMovies = !hasNextPage(genreWiseMoviesFromDb.pagination);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MainLayout(
@@ -72,15 +97,34 @@ class _GenreScreenState extends State<GenreScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 10),
-            const Text(
-              'Genres',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 1.4,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Genre Films',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.4,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  if (fetchingAdditionalMovies)
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.04,
+                      child: Center(
+                        child: LoadingAnimationWidget.fourRotatingDots(
+                          color: kPrimaryColor,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                ],
               ),
             ),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 8.0,
@@ -104,6 +148,7 @@ class _GenreScreenState extends State<GenreScreen> {
                     )
                   : VerticalMovieSection(
                       movies: genreWiseMovies,
+                      onLastItemReached: setAdditionalGenreWiseMovies,
                     ),
             ),
           ],

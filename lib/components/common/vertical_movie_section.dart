@@ -7,13 +7,40 @@ import '../../screen_arguments/movie_detail_screen_arguments.dart';
 import '../../screens/movie_detail_screen.dart';
 import 'movie_section_cached_movie_image.dart';
 
-class VerticalMovieSection extends StatelessWidget {
+class VerticalMovieSection extends StatefulWidget {
   final List<Movie> movies;
-  const VerticalMovieSection({super.key, required this.movies});
+  final void Function()? onLastItemReached;
+
+  const VerticalMovieSection({
+    super.key,
+    required this.movies,
+    this.onLastItemReached,
+  });
+
+  @override
+  State<VerticalMovieSection> createState() => _VerticalMovieSectionState();
+}
+
+class _VerticalMovieSectionState extends State<VerticalMovieSection> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        if (widget.onLastItemReached != null) {
+          widget.onLastItemReached!();
+        }
+      }
+    });
+  }
 
   List<Widget> getAllMovies(BuildContext context) {
     List<Widget> allMovies = [];
-    movies.forEachIndexed((index, movie) {
+    widget.movies.forEachIndexed((index, movie) {
       // final movie = recommendedMovies[index];
       final tagName = '${movie.title}-${movie.posterPath}';
       allMovies.add(
@@ -56,6 +83,7 @@ class VerticalMovieSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
+      controller: _scrollController,
       padding: const EdgeInsets.only(
         top: 10,
         left: 0,

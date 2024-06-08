@@ -1,5 +1,7 @@
 import 'package:intl/intl.dart';
 
+import '../dtos/pagination_dto.dart';
+
 String formatSpecialDate(DateTime date) {
   // Function to determine the suffix for the day
   String daySuffix(int day) {
@@ -60,4 +62,13 @@ int fastHash(String string) {
   }
 
   return hash;
+}
+
+bool hasNextPage(PaginationDto pagination) {
+  int pageNumber = pagination.pageNumber;
+  int pageSize = pagination.pageSize;
+  int totalItemCount = pagination.totalItemCount;
+
+  int maxItemsCurrentPage = pageNumber * pageSize;
+  return totalItemCount > maxItemsCurrentPage;
 }
