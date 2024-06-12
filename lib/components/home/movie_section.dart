@@ -7,6 +7,7 @@ import '../../entities/movie.dart';
 import '../../enums/movie_type.dart';
 import '../../screen_arguments/movie_detail_screen_arguments.dart';
 import '../../screens/movie_detail_screen.dart';
+import '../movie_detail/movie_poster/movie_average_vote.dart';
 import 'movie_section/movie_section_top_bar.dart';
 
 class MovieSection extends StatelessWidget {
@@ -40,22 +41,35 @@ class MovieSection extends StatelessWidget {
               final tagName = '$title-${movie.posterPath}';
               return Column(
                 children: [
-                  Hero(
-                    tag: tagName,
-                    child: GestureDetector(
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        MovieDetailScreen.kRouteName,
-                        arguments: MovieDetailScreenArguments(
-                          movie: movie,
-                          tagName: tagName,
+                  Stack(
+                    children: [
+                      Hero(
+                        tag: tagName,
+                        child: GestureDetector(
+                          onTap: () => Navigator.pushNamed(
+                            context,
+                            MovieDetailScreen.kRouteName,
+                            arguments: MovieDetailScreenArguments(
+                              movie: movie,
+                              tagName: tagName,
+                            ),
+                          ),
+                          child: MovieSectionCachedMovieImage(
+                            imageUrl:
+                                'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
+                          ),
                         ),
                       ),
-                      child: MovieSectionCachedMovieImage(
-                        imageUrl:
-                            'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
-                      ),
-                    ),
+                      if (movie.voteAverage != null)
+                        Positioned(
+                          top: 0,
+                          right: -10,
+                          child: MovieAverageVote(
+                            voteAverage: movie.voteAverage!,
+                            isSmall: true,
+                          ),
+                        ),
+                    ],
                   ),
                   FadeInUp(
                     duration: Duration(milliseconds: (index + 1) * 200),

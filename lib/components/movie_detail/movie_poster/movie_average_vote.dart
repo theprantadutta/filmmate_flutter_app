@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class MovieAverageVote extends StatelessWidget {
   final double voteAverage;
+  final bool isSmall;
 
   const MovieAverageVote({
     super.key,
     required this.voteAverage,
+    this.isSmall = false,
   });
 
   String _doubleToPercentageString(double value) {
@@ -18,9 +20,12 @@ class MovieAverageVote extends StatelessWidget {
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.25,
         child: CircleAvatar(
-          radius: 25,
+          radius: isSmall ? 15 : 25,
           child: Text(
             _doubleToPercentageString(voteAverage),
+            style: TextStyle(
+              fontSize: isSmall ? 12 : 15,
+            ),
           ),
         ),
       ),

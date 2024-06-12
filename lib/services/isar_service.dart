@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -210,13 +211,20 @@ class IsarService {
       ..revenue = movie.revenue
       ..runtime = movie.runtime
       ..status = movie.status
-      ..tagline = movie.tagline;
+      ..tagline = movie.tagline
+      ..awards = movie.awards
+      ..imdbRating = movie.imdbRating
+      ..rottenTomatoesScore = movie.rottenTomatoesScore
+      ..metaCriticScore = movie.metaCriticScore;
 
     // Get the actualMovie
     final actualMovie =
         await isar.movies.filter().idEqualTo(movie.id).findFirst();
 
     if (actualMovie == null) {
+      if (kDebugMode) {
+        print('movie not found: ${movie.toJson()}');
+      }
       throw Exception("Actual Movie Not Found");
     }
 

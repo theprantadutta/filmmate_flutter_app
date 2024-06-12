@@ -34,6 +34,8 @@ class FutureHandler extends StatelessWidget {
         }
         if ((snapshot.hasError)) {
           if (kDebugMode) {
+            print(snapshot.data);
+            print('Something Went Wrong When Getting data from Future');
             print(snapshot.error);
           }
           return SizedBox(

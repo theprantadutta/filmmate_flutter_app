@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_casts.dart';
-import '../../../components/movie_detail/movie_detail_sections/movie_detail_overview.dart';
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_posters.dart';
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_recommendations.dart';
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_videos.dart';
 import '../../../constants/colors.dart';
 import '../../../entities/movie_detail.dart';
+import 'movie_detail_overview/movie_detail_overview.dart';
 
 final List<String> allSections = [
   "Overview",
@@ -95,7 +95,7 @@ class _SingleMovieSectionButtonsState extends State<SingleMovieSectionButtons> {
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.6,
+          height: MediaQuery.of(context).size.height * 0.8,
           child: PageView(
             physics: const ClampingScrollPhysics(),
             controller: pageController,

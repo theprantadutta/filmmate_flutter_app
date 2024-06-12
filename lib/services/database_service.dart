@@ -77,15 +77,22 @@ class DatabaseService {
     final topRatedMoviesFuture = MovieService.getTopRatedMovies();
     final upcomingMoviesFuture = MovieService.getUpcomingMovies();
 
-    // Wait for both futures to complete
-    await Future.wait([
-      genresFuture,
-      discoverMoviesFuture,
-      nowPlayingMoviesFuture,
-      popularMoviesFuture,
-      topRatedMoviesFuture,
-      upcomingMoviesFuture,
-    ]);
+    try {
+      // Wait for both futures to complete
+      await Future.wait([
+        genresFuture,
+        discoverMoviesFuture,
+        nowPlayingMoviesFuture,
+        popularMoviesFuture,
+        topRatedMoviesFuture,
+        upcomingMoviesFuture,
+      ]);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Something Went Wrong When Fetching all Movies Future');
+        print(e);
+      }
+    }
   }
 
   Future<HomeScreenResponse> getHomeScreenResponseData() async {
@@ -191,11 +198,18 @@ class DatabaseService {
           seconds: 20,
         ),
         () async {
-          debugPrint('##########################');
-          debugPrint('Fetching Latest Genres...');
-          await fetchAllGenresFromDatabase();
-          debugPrint('Fetched Latest Genres Successfully');
-          debugPrint('##########################');
+          try {
+            debugPrint('##########################');
+            debugPrint('Fetching Latest Genres...');
+            await fetchAllGenresFromDatabase();
+            debugPrint('Fetched Latest Genres Successfully');
+            debugPrint('##########################');
+          } catch (e) {
+            if (kDebugMode) {
+              print('Something Went Wrong When Fetching Genres');
+              print(e);
+            }
+          }
         },
       );
       return IsarService().getAllGenresFromLocalDb();

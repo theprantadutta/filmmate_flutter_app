@@ -42,8 +42,12 @@ class MovieDetailDto {
   final MovieCreditDto movieCredit;
   final ImagesDto images;
   final List<VideoDto> videos;
-
   final List<MovieDto> recommendedMovies;
+
+  final String? awards;
+  final String? imdbRating;
+  final String? rottenTomatoesScore;
+  final String? metaCriticScore;
 
   MovieDetailDto({
     required this.id,
@@ -71,6 +75,10 @@ class MovieDetailDto {
     this.originalLanguage,
     this.originalTitle,
     required this.recommendedMovies,
+    this.awards,
+    this.imdbRating,
+    this.rottenTomatoesScore,
+    this.metaCriticScore,
   });
 
   /// Connect the generated [_$MovieDtoFromJson] function to the `fromJson`

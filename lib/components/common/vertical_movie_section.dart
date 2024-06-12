@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../entities/movie.dart';
 import '../../screen_arguments/movie_detail_screen_arguments.dart';
 import '../../screens/movie_detail_screen.dart';
+import '../movie_detail/movie_poster/movie_average_vote.dart';
 import 'movie_section_cached_movie_image.dart';
 
 class VerticalMovieSection extends StatefulWidget {
@@ -46,21 +47,34 @@ class _VerticalMovieSectionState extends State<VerticalMovieSection> {
       allMovies.add(
         Column(
           children: [
-            Hero(
-              tag: tagName,
-              child: GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  MovieDetailScreen.kRouteName,
-                  arguments: MovieDetailScreenArguments(
-                    movie: movie,
-                    tagName: tagName,
+            Stack(
+              children: [
+                Hero(
+                  tag: tagName,
+                  child: GestureDetector(
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      MovieDetailScreen.kRouteName,
+                      arguments: MovieDetailScreenArguments(
+                        movie: movie,
+                        tagName: tagName,
+                      ),
+                    ),
+                    child: MovieSectionCachedMovieImage(
+                        imageUrl:
+                            'https://image.tmdb.org/t/p/w500/${movie.posterPath}'),
                   ),
                 ),
-                child: MovieSectionCachedMovieImage(
-                    imageUrl:
-                        'https://image.tmdb.org/t/p/w500/${movie.posterPath}'),
-              ),
+                if (movie.voteAverage != null && movie.voteAverage != 0.0)
+                  Positioned(
+                    top: 0,
+                    right: -10,
+                    child: MovieAverageVote(
+                      voteAverage: movie.voteAverage!,
+                      isSmall: true,
+                    ),
+                  ),
+              ],
             ),
             FadeInUp(
               duration: Duration(milliseconds: (index + 1) * 200),

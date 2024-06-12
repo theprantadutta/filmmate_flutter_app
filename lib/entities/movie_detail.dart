@@ -28,6 +28,11 @@ class MovieDetail {
   late String status;
   late String? tagline;
 
+  late String? awards;
+  late String? imdbRating;
+  late String? rottenTomatoesScore;
+  late String? metaCriticScore;
+
   @Backlink(to: 'movieDetail')
   final movie = IsarLink<Movie>();
 

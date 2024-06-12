@@ -1,8 +1,9 @@
 import 'package:filmmate_flutter_app/util/functions.dart';
 import 'package:flutter/material.dart';
 
-import '../../../entities/movie_detail.dart';
-import 'movie_overview_section.dart';
+import '../../../../entities/movie_detail.dart';
+import '../movie_overview_section.dart';
+import 'movie_reviews.dart';
 
 class MovieDetailOverview extends StatelessWidget {
   const MovieDetailOverview({
@@ -66,6 +67,12 @@ class MovieDetailOverview extends StatelessWidget {
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.w200,
             ),
+          ),
+          const SizedBox(height: 10),
+          MovieReviews(
+            imdbRating: movieDetail.imdbRating,
+            rottenTomatoesScore: movieDetail.rottenTomatoesScore,
+            metaCriticScore: movieDetail.metaCriticScore,
           ),
           const SizedBox(height: 10),
           MovieOverviewSection(
