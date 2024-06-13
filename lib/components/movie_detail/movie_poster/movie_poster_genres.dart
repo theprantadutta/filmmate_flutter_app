@@ -3,6 +3,55 @@ import 'package:flutter/material.dart';
 
 import '../../../entities/genre.dart';
 
+// class MoviePosterGenres extends StatelessWidget {
+//   const MoviePosterGenres({
+//     super.key,
+//     required this.genres,
+//   });
+
+//   final List<Genre> genres;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: 40,
+//       width: MediaQuery.of(context).size.width,
+//       child: ListView.builder(
+//         itemCount: genres.length,
+//         scrollDirection: Axis.horizontal,
+//         itemBuilder: (context, index) {
+//           final genre = genres.toList()[index];
+//           return Padding(
+//             padding: const EdgeInsets.only(right: 8.0),
+//             child: ElevatedButton(
+//               onPressed: () {},
+//               style: ElevatedButton.styleFrom(
+//                 backgroundColor: kPrimaryColor.withOpacity(0.1),
+//                 shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(10),
+//                   side: const BorderSide(
+//                     color: kPrimaryColor,
+//                     width: 2,
+//                   ),
+//                 ),
+//                 padding: const EdgeInsets.symmetric(
+//                   horizontal: 10,
+//                 ),
+//               ),
+//               child: Text(
+//                 genre.name,
+//                 style: const TextStyle(
+//                   color: Colors.white,
+//                 ),
+//               ),
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
+
 class MoviePosterGenres extends StatelessWidget {
   const MoviePosterGenres({
     super.key,
@@ -13,40 +62,42 @@ class MoviePosterGenres extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> genreWidgets = genres.map((genre) {
+      return Padding(
+        padding: const EdgeInsets.only(right: 8.0),
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kPrimaryColor.withOpacity(0.1),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+              side: const BorderSide(
+                color: kPrimaryColor,
+                width: 2,
+              ),
+            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+            ),
+          ),
+          child: Text(
+            genre.name,
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
+    }).toList();
+
     return SizedBox(
       height: 40,
       width: MediaQuery.of(context).size.width,
-      child: ListView.builder(
-        itemCount: genres.length,
+      child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          final genre = genres.toList()[index];
-          return Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: kPrimaryColor.withOpacity(0.1),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: const BorderSide(
-                    color: kPrimaryColor,
-                    width: 2,
-                  ),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                ),
-              ),
-              child: Text(
-                genre.name,
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          );
-        },
+        child: Row(
+          children: genreWidgets,
+        ),
       ),
     );
   }

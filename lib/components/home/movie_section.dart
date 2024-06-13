@@ -10,6 +10,92 @@ import '../../screens/movie_detail_screen.dart';
 import '../movie_detail/movie_poster/movie_average_vote.dart';
 import 'movie_section/movie_section_top_bar.dart';
 
+// class MovieSection extends StatelessWidget {
+//   final String title;
+//   final List<Movie> movies;
+//   final MovieType movieType;
+
+//   const MovieSection({
+//     super.key,
+//     required this.title,
+//     required this.movies,
+//     required this.movieType,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         MovieSectionTopBar(
+//           title: title,
+//           movieType: movieType,
+//         ),
+//         const SizedBox(height: 10),
+//         SizedBox(
+//           height: MediaQuery.of(context).size.height * 0.30,
+//           child: ListView.builder(
+//             scrollDirection: Axis.horizontal,
+//             itemCount: movies.length,
+//             itemBuilder: (context, index) {
+//               final movie = movies[index];
+//               final tagName = '$title-${movie.posterPath}';
+//               return Column(
+//                 children: [
+//                   Stack(
+//                     children: [
+//                       Hero(
+//                         tag: tagName,
+//                         child: GestureDetector(
+//                           onTap: () => Navigator.pushNamed(
+//                             context,
+//                             MovieDetailScreen.kRouteName,
+//                             arguments: MovieDetailScreenArguments(
+//                               movie: movie,
+//                               tagName: tagName,
+//                             ),
+//                           ),
+//                           child: MovieSectionCachedMovieImage(
+//                             imageUrl:
+//                                 'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
+//                           ),
+//                         ),
+//                       ),
+//                       if (movie.voteAverage != null)
+//                         Positioned(
+//                           top: 0,
+//                           right: -10,
+//                           child: MovieAverageVote(
+//                             voteAverage: movie.voteAverage!,
+//                             isSmall: true,
+//                           ),
+//                         ),
+//                     ],
+//                   ),
+//                   FadeInUp(
+//                     duration: Duration(milliseconds: (index + 1) * 200),
+//                     child: SizedBox(
+//                       width: MediaQuery.of(context).size.width * 0.39,
+//                       height: MediaQuery.of(context).size.height * 0.05,
+//                       child: Center(
+//                         child: Text(
+//                           movie.title,
+//                           softWrap: true,
+//                           textAlign: TextAlign.center,
+//                           maxLines: 2,
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               );
+//             },
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
 class MovieSection extends StatelessWidget {
   final String title;
   final List<Movie> movies;
@@ -24,6 +110,59 @@ class MovieSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> movieWidgets = movies.map((movie) {
+      final tagName = '$title-${movie.posterPath}';
+      return Column(
+        children: [
+          Stack(
+            children: [
+              Hero(
+                tag: tagName,
+                child: GestureDetector(
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    MovieDetailScreen.kRouteName,
+                    arguments: MovieDetailScreenArguments(
+                      movie: movie,
+                      tagName: tagName,
+                    ),
+                  ),
+                  child: MovieSectionCachedMovieImage(
+                    imageUrl:
+                        'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
+                  ),
+                ),
+              ),
+              if (movie.voteAverage != null)
+                Positioned(
+                  top: 0,
+                  right: -10,
+                  child: MovieAverageVote(
+                    voteAverage: movie.voteAverage!,
+                    isSmall: true,
+                  ),
+                ),
+            ],
+          ),
+          FadeInUp(
+            duration: Duration(milliseconds: (movies.indexOf(movie) + 1) * 200),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.39,
+              height: MediaQuery.of(context).size.height * 0.05,
+              child: Center(
+                child: Text(
+                  movie.title,
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }).toList();
+
     return Column(
       children: [
         MovieSectionTopBar(
@@ -33,62 +172,16 @@ class MovieSection extends StatelessWidget {
         const SizedBox(height: 10),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.30,
-          child: ListView.builder(
+          child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            itemCount: movies.length,
-            itemBuilder: (context, index) {
-              final movie = movies[index];
-              final tagName = '$title-${movie.posterPath}';
-              return Column(
-                children: [
-                  Stack(
-                    children: [
-                      Hero(
-                        tag: tagName,
-                        child: GestureDetector(
-                          onTap: () => Navigator.pushNamed(
-                            context,
-                            MovieDetailScreen.kRouteName,
-                            arguments: MovieDetailScreenArguments(
-                              movie: movie,
-                              tagName: tagName,
-                            ),
-                          ),
-                          child: MovieSectionCachedMovieImage(
-                            imageUrl:
-                                'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
-                          ),
-                        ),
-                      ),
-                      if (movie.voteAverage != null)
-                        Positioned(
-                          top: 0,
-                          right: -10,
-                          child: MovieAverageVote(
-                            voteAverage: movie.voteAverage!,
-                            isSmall: true,
-                          ),
-                        ),
-                    ],
-                  ),
-                  FadeInUp(
-                    duration: Duration(milliseconds: (index + 1) * 200),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.39,
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      child: Center(
-                        child: Text(
-                          movie.title,
-                          softWrap: true,
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            },
+            child: Row(
+              children: movieWidgets.map((widget) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: widget,
+                );
+              }).toList(),
+            ),
           ),
         ),
       ],
