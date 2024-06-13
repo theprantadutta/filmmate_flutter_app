@@ -40,9 +40,8 @@ class MovieDetailScreen extends StatelessWidget {
               ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return SingleMovieDetails(movie: movie);
-                  },
+                  (BuildContext context, int index) =>
+                      SingleMovieDetails(movie: movie),
                   childCount: 1,
                 ),
               ),
