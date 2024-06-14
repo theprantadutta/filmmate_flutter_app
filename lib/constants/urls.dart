@@ -1,5 +1,5 @@
 // const kApiProdUrl = '';
-const kApiDevUrl = 'http://192.168.0.105:5291/api/v1.0';
+const kApiDevUrl = 'http://192.168.0.106:5291/api/v1.0';
 const kApiUrl = kApiDevUrl;
 
 const kGetAllGenres = 'Movie/GetAllGenres';
