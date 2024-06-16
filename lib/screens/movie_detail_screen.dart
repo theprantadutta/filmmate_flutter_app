@@ -1,20 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../components/common/future_handler.dart';
+import '../components/movie_detail/movie_detail_sections/movie_detail_casts.dart';
+import '../components/movie_detail/movie_detail_sections/movie_detail_overview/movie_detail_overview.dart';
+import '../components/movie_detail/movie_detail_sections/movie_detail_posters.dart';
+import '../components/movie_detail/movie_detail_sections/movie_detail_recommendations.dart';
+import '../components/movie_detail/movie_detail_sections/movie_detail_videos.dart';
 import '../components/movie_detail/movie_detail_stack_on_poster.dart';
-import '../components/movie_detail/single_movie_details.dart';
 import '../screen_arguments/movie_detail_screen_arguments.dart';
+import '../services/database_service.dart';
+import '../sliver_delegates/sliver_app_bar_delegate.dart';
+import '../sliver_delegates/sliver_tab_bar_delegate.dart';
+
+List<SingleMovieDetailTab> singleMovieDetailTabs = [
+  SingleMovieDetailTab(title: 'Overview', iconData: Icons.summarize_outlined),
+  SingleMovieDetailTab(title: 'Casts', iconData: Icons.groups_2_outlined),
+  SingleMovieDetailTab(
+      title: 'Videos', iconData: Icons.play_circle_fill_outlined),
+  SingleMovieDetailTab(title: 'Top Picks', iconData: Icons.recommend_outlined),
+  SingleMovieDetailTab(
+      title: 'Posters', iconData: Icons.movie_creation_outlined),
+];
+
+class SingleMovieDetailTab {
+  final String title;
+  final IconData iconData;
+
+  SingleMovieDetailTab({required this.title, required this.iconData});
+}
 
 class MovieDetailScreen extends StatelessWidget {
   static const kRouteName = '/movie-detail';
-
   const MovieDetailScreen({super.key});
 
-  // late String _selected = allSections[0];
+  List<Tab> generateTabs(double height) {
+    List<Tab> tabs = [];
+    for (final singleTab in singleMovieDetailTabs) {
+      tabs.add(
+        Tab(
+          height: height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(singleTab.iconData),
+              Text(
+                singleTab.title,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return tabs;
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Extract the arguments from the current ModalRoute
-    // settings and cast them as ScreenArguments.
     final args = ModalRoute.of(context)!.settings.arguments
         as MovieDetailScreenArguments;
     final movie = args.movie;
@@ -25,61 +72,68 @@ class MovieDetailScreen extends StatelessWidget {
         ),
         child: SafeArea(
           top: false,
-          child: CustomScrollView(
-            slivers: [
-              SliverPersistentHeader(
-                delegate: _SliverAppBarDelegate(
-                  minHeight: 0.0,
-                  maxHeight: MediaQuery.of(context).size.height * 0.6,
-                  child: MovieDetailStackOnPoster(
-                    tagName: args.tagName,
-                    movie: movie,
+          child: DefaultTabController(
+            length: singleMovieDetailTabs.length,
+            child: NestedScrollView(
+              headerSliverBuilder: (context, _) {
+                return [
+                  SliverPersistentHeader(
+                    delegate: SliverAppBarDelegate(
+                      minHeight: MediaQuery.of(context).size.height * 0.3,
+                      maxHeight: MediaQuery.of(context).size.height * 0.6,
+                      child: MovieDetailStackOnPoster(
+                        tagName: args.tagName,
+                        movie: movie,
+                      ),
+                    ),
+                    pinned: true,
                   ),
-                ),
-                pinned: true,
+                  SliverPersistentHeader(
+                    delegate: SliverTabBarDelegate(
+                      TabBar(
+                        isScrollable: true,
+                        tabAlignment: TabAlignment.start,
+                        tabs: generateTabs(
+                          MediaQuery.sizeOf(context).height * 0.08,
+                        ),
+                      ),
+                    ),
+                    pinned: true,
+                  ),
+                ];
+              },
+              body: FutureHandler(
+                future: DatabaseService().getMovieDetailFromDatabase(movie.id),
+                builder: (context, snapshot) {
+                  final movieDetail = snapshot.data!;
+                  return TabBarView(
+                    children: [
+                      MovieDetailOverview(
+                        movieDetail: movieDetail,
+                      ),
+                      MovieDetailCasts(
+                        casts: movieDetail.casts.toList(),
+                      ),
+                      MovieDetailVideos(
+                        videos: movieDetail.videos.toList(),
+                      ),
+                      MovieDetailRecommendations(
+                        recommendedMovies:
+                            movieDetail.recommendedMovies.toList(),
+                      ),
+                      MovieDetailPosters(
+                        posters: movieDetail.images.value != null
+                            ? movieDetail.images.value!.posters.toList()
+                            : [],
+                      ),
+                    ],
+                  );
+                },
               ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) =>
-                      SingleMovieDetails(movie: movie),
-                  childCount: 1,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
     );
-  }
-}
-
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverAppBarDelegate({
-    required this.minHeight,
-    required this.maxHeight,
-    required this.child,
-  });
-
-  final double minHeight;
-  final double maxHeight;
-  final Widget child;
-
-  @override
-  double get minExtent => minHeight;
-
-  @override
-  double get maxExtent => maxHeight;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return SizedBox.expand(child: child);
-  }
-
-  @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return maxHeight != oldDelegate.maxHeight ||
-        minHeight != oldDelegate.minHeight ||
-        child != oldDelegate.child;
   }
 }

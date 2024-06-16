@@ -59,72 +59,75 @@ class _SingleMovieSectionButtonsState extends State<SingleMovieSectionButtons> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: allSections.map((section) {
-            final index = allSections.indexOf(section);
-            final isSelected = _currentPageIndex == index;
-            return Expanded(
-              child: GestureDetector(
-                onTap: () => _updateCurrentPageIndex(index),
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.04,
-                  margin: const EdgeInsets.symmetric(
-                    // horizontal: 5,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: isSelected ? kPrimaryColor : Colors.transparent,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
-                      section,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: isSelected ? Colors.white : kPrimaryColor,
+    return NestedScrollView(
+      headerSliverBuilder: (context, innerBoxIsScrolled) {
+        return [
+          SliverToBoxAdapter(
+            child: Row(
+              children: allSections.map((section) {
+                final index = allSections.indexOf(section);
+                final isSelected = _currentPageIndex == index;
+                return Expanded(
+                  child: GestureDetector(
+                    onTap: () => _updateCurrentPageIndex(index),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.04,
+                      margin: const EdgeInsets.symmetric(
+                        // horizontal: 5,
+                        vertical: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isSelected ? kPrimaryColor : Colors.transparent,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          section,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: isSelected ? Colors.white : kPrimaryColor,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.8,
-          child: PageView(
-            physics: const ClampingScrollPhysics(),
-            controller: pageController,
-            onPageChanged: (value) => setState(
-              () => _currentPageIndex = value,
+                );
+              }).toList(),
             ),
-            children: [
-              MovieDetailOverview(
-                movieDetail: widget.movieDetail,
-              ),
-              MovieDetailCasts(
-                casts: widget.movieDetail.casts.toList(),
-              ),
-              MovieDetailVideos(
-                videos: widget.movieDetail.videos.toList(),
-              ),
-              MovieDetailPosters(
-                posters: widget.movieDetail.images.value != null
-                    ? widget.movieDetail.images.value!.posters.toList()
-                    : [],
-              ),
-              MovieDetailRecommendations(
-                recommendedMovies:
-                    widget.movieDetail.recommendedMovies.toList(),
-              ),
-            ],
           ),
+        ];
+      },
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.8,
+        child: PageView(
+          physics: const ClampingScrollPhysics(),
+          controller: pageController,
+          onPageChanged: (value) => setState(
+            () => _currentPageIndex = value,
+          ),
+          children: [
+            MovieDetailOverview(
+              movieDetail: widget.movieDetail,
+            ),
+            MovieDetailCasts(
+              casts: widget.movieDetail.casts.toList(),
+            ),
+            MovieDetailVideos(
+              videos: widget.movieDetail.videos.toList(),
+            ),
+            MovieDetailPosters(
+              posters: widget.movieDetail.images.value != null
+                  ? widget.movieDetail.images.value!.posters.toList()
+                  : [],
+            ),
+            MovieDetailRecommendations(
+              recommendedMovies: widget.movieDetail.recommendedMovies.toList(),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

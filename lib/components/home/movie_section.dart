@@ -62,8 +62,8 @@ class MovieSection extends StatelessWidget {
                       ),
                       if (movie.voteAverage != null)
                         Positioned(
-                          top: 0,
-                          right: -10,
+                          top: 8,
+                          right: -12,
                           child: MovieAverageVote(
                             voteAverage: movie.voteAverage!,
                             isSmall: true,

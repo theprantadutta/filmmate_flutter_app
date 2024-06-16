@@ -1,8 +1,8 @@
+import 'package:filmmate_flutter_app/screens/movie_detail_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/genre_screen.dart';
 import 'screens/home_screen.dart';
-import 'screens/movie_detail_screen.dart';
 import 'screens/movie_section_screen.dart';
 import 'screens/search_screen.dart';
 

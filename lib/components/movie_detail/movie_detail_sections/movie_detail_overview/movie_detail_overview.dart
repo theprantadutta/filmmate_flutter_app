@@ -56,74 +56,78 @@ class MovieDetailOverview extends StatelessWidget {
         right: 5.0,
         bottom: 10.0,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 10),
-          Text(
-            movieDetail.tagline != null ? movieDetail.tagline! : 'N/A',
-            style: const TextStyle(
-              fontSize: 18,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.w200,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10),
+            Text(
+              movieDetail.tagline != null ? movieDetail.tagline! : 'N/A',
+              style: const TextStyle(
+                fontSize: 18,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w200,
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          MovieReviews(
-            imdbRating: movieDetail.imdbRating,
-            rottenTomatoesScore: movieDetail.rottenTomatoesScore,
-            metaCriticScore: movieDetail.metaCriticScore,
-          ),
-          const SizedBox(height: 10),
-          MovieOverviewSection(
-            title: 'Directed By: ',
-            value: getNamesFromArray(movieDetail.movieCredit.value?.directors),
-          ),
-          MovieOverviewSection(
-            title: 'Written By: ',
-            value: getNamesFromArray(movieDetail.movieCredit.value?.writers),
-          ),
-          MovieOverviewSection(
-            title: 'Story By: ',
-            value: getNamesFromArray(movieDetail.movieCredit.value?.storyBy),
-          ),
-          MovieOverviewSection(
-            title: 'Produced By: ',
-            value: getNamesFromArray(movieDetail.movieCredit.value?.producers),
-          ),
-          MovieOverviewSection(
-            title: 'Music By: ',
-            value: getNamesFromArray(movieDetail.movieCredit.value?.musicBy),
-          ),
-          MovieOverviewSection(
-            title: 'Budget: ',
-            value: movieDetail.budget != null
-                ? formatNumber(movieDetail.budget!)
-                : 'N/A',
-          ),
-          MovieOverviewSection(
-            title: 'Revenue: ',
-            value: movieDetail.revenue != null
-                ? formatNumber(movieDetail.revenue!)
-                : 'N/A',
-          ),
-          const Text(
-            'Overview',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
+            const SizedBox(height: 10),
+            MovieReviews(
+              imdbRating: movieDetail.imdbRating,
+              rottenTomatoesScore: movieDetail.rottenTomatoesScore,
+              metaCriticScore: movieDetail.metaCriticScore,
             ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            truncateText(movieDetail.overView),
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w200,
+            const SizedBox(height: 10),
+            MovieOverviewSection(
+              title: 'Directed By: ',
+              value:
+                  getNamesFromArray(movieDetail.movieCredit.value?.directors),
             ),
-          ),
-          const SizedBox(height: 10),
-        ],
+            MovieOverviewSection(
+              title: 'Written By: ',
+              value: getNamesFromArray(movieDetail.movieCredit.value?.writers),
+            ),
+            MovieOverviewSection(
+              title: 'Story By: ',
+              value: getNamesFromArray(movieDetail.movieCredit.value?.storyBy),
+            ),
+            MovieOverviewSection(
+              title: 'Produced By: ',
+              value:
+                  getNamesFromArray(movieDetail.movieCredit.value?.producers),
+            ),
+            MovieOverviewSection(
+              title: 'Music By: ',
+              value: getNamesFromArray(movieDetail.movieCredit.value?.musicBy),
+            ),
+            MovieOverviewSection(
+              title: 'Budget: ',
+              value: movieDetail.budget != null
+                  ? formatNumber(movieDetail.budget!)
+                  : 'N/A',
+            ),
+            MovieOverviewSection(
+              title: 'Revenue: ',
+              value: movieDetail.revenue != null
+                  ? formatNumber(movieDetail.revenue!)
+                  : 'N/A',
+            ),
+            const Text(
+              'Overview',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              truncateText(movieDetail.overView),
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w200,
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
+        ),
       ),
     );
   }
