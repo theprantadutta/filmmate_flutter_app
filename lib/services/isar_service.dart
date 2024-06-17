@@ -229,27 +229,21 @@ class IsarService {
     }
 
     await isar.writeTxn(() async {
-      await isar.productionCompanys.clear();
       await isar.productionCompanys.putAll(productionCompanies);
       theMovieDetails.productionCompanies.addAll(productionCompanies);
 
-      await isar.productionCountrys.clear();
       await isar.productionCountrys.putAll(productionCountries);
       theMovieDetails.productionCountries.addAll(productionCountries);
 
-      await isar.spokenLanguages.clear();
       await isar.spokenLanguages.putAll(spokenLanguages);
       theMovieDetails.spokenLanguages.addAll(spokenLanguages);
 
-      await isar.casts.clear();
       await isar.casts.putAll(casts);
       theMovieDetails.casts.addAll(casts);
 
-      await isar.movieCredits.clear();
       await isar.movieCredits.put(movieCredit);
       theMovieDetails.movieCredit.value = movieCredit;
 
-      await isar.images.clear();
       dbImages.backdrops.addAll(backdrops);
       dbImages.posters.addAll(posters);
       dbImages.backdrops.addAll(logos);
@@ -261,11 +255,9 @@ class IsarService {
       dbImages.backdrops.save();
       dbImages.movieDetail.save();
 
-      await isar.videos.clear();
       await isar.videos.putAll(videos);
       theMovieDetails.videos.addAll(videos);
 
-      await isar.movieDetails.clear();
       actualMovie.movieDetail.value = theMovieDetails;
       await isar.movieDetails.put(theMovieDetails);
       await actualMovie.movieDetail.save();

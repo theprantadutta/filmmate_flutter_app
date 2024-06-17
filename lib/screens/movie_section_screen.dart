@@ -3,6 +3,7 @@ import 'package:filmmate_flutter_app/constants/urls.dart';
 import 'package:filmmate_flutter_app/services/database_service.dart';
 import 'package:filmmate_flutter_app/services/isar_service.dart';
 import 'package:filmmate_flutter_app/util/functions.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -28,6 +29,7 @@ class _MovieSectionScreenState extends State<MovieSectionScreen> {
   MovieType movieType = MovieType.discover;
   int pageNumber = 1;
   bool reachedEndOfMovies = false;
+  bool hasError = false;
 
   Future<List<Movie>> getMovieSectionMoviesFromLocalDb() async {
     final args = ModalRoute.of(context)!.settings.arguments
@@ -95,17 +97,28 @@ class _MovieSectionScreenState extends State<MovieSectionScreen> {
   }
 
   Future<List<Movie>> getSpecificMovieSectionData(String urlPath) async {
-    final movieSectionResponse =
-        await DatabaseService().getSomeMoviesFromDatabase(
-      urlPath: urlPath,
-      pageNumber: pageNumber,
-    );
-    final response =
-        await IsarService().saveSomeMovies(movieSectionResponse.movies);
-    setState(() {
-      reachedEndOfMovies = !hasNextPage(movieSectionResponse.pagination);
-    });
-    return response;
+    try {
+      final movieSectionResponse =
+          await DatabaseService().getSomeMoviesFromDatabase(
+        urlPath: urlPath,
+        pageNumber: pageNumber,
+      );
+      final response =
+          await IsarService().saveSomeMovies(movieSectionResponse.movies);
+      setState(() {
+        reachedEndOfMovies = !hasNextPage(movieSectionResponse.pagination);
+        hasError = false;
+      });
+      return response;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      setState(() {
+        hasError = true;
+      });
+      return [];
+    }
   }
 
   @override
@@ -117,33 +130,6 @@ class _MovieSectionScreenState extends State<MovieSectionScreen> {
         child: Column(
           children: [
             const SizedBox(height: 10),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.start,
-            //     children: [
-            //       Text(
-            //         args.title,
-            //         style: const TextStyle(
-            //           fontSize: 20,
-            //           fontWeight: FontWeight.w600,
-            //           letterSpacing: 1.4,
-            //         ),
-            //       ),
-            //       const SizedBox(width: 10),
-            //       if (fetchingAdditionalMovies)
-            //         SizedBox(
-            //           height: MediaQuery.of(context).size.height * 0.04,
-            //           child: Center(
-            //             child: LoadingAnimationWidget.fourRotatingDots(
-            //               color: kPrimaryColor,
-            //               size: 20,
-            //             ),
-            //           ),
-            //         ),
-            //     ],
-            //   ),
-            // ),
             MainLayoutHeader(
               title: args.title,
               fetching: fetchingAdditionalMovies,
@@ -151,17 +137,21 @@ class _MovieSectionScreenState extends State<MovieSectionScreen> {
             const SizedBox(height: 10),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.9,
-              child: fetchingMovies
-                  ? Center(
-                      child: LoadingAnimationWidget.fourRotatingDots(
-                        color: kPrimaryColor,
-                        size: 50,
-                      ),
+              child: hasError
+                  ? const Center(
+                      child: Text('Something Went Wrong When Fetching Movies'),
                     )
-                  : VerticalMovieSection(
-                      movies: movieSectionMovies,
-                      onLastItemReached: setAdditionalMovies,
-                    ),
+                  : fetchingMovies
+                      ? Center(
+                          child: LoadingAnimationWidget.fourRotatingDots(
+                            color: kPrimaryColor,
+                            size: 50,
+                          ),
+                        )
+                      : VerticalMovieSection(
+                          movies: movieSectionMovies,
+                          onLastItemReached: setAdditionalMovies,
+                        ),
             ),
           ],
         ),
