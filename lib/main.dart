@@ -1,13 +1,23 @@
-import 'package:filmmate_flutter_app/screens/movie_detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:fquery/fquery.dart';
 
 import 'screens/genre_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/movie_detail_screen.dart';
 import 'screens/movie_section_screen.dart';
 import 'screens/search_screen.dart';
 
+final queryClient = QueryClient(
+  defaultQueryOptions: DefaultQueryOptions(),
+);
+
 void main() async {
-  runApp(const MyApp());
+  runApp(
+    QueryClientProvider(
+      queryClient: queryClient,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {

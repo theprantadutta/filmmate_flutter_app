@@ -160,6 +160,12 @@ class DatabaseService {
       }
     }
 
+    discoverMovies.sort((a, b) => a.orderBy - b.orderBy);
+    nowPlayingMovies.sort((a, b) => a.orderBy - b.orderBy);
+    popularMovies.sort((a, b) => a.orderBy - b.orderBy);
+    topRatedMovies.sort((a, b) => a.orderBy - b.orderBy);
+    upcomingMovies.sort((a, b) => a.orderBy - b.orderBy);
+
     return HomeScreenResponse(
       genres: genres,
       discoverMovies: discoverMovies,

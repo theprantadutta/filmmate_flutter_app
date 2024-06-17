@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../components/common/future_handler.dart';
+import '../components/common/cached_future_handler.dart';
 import '../components/movie_detail/movie_detail_sections/movie_detail_casts.dart';
 import '../components/movie_detail/movie_detail_sections/movie_detail_overview/movie_detail_overview.dart';
 import '../components/movie_detail/movie_detail_sections/movie_detail_posters.dart';
 import '../components/movie_detail/movie_detail_sections/movie_detail_recommendations.dart';
 import '../components/movie_detail/movie_detail_sections/movie_detail_videos.dart';
 import '../components/movie_detail/movie_detail_stack_on_poster.dart';
+import '../entities/movie_detail.dart';
 import '../screen_arguments/movie_detail_screen_arguments.dart';
 import '../services/database_service.dart';
 import '../sliver_delegates/sliver_app_bar_delegate.dart';
@@ -102,10 +103,12 @@ class MovieDetailScreen extends StatelessWidget {
                   ),
                 ];
               },
-              body: FutureHandler(
-                future: DatabaseService().getMovieDetailFromDatabase(movie.id),
-                builder: (context, snapshot) {
-                  final movieDetail = snapshot.data!;
+              body: CachedFutureHandler<MovieDetail, Error>(
+                id: 'movie-detail-${movie.id}',
+                future: () =>
+                    DatabaseService().getMovieDetailFromDatabase(movie.id),
+                builder: (context, data) {
+                  final movieDetail = data;
                   return TabBarView(
                     children: [
                       MovieDetailOverview(
