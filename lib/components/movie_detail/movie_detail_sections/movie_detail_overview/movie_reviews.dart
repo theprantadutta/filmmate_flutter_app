@@ -17,18 +17,21 @@ class MovieReviews extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        MovieReviewSection(
-          imageUrl: 'assets/images/imdb_logo.png',
-          score: imdbRating ?? 'N/A',
-        ),
-        MovieReviewSection(
-          imageUrl: 'assets/images/rotten_tomatoes_logo.png',
-          score: rottenTomatoesScore ?? 'N/A',
-        ),
-        MovieReviewSection(
-          imageUrl: 'assets/images/metacritic_logo.png',
-          score: metaCriticScore != null ? '$metaCriticScore%' : 'N/A',
-        ),
+        if (imdbRating != null)
+          MovieReviewSection(
+            imageUrl: 'assets/images/imdb_logo.png',
+            score: imdbRating ?? 'N/A',
+          ),
+        if (rottenTomatoesScore != null)
+          MovieReviewSection(
+            imageUrl: 'assets/images/rotten_tomatoes_logo.png',
+            score: rottenTomatoesScore ?? 'N/A',
+          ),
+        if (metaCriticScore != null)
+          MovieReviewSection(
+            imageUrl: 'assets/images/metacritic_logo.png',
+            score: metaCriticScore != null ? '$metaCriticScore%' : 'N/A',
+          ),
       ],
     );
   }

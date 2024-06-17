@@ -37,16 +37,15 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.teal,
+        ),
         useMaterial3: true,
       ),
-      // darkTheme: ThemeData.dark(
-      //   useMaterial3: true,
-      // ), // standard dark theme
       darkTheme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          brightness: Brightness.dark, // <-- the only line added
+          brightness: Brightness.dark,
           seedColor: Colors.teal,
         ),
       ),
