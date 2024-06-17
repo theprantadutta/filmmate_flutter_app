@@ -9,28 +9,38 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      // decoration: BoxDecoration(
-      //   border: Border.all(color: Colors.blueAccent),
-      // ),
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // CircleAvatar(
-          //   child: Text('PD'),
-          // ),
           const Center(
             child: Icon(
               Icons.menu,
               size: 24,
             ),
           ),
-          const Text(
-            'FilmMate',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 2,
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Film',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 2,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
+                ),
+                TextSpan(
+                  text: 'Mate',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w200,
+                    letterSpacing: 2,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
+                ),
+              ],
             ),
           ),
           GestureDetector(
