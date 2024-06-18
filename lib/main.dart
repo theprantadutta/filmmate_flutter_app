@@ -8,7 +8,9 @@ import 'screens/movie_section_screen.dart';
 import 'screens/search_screen.dart';
 
 final queryClient = QueryClient(
-  defaultQueryOptions: DefaultQueryOptions(),
+  defaultQueryOptions: DefaultQueryOptions(
+    retryCount: 1,
+  ),
 );
 
 void main() async {

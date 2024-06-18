@@ -56,17 +56,26 @@ class DatabaseService {
           seconds: 10,
         ),
         () async {
-          debugPrint('##########################');
-          debugPrint('Fetching Latest Movies...');
-          await fetchLatestMovieData();
-          debugPrint('Fetched Latest Movies Successfully');
-          debugPrint('##########################');
+          try {
+            debugPrint('##########################');
+            debugPrint('Fetching Latest Movies...');
+            await fetchLatestMovieData();
+            debugPrint('Fetched Latest Movies Successfully');
+            debugPrint('##########################');
+          } catch (e) {
+            if (kDebugMode) {
+              print(
+                'Something Went Wrong When Fetching all Movies Future inside the timer',
+              );
+              print(e);
+            }
+          }
         },
       );
-      return getHomeScreenResponseData();
+      return await getHomeScreenResponseData();
     }
     await fetchLatestMovieData();
-    return getHomeScreenResponseData();
+    return await getHomeScreenResponseData();
   }
 
   Future<void> fetchLatestMovieData() async {
@@ -92,6 +101,7 @@ class DatabaseService {
         print('Something Went Wrong When Fetching all Movies Future');
         print(e);
       }
+      rethrow;
     }
   }
 

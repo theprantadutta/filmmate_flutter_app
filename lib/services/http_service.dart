@@ -13,7 +13,7 @@ class HttpService {
         ),
       )
           .timeout(
-        const Duration(seconds: 30),
+        const Duration(seconds: 10),
         onTimeout: () {
           // Time has run out, do what you wanted to do.
           return Response(
@@ -54,7 +54,7 @@ class HttpService {
         ),
       )
           .timeout(
-        const Duration(seconds: 30),
+        const Duration(seconds: 10),
         onTimeout: () {
           // Time has run out, do what you wanted to do.
           return Response(

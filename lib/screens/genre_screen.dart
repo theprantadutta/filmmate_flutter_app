@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -31,6 +32,7 @@ class _GenreScreenState extends State<GenreScreen> {
   bool fetchingAdditionalMovies = false;
   int pageNumber = 1;
   bool reachedEndOfMovies = false;
+  bool hasError = false;
 
   @override
   void initState() {
@@ -53,14 +55,28 @@ class _GenreScreenState extends State<GenreScreen> {
 
   setGenreWiseMovies(Genre? genre) async {
     setState(() => fetchingMovies = true);
-    final genreWiseMoviesFromDb = await MovieService.getMoviesByGenreId(
-      genre?.id,
-    );
-    setState(() {
-      genreWiseMovies = genreWiseMoviesFromDb;
-      fetchingMovies = false;
-    });
-    setState(() => genreWiseMovies = genreWiseMoviesFromDb);
+    try {
+      final genreWiseMoviesFromDb = await MovieService.getMoviesByGenreId(
+        genre?.id,
+      );
+      setState(() {
+        genreWiseMovies = genreWiseMoviesFromDb;
+        hasError = false;
+      });
+    } catch (e) {
+      if (kDebugMode) {
+        print(
+          'Something Went Wrong When Getting Movies in Genre Screen',
+        );
+      }
+      setState(() {
+        hasError = true;
+      });
+    } finally {
+      setState(() {
+        fetchingMovies = false;
+      });
+    }
   }
 
   changeCurrentGenre(Genre selectedGenre) {
@@ -116,17 +132,21 @@ class _GenreScreenState extends State<GenreScreen> {
             ),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.8,
-              child: fetchingMovies
-                  ? Center(
-                      child: LoadingAnimationWidget.fourRotatingDots(
-                        color: kPrimaryColor,
-                        size: 50,
-                      ),
+              child: hasError
+                  ? const Center(
+                      child: Text('Something Went Wrong'),
                     )
-                  : VerticalMovieSection(
-                      movies: genreWiseMovies,
-                      onLastItemReached: setAdditionalGenreWiseMovies,
-                    ),
+                  : fetchingMovies
+                      ? Center(
+                          child: LoadingAnimationWidget.fourRotatingDots(
+                            color: kPrimaryColor,
+                            size: 50,
+                          ),
+                        )
+                      : VerticalMovieSection(
+                          movies: genreWiseMovies,
+                          onLastItemReached: setAdditionalGenreWiseMovies,
+                        ),
             ),
           ],
         ),

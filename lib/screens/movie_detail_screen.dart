@@ -103,7 +103,7 @@ class MovieDetailScreen extends StatelessWidget {
                   ),
                 ];
               },
-              body: CachedFutureHandler<MovieDetail, Error>(
+              body: CachedFutureHandler<MovieDetail, Exception>(
                 id: 'movie-detail-${movie.id}',
                 future: () =>
                     DatabaseService().getMovieDetailFromDatabase(movie.id),

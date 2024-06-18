@@ -22,36 +22,6 @@ class CachedFutureHandler<T, K> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return FutureBuilder(
-    //   future: future,
-    //   builder: (context, snapshot) {
-    //     if (snapshot.connectionState == ConnectionState.waiting) {
-    //       return SizedBox(
-    //         height: defaultHeight,
-    //         child: Center(
-    //           child: LoadingAnimationWidget.fourRotatingDots(
-    //             color: kPrimaryColor,
-    //             size: 40,
-    //           ),
-    //         ),
-    //       );
-    //     }
-    //     if ((snapshot.hasError)) {
-    //       if (kDebugMode) {
-    //         print(snapshot.data);
-    //         print('Something Went Wrong When Getting data from Future');
-    //         print(snapshot.error);
-    //       }
-    //       return SizedBox(
-    //         height: defaultHeight,
-    //         child: const Center(
-    //           child: Text('Something Went Wrong'),
-    //         ),
-    //       );
-    //     }
-    //     return builder(context, snapshot);
-    //   },
-    // );
     final data = useQuery<T, K>([id], future);
     return Builder(
       builder: (context) {
@@ -80,19 +50,8 @@ class CachedFutureHandler<T, K> extends HookWidget {
               child: Text('Something Went Wrong'),
             ),
           );
-
-          // return Center(child: Text(posts.error!.toString()));
         }
 
-        // return ListView.builder(
-        //   itemCount: posts.data!.length,
-        //   itemBuilder: (context, index) {
-        //     final post = posts.data![index];
-        //     return ListTile(
-        //       title: Text(post.title),
-        //     );
-        //   },
-        // );
         if (data.data == null) throw Exception("Something Went Wrong");
         return builder(context, data.data as T);
       },

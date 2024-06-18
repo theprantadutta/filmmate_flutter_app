@@ -54,7 +54,7 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 const HomeHeader(),
-                CachedFutureHandler<HomeScreenResponse, Error>(
+                CachedFutureHandler<HomeScreenResponse, Exception>(
                   id: 'home-screen-movies',
                   defaultHeight: MediaQuery.sizeOf(context).height * 0.8,
                   future: DatabaseService().getAllHomeScreenData,
