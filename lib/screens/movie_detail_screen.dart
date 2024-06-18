@@ -1,5 +1,5 @@
+import 'package:filmmate_flutter_app/components/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../components/common/cached_future_handler.dart';
 import '../components/movie_detail/movie_detail_sections/movie_detail_casts.dart';
@@ -66,73 +66,68 @@ class MovieDetailScreen extends StatelessWidget {
     final args = ModalRoute.of(context)!.settings.arguments
         as MovieDetailScreenArguments;
     final movie = args.movie;
-    return Scaffold(
-      body: AnnotatedRegion(
-        value: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-        ),
-        child: SafeArea(
-          top: false,
-          child: DefaultTabController(
-            length: singleMovieDetailTabs.length,
-            child: NestedScrollView(
-              headerSliverBuilder: (context, _) {
-                return [
-                  SliverPersistentHeader(
-                    delegate: SliverAppBarDelegate(
-                      minHeight: MediaQuery.of(context).size.height * 0.3,
-                      maxHeight: MediaQuery.of(context).size.height * 0.6,
-                      child: MovieDetailStackOnPoster(
-                        tagName: args.tagName,
-                        movie: movie,
+    return MainLayout(
+      shouldSafeAreaTopBeFalse: false,
+      body: SafeArea(
+        top: false,
+        child: DefaultTabController(
+          length: singleMovieDetailTabs.length,
+          child: NestedScrollView(
+            headerSliverBuilder: (context, _) {
+              return [
+                SliverPersistentHeader(
+                  delegate: SliverAppBarDelegate(
+                    minHeight: MediaQuery.of(context).size.height * 0.3,
+                    maxHeight: MediaQuery.of(context).size.height * 0.6,
+                    child: MovieDetailStackOnPoster(
+                      tagName: args.tagName,
+                      movie: movie,
+                    ),
+                  ),
+                  pinned: true,
+                ),
+                SliverPersistentHeader(
+                  delegate: SliverTabBarDelegate(
+                    TabBar(
+                      isScrollable: true,
+                      tabAlignment: TabAlignment.start,
+                      tabs: generateTabs(
+                        MediaQuery.sizeOf(context).height * 0.08,
                       ),
                     ),
-                    pinned: true,
                   ),
-                  SliverPersistentHeader(
-                    delegate: SliverTabBarDelegate(
-                      TabBar(
-                        isScrollable: true,
-                        tabAlignment: TabAlignment.start,
-                        tabs: generateTabs(
-                          MediaQuery.sizeOf(context).height * 0.08,
-                        ),
-                      ),
+                  pinned: true,
+                ),
+              ];
+            },
+            body: CachedFutureHandler<MovieDetail, Exception>(
+              id: 'movie-detail-${movie.id}',
+              future: () =>
+                  DatabaseService().getMovieDetailFromDatabase(movie.id),
+              builder: (context, data) {
+                final movieDetail = data;
+                return TabBarView(
+                  children: [
+                    MovieDetailOverview(
+                      movieDetail: movieDetail,
                     ),
-                    pinned: true,
-                  ),
-                ];
+                    MovieDetailCasts(
+                      casts: movieDetail.casts.toList(),
+                    ),
+                    MovieDetailVideos(
+                      videos: movieDetail.videos.toList(),
+                    ),
+                    MovieDetailRecommendations(
+                      recommendedMovies: movieDetail.recommendedMovies.toList(),
+                    ),
+                    MovieDetailPosters(
+                      posters: movieDetail.images.value != null
+                          ? movieDetail.images.value!.posters.toList()
+                          : [],
+                    ),
+                  ],
+                );
               },
-              body: CachedFutureHandler<MovieDetail, Exception>(
-                id: 'movie-detail-${movie.id}',
-                future: () =>
-                    DatabaseService().getMovieDetailFromDatabase(movie.id),
-                builder: (context, data) {
-                  final movieDetail = data;
-                  return TabBarView(
-                    children: [
-                      MovieDetailOverview(
-                        movieDetail: movieDetail,
-                      ),
-                      MovieDetailCasts(
-                        casts: movieDetail.casts.toList(),
-                      ),
-                      MovieDetailVideos(
-                        videos: movieDetail.videos.toList(),
-                      ),
-                      MovieDetailRecommendations(
-                        recommendedMovies:
-                            movieDetail.recommendedMovies.toList(),
-                      ),
-                      MovieDetailPosters(
-                        posters: movieDetail.images.value != null
-                            ? movieDetail.images.value!.posters.toList()
-                            : [],
-                      ),
-                    ],
-                  );
-                },
-              ),
             ),
           ),
         ),

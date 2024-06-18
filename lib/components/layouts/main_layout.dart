@@ -7,16 +7,12 @@ import '../sidebar/sidebar_drawer.dart';
 
 class MainLayout extends StatelessWidget {
   final Widget body;
-  final String? title;
-  final List<Widget>? actions;
-  final bool? showBg;
+  final bool shouldSafeAreaTopBeFalse;
 
   const MainLayout({
     super.key,
-    this.title,
-    this.actions,
-    this.showBg,
     required this.body,
+    this.shouldSafeAreaTopBeFalse = true,
   });
 
   @override
@@ -30,7 +26,10 @@ class MainLayout extends StatelessWidget {
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: theDarkness,
         ),
-        child: SafeArea(child: body),
+        child: SafeArea(
+          top: shouldSafeAreaTopBeFalse,
+          child: body,
+        ),
       ),
       drawer: const SidebarDrawer(),
       drawerEdgeDragWidth: 100,
