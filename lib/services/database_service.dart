@@ -170,11 +170,11 @@ class DatabaseService {
       }
     }
 
-    discoverMovies.sort((a, b) => a.orderBy - b.orderBy);
-    nowPlayingMovies.sort((a, b) => a.orderBy - b.orderBy);
-    popularMovies.sort((a, b) => a.orderBy - b.orderBy);
-    topRatedMovies.sort((a, b) => a.orderBy - b.orderBy);
-    upcomingMovies.sort((a, b) => a.orderBy - b.orderBy);
+    discoverMovies.sort((a, b) => b.orderBy - a.orderBy);
+    nowPlayingMovies.sort((a, b) => b.orderBy - a.orderBy);
+    popularMovies.sort((a, b) => b.orderBy - a.orderBy);
+    topRatedMovies.sort((a, b) => b.orderBy - a.orderBy);
+    upcomingMovies.sort((a, b) => b.orderBy - a.orderBy);
 
     return HomeScreenResponse(
       genres: genres,

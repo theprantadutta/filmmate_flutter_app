@@ -1,12 +1,14 @@
-import 'package:filmmate_flutter_app/components/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 import '../components/common/cached_future_handler.dart';
+import '../components/layouts/main_layout.dart';
 import '../components/movie_detail/movie_detail_sections/movie_detail_casts.dart';
+import '../components/movie_detail/movie_detail_sections/movie_detail_notification.dart';
 import '../components/movie_detail/movie_detail_sections/movie_detail_overview/movie_detail_overview.dart';
 import '../components/movie_detail/movie_detail_sections/movie_detail_posters.dart';
 import '../components/movie_detail/movie_detail_sections/movie_detail_recommendations.dart';
 import '../components/movie_detail/movie_detail_sections/movie_detail_videos.dart';
+import '../components/movie_detail/movie_detail_sections/single_movie_detail_tabs.dart';
 import '../components/movie_detail/movie_detail_stack_on_poster.dart';
 import '../entities/movie_detail.dart';
 import '../screen_arguments/movie_detail_screen_arguments.dart';
@@ -14,30 +16,13 @@ import '../services/database_service.dart';
 import '../sliver_delegates/sliver_app_bar_delegate.dart';
 import '../sliver_delegates/sliver_tab_bar_delegate.dart';
 
-List<SingleMovieDetailTab> singleMovieDetailTabs = [
-  SingleMovieDetailTab(title: 'Overview', iconData: Icons.summarize_outlined),
-  SingleMovieDetailTab(title: 'Casts', iconData: Icons.groups_2_outlined),
-  SingleMovieDetailTab(
-      title: 'Videos', iconData: Icons.play_circle_fill_outlined),
-  SingleMovieDetailTab(title: 'Top Picks', iconData: Icons.recommend_outlined),
-  SingleMovieDetailTab(
-      title: 'Posters', iconData: Icons.movie_creation_outlined),
-];
-
-class SingleMovieDetailTab {
-  final String title;
-  final IconData iconData;
-
-  SingleMovieDetailTab({required this.title, required this.iconData});
-}
-
 class MovieDetailScreen extends StatelessWidget {
   static const kRouteName = '/movie-detail';
   const MovieDetailScreen({super.key});
 
   List<Tab> generateTabs(double height) {
     List<Tab> tabs = [];
-    for (final singleTab in singleMovieDetailTabs) {
+    for (final singleTab in kSingleMovieDetailTabs) {
       tabs.add(
         Tab(
           height: height,
@@ -71,7 +56,7 @@ class MovieDetailScreen extends StatelessWidget {
       body: SafeArea(
         top: false,
         child: DefaultTabController(
-          length: singleMovieDetailTabs.length,
+          length: kSingleMovieDetailTabs.length,
           child: NestedScrollView(
             headerSliverBuilder: (context, _) {
               return [
@@ -119,6 +104,9 @@ class MovieDetailScreen extends StatelessWidget {
                     ),
                     MovieDetailRecommendations(
                       recommendedMovies: movieDetail.recommendedMovies.toList(),
+                    ),
+                    MovieDetailNotification(
+                      movieId: movieDetail.id,
                     ),
                     MovieDetailPosters(
                       posters: movieDetail.images.value != null

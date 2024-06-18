@@ -34,7 +34,10 @@ class GenresSection extends StatelessWidget {
               itemBuilder: (context, index) {
                 final genre = genres[index];
                 return Padding(
-                  padding: const EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 5.0,
+                    vertical: 8.0,
+                  ),
                   child: CustomOutlinedButton(
                     title: genre.name,
                     selected: selectedGenre?.id == genre.id,
