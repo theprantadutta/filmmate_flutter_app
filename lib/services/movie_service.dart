@@ -295,7 +295,7 @@ class MovieService {
     }
   }
 
-  static Future<List<Movie>> getMoviesByGenreId(int genreId) async {
+  static Future<List<Movie>> getMoviesByGenreId(int? genreId) async {
     try {
       final genreWiseMovies = await DatabaseService().fetchMoviesByGenreId(
         genreId: genreId,
@@ -315,7 +315,7 @@ class MovieService {
   }
 
   static Future<MovieResponseDto> getAllMoviesByGenreId(
-      int genreId, pageNumber) async {
+      int? genreId, pageNumber) async {
     try {
       final genreWiseMovies = await DatabaseService().fetchMoviesByGenreId(
         genreId: genreId,

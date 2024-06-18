@@ -24,7 +24,7 @@ class GenreScreen extends StatefulWidget {
 }
 
 class _GenreScreenState extends State<GenreScreen> {
-  Genre currentGenre = kDefaultGenre;
+  Genre? currentGenre = kDefaultGenre;
   List<Genre> allGenres = [];
   List<Movie> genreWiseMovies = [];
   bool fetchingMovies = false;
@@ -51,10 +51,10 @@ class _GenreScreenState extends State<GenreScreen> {
     setState(() => allGenres = allGenresFromDb);
   }
 
-  setGenreWiseMovies(Genre genre) async {
+  setGenreWiseMovies(Genre? genre) async {
     setState(() => fetchingMovies = true);
     final genreWiseMoviesFromDb = await MovieService.getMoviesByGenreId(
-      genre.id,
+      genre?.id,
     );
     setState(() {
       genreWiseMovies = genreWiseMoviesFromDb;
@@ -79,7 +79,7 @@ class _GenreScreenState extends State<GenreScreen> {
       pageNumber = pageNumber + 1;
     });
     final genreWiseMoviesFromDb = await MovieService.getAllMoviesByGenreId(
-      currentGenre.id,
+      currentGenre?.id,
       pageNumber,
     );
     final response =
@@ -99,10 +99,9 @@ class _GenreScreenState extends State<GenreScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             MainLayoutHeader(
-              title: currentGenre.name,
+              title: currentGenre != null ? currentGenre!.name : 'All Genre',
               fetching: fetchingAdditionalMovies,
             ),
-            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 8.0,

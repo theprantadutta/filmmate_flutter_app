@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../enums/movie_type.dart';
+import '../../../screen_arguments/genre_screen_arguments.dart';
 import '../../../screen_arguments/movie_section_screen_arguments.dart';
+import '../../../screens/genre_screen.dart';
 import '../../../screens/movie_section_screen.dart';
 
 class MovieSectionTopBar extends StatelessWidget {
@@ -30,14 +32,22 @@ class MovieSectionTopBar extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () => Navigator.pushNamed(
-              context,
-              MovieSectionScreen.kRouteName,
-              arguments: MovieSectionScreenArguments(
-                movieType: movieType,
-                title: title,
-              ),
-            ),
+            onTap: () {
+              if (movieType == MovieType.genreWise) {
+                Navigator.pushNamed(
+                  context,
+                  GenreScreen.kRouteName,
+                  arguments: GenreScreenArguments(),
+                );
+                return;
+              } else {
+                Navigator.pushNamed(context, MovieSectionScreen.kRouteName,
+                    arguments: MovieSectionScreenArguments(
+                      movieType: movieType,
+                      title: title,
+                    ));
+              }
+            },
             child: Text(
               'See All',
               style: TextStyle(

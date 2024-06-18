@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../common/floating_change_theme_button.dart';
+import '../sidebar/sidebar_drawer.dart';
 
 class MainLayout extends StatelessWidget {
   final Widget body;
@@ -31,20 +32,8 @@ class MainLayout extends StatelessWidget {
         ),
         child: SafeArea(child: body),
       ),
-      // appBar: AppBar(
-      //   foregroundColor: Colors.white,
-      //   title: Text(
-      //     title ?? 'FilmMate',
-      //     style: const TextStyle(
-      //       color: Colors.white,
-      //       fontWeight: FontWeight.w500,
-      //     ),
-      //   ),
-      //   backgroundColor: kPrimaryColor.withOpacity(0.6),
-      //   actions: actions ?? [],
-      // ),
-      // extendBodyBehindAppBar: extendBodyBehindAppBar ?? false,
-      // appBar: appBar,
+      drawer: const SidebarDrawer(),
+      drawerEdgeDragWidth: 100,
       floatingActionButton: kReleaseMode
           ? null // Don't show FloatingActionButton in release (production) mode
           : const FloatingChangeThemeButton(),

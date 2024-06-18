@@ -243,11 +243,13 @@ class DatabaseService {
   }
 
   Future<MovieResponseDto> fetchMoviesByGenreId({
-    required int genreId,
+    int? genreId,
     int pageNumber = 1,
   }) async {
-    var url =
-        '$kApiUrl/$kGetGenreWiseMovies?genreId=$genreId&pageNumber=$pageNumber';
+    var url = '$kApiUrl/$kGetGenreWiseMovies?pageNumber=$pageNumber';
+    if (genreId != null) {
+      url += '&genreId=$genreId';
+    }
     var response = await HttpService.get(url);
     if (response.statusCode == 200) {
       // Use compute to parse the response body in a background isolate

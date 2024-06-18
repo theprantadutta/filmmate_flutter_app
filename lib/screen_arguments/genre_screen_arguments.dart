@@ -1,9 +1,9 @@
 import '../entities/genre.dart';
 
 class GenreScreenArguments {
-  final Genre genre;
+  final Genre? genre;
 
   GenreScreenArguments({
-    required this.genre,
+    this.genre,
   });
 }
