@@ -13,10 +13,13 @@ class HomeHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Center(
-            child: Icon(
-              Icons.menu,
-              size: 24,
+          GestureDetector(
+            onTap: () => Scaffold.of(context).openDrawer(),
+            child: const Center(
+              child: Icon(
+                Icons.menu,
+                size: 24,
+              ),
             ),
           ),
           RichText(

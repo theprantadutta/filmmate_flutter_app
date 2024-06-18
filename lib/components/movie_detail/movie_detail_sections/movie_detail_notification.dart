@@ -92,7 +92,7 @@ class _MovieDetailNotificationState extends State<MovieDetailNotification> {
               },
             ),
             MovieDetailNotificationRow(
-              title: 'Notify When This Movie Releases Digitally',
+              title: 'Notify When This Movie Releases on Digital',
               value: notifyDigitalRelease,
               onChanged: (value) {
                 if (value != null) {
