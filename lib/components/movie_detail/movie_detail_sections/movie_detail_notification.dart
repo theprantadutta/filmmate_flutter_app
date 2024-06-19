@@ -64,6 +64,24 @@ class _MovieDetailNotificationState extends State<MovieDetailNotification> {
         ),
         child: Column(
           children: [
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.warning_amber_outlined,
+                  color: Colors.red,
+                ),
+                Text(
+                  'This feature is not available yet',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.red,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
             MovieDetailNotificationRow(
               title: 'Notify When This Movie Releases',
               value: notifyReleaseDate,
