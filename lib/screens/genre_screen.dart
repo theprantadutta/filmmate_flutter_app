@@ -1,3 +1,4 @@
+import 'package:filmmate_flutter_app/components/common/something_went_wrong.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -132,16 +133,16 @@ class _GenreScreenState extends State<GenreScreen> {
             ),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.8,
-              child: hasError
-                  ? const Center(
-                      child: Text('Something Went Wrong'),
+              child: fetchingMovies
+                  ? Center(
+                      child: LoadingAnimationWidget.fourRotatingDots(
+                        color: kPrimaryColor,
+                        size: 50,
+                      ),
                     )
-                  : fetchingMovies
-                      ? Center(
-                          child: LoadingAnimationWidget.fourRotatingDots(
-                            color: kPrimaryColor,
-                            size: 50,
-                          ),
+                  : hasError
+                      ? SomethingWentWrong(
+                          onPressed: setInitialGenre,
                         )
                       : VerticalMovieSection(
                           movies: genreWiseMovies,

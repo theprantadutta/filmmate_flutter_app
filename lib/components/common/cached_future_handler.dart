@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fquery/fquery.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../constants/colors.dart';
+import 'loading_four_dots.dart';
+import 'something_went_wrong.dart';
 
 class CachedFutureHandler<T, K> extends HookWidget {
   final String id;
@@ -29,12 +29,7 @@ class CachedFutureHandler<T, K> extends HookWidget {
           return Center(
             child: SizedBox(
               height: defaultHeight,
-              child: Center(
-                child: LoadingAnimationWidget.fourRotatingDots(
-                  color: kPrimaryColor,
-                  size: 40,
-                ),
-              ),
+              child: const LoadingFourDots(),
             ),
           );
         }
@@ -46,8 +41,8 @@ class CachedFutureHandler<T, K> extends HookWidget {
           }
           return SizedBox(
             height: defaultHeight,
-            child: const Center(
-              child: Text('Something Went Wrong'),
+            child: SomethingWentWrong(
+              onPressed: data.refetch,
             ),
           );
         }

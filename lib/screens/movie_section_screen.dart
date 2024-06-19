@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../screen_arguments/movie_section_screen_arguments.dart';
+import '../components/common/something_went_wrong.dart';
 import '../components/common/vertical_movie_section.dart';
 import '../components/layouts/main_layout.dart';
 import '../constants/colors.dart';
@@ -137,16 +138,16 @@ class _MovieSectionScreenState extends State<MovieSectionScreen> {
             const SizedBox(height: 10),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.9,
-              child: hasError
-                  ? const Center(
-                      child: Text('Something Went Wrong When Fetching Movies'),
+              child: fetchingMovies
+                  ? Center(
+                      child: LoadingAnimationWidget.fourRotatingDots(
+                        color: kPrimaryColor,
+                        size: 50,
+                      ),
                     )
-                  : fetchingMovies
-                      ? Center(
-                          child: LoadingAnimationWidget.fourRotatingDots(
-                            color: kPrimaryColor,
-                            size: 50,
-                          ),
+                  : hasError
+                      ? SomethingWentWrong(
+                          onPressed: setMovieSectionMovies,
                         )
                       : VerticalMovieSection(
                           movies: movieSectionMovies,
