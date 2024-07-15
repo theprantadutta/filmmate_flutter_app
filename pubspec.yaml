@@ -12,6 +12,7 @@ dependencies:
   cached_network_image: ^3.3.1
   collection: ^1.18.0
   cupertino_icons: ^1.0.6
+  custom_refresh_indicator: ^3.1.2
   dio: ^5.4.3+1
   flutter:
     sdk: flutter
@@ -41,7 +42,7 @@ dev_dependencies:
   lint_staged: ^0.5.1
 
 dependency_overrides:
-  analyzer: ^6.3.0
+  # analyzer: ^6.7.0
   js: ^0.7.1
 
 flutter:

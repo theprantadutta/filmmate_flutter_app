@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -57,89 +58,92 @@ class _MovieDetailNotificationState extends State<MovieDetailNotification> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
-        margin: const EdgeInsets.symmetric(
-          horizontal: 5,
-          vertical: 10,
-        ),
-        child: Column(
-          children: [
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.warning_amber_outlined,
-                  color: Colors.red,
-                ),
-                Text(
-                  'This feature is not available yet',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
+      child: FadeInUp(
+        duration: const Duration(milliseconds: 400),
+        child: Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 5,
+            vertical: 10,
+          ),
+          child: Column(
+            children: [
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.warning_amber_outlined,
                     color: Colors.red,
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            MovieDetailNotificationRow(
-              title: 'Notify When This Movie Releases',
-              value: notifyReleaseDate,
-              onChanged: (value) {
-                if (value != null) {
-                  setState(() => notifyReleaseDate = value);
-                }
-              },
-            ),
-            MovieDetailNotificationRow(
-              title: 'Notify When The Reviews Are Available',
-              value: notifyReviews,
-              onChanged: (value) {
-                if (value != null) {
-                  setState(() => notifyReviews = value);
-                }
-              },
-            ),
-            MovieDetailNotificationRow(
-              title: 'Notify When This Movie Releases on DVD',
-              value: notifyDvdRelease,
-              onChanged: (value) {
-                if (value != null) {
-                  setState(() => notifyDvdRelease = value);
-                }
-              },
-            ),
-            MovieDetailNotificationRow(
-              title: 'Notify When This Movie Releases on Digital',
-              value: notifyDigitalRelease,
-              onChanged: (value) {
-                if (value != null) {
-                  setState(() => notifyDigitalRelease = value);
-                }
-              },
-            ),
-            if (errorMessage != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  errorMessage!,
-                  style: const TextStyle(color: Colors.red),
-                ),
+                  Text(
+                    'This feature is not available yet',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.red,
+                    ),
+                  ),
+                ],
               ),
-            const SizedBox(height: 10),
-            if (isLoading)
-              Center(
-                child: LoadingAnimationWidget.fourRotatingDots(
-                  color: kPrimaryColor,
-                  size: 40,
-                ),
-              )
-            else
-              ElevatedButton(
-                onPressed: _savePreferences,
-                child: const Text('Save Preferences'),
+              const SizedBox(height: 10),
+              MovieDetailNotificationRow(
+                title: 'Notify When This Movie Releases',
+                value: notifyReleaseDate,
+                onChanged: (value) {
+                  if (value != null) {
+                    setState(() => notifyReleaseDate = value);
+                  }
+                },
               ),
-          ],
+              MovieDetailNotificationRow(
+                title: 'Notify When The Reviews Are Available',
+                value: notifyReviews,
+                onChanged: (value) {
+                  if (value != null) {
+                    setState(() => notifyReviews = value);
+                  }
+                },
+              ),
+              MovieDetailNotificationRow(
+                title: 'Notify When This Movie Releases on DVD',
+                value: notifyDvdRelease,
+                onChanged: (value) {
+                  if (value != null) {
+                    setState(() => notifyDvdRelease = value);
+                  }
+                },
+              ),
+              MovieDetailNotificationRow(
+                title: 'Notify When This Movie Releases on Digital',
+                value: notifyDigitalRelease,
+                onChanged: (value) {
+                  if (value != null) {
+                    setState(() => notifyDigitalRelease = value);
+                  }
+                },
+              ),
+              if (errorMessage != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Text(
+                    errorMessage!,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                ),
+              const SizedBox(height: 10),
+              if (isLoading)
+                Center(
+                  child: LoadingAnimationWidget.fourRotatingDots(
+                    color: kPrimaryColor,
+                    size: 40,
+                  ),
+                )
+              else
+                ElevatedButton(
+                  onPressed: _savePreferences,
+                  child: const Text('Save Preferences'),
+                ),
+            ],
+          ),
         ),
       ),
     );

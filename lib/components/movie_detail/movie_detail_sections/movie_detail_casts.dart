@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
@@ -66,18 +67,21 @@ class MovieDetailCasts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      padding: const EdgeInsets.only(
-        top: 10,
-        left: 0,
-        right: 0,
-        bottom: 10,
+    return FadeInUp(
+      duration: const Duration(milliseconds: 400),
+      child: GridView.count(
+        padding: const EdgeInsets.only(
+          top: 10,
+          left: 0,
+          right: 0,
+          bottom: 10,
+        ),
+        childAspectRatio: 0.7,
+        crossAxisCount: 3,
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 8,
+        children: _generateCastView(context),
       ),
-      childAspectRatio: 0.7,
-      crossAxisCount: 3,
-      mainAxisSpacing: 4,
-      crossAxisSpacing: 8,
-      children: _generateCastView(context),
     );
   }
 }

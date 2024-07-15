@@ -1,6 +1,9 @@
-// const kApiProdUrl = '';
+import 'package:flutter/foundation.dart';
+
+const kApiProdUrl = 'https://funny-sara-ann-pranta-85b659af.koyeb.app/api/v1.0';
 const kApiDevUrl = 'http://192.168.0.106:5291/api/v1.0';
-const kApiUrl = kApiDevUrl;
+const kApiUrl = kDebugMode ? kApiDevUrl : kApiProdUrl;
+// const kApiUrl = kApiProdUrl;
 
 const kGetAllGenres = 'Movie/GetAllGenres';
 const kGetAllMoviesByGenre = 'Movie/GetGenreWiseMovies';

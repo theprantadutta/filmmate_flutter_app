@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 import '../../entities/movie.dart';
@@ -27,52 +28,60 @@ class MovieDetailStackOnPoster extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       child: Stack(
         children: [
-          MoviePoster(tagName: tagName, posterPath: movie.posterPath),
+          ZoomIn(
+            child: MoviePoster(
+              tagName: tagName,
+              posterPath: movie.posterPath,
+            ),
+          ),
           const PosterBackButton(),
           Positioned(
             bottom: 0,
             left: 0,
-            child: Container(
-              color: bgColor,
-              padding: const EdgeInsets.symmetric(
-                vertical: 5,
-                horizontal: 5,
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: movie.voteAverage != null
-                            ? MediaQuery.of(context).size.width * 0.75
-                            : MediaQuery.of(context).size.width,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Divider(),
-                            Text(
-                              movie.title,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
+            child: FadeInUp(
+              duration: const Duration(milliseconds: 500),
+              child: Container(
+                color: bgColor,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 5,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: movie.voteAverage != null
+                              ? MediaQuery.of(context).size.width * 0.75
+                              : MediaQuery.of(context).size.width,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Divider(),
+                              Text(
+                                movie.title,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                            PosterMiddlePart(movie: movie),
-                            const Divider(),
-                          ],
+                              PosterMiddlePart(movie: movie),
+                              const Divider(),
+                            ],
+                          ),
                         ),
-                      ),
-                      if (movie.voteAverage != null)
-                        MovieAverageVote(
-                          voteAverage: movie.voteAverage!,
-                        ),
-                    ],
-                  ),
-                  MoviePosterGenres(
-                    genres: movie.genres.toList(),
-                  ),
-                ],
+                        if (movie.voteAverage != null)
+                          MovieAverageVote(
+                            voteAverage: movie.voteAverage!,
+                          ),
+                      ],
+                    ),
+                    MoviePosterGenres(
+                      genres: movie.genres.toList(),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

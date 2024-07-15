@@ -1,3 +1,5 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import 'drawer_list.dart';
@@ -15,8 +17,14 @@ class SidebarDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const SidebarHeader(),
-          const UserOptions(),
+          FadeInUp(
+            duration: const Duration(milliseconds: 300),
+            child: const SidebarHeader(),
+          ),
+          FadeInUp(
+            duration: const Duration(milliseconds: 400),
+            child: const UserOptions(),
+          ),
           SizedBox(
             height: MediaQuery.sizeOf(context).height * 0.6,
             child: Column(
@@ -24,9 +32,10 @@ class SidebarDrawer extends StatelessWidget {
               children: [
                 Column(
                   children: kDrawerList
-                      .map(
-                        (drawer) => SidebarSingleDrawerMenu(
+                      .mapIndexed(
+                        (index, drawer) => SidebarSingleDrawerMenu(
                           drawer: drawer,
+                          index: index,
                         ),
                       )
                       .toList(),
