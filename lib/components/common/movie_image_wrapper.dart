@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 class MovieImageWrapper extends StatelessWidget {
@@ -8,14 +7,12 @@ class MovieImageWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ZoomIn(
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.4,
-        height: MediaQuery.of(context).size.height * 0.25,
-        margin: const EdgeInsets.only(right: 10),
-        decoration: decoration,
-        child: child,
-      ),
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.4,
+      height: MediaQuery.of(context).size.height * 0.25,
+      margin: const EdgeInsets.only(right: 10),
+      decoration: decoration,
+      child: child,
     );
   }
 }

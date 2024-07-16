@@ -55,9 +55,8 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 const HomeHeader(),
-                Container(
+                SizedBox(
                   height: defaultHeight,
-                  color: Theme.of(context).primaryColor.withOpacity(0.1),
                   child: CachedFutureHandler<HomeScreenResponse, Exception>(
                     id: 'home-screen-movies',
                     defaultHeight: defaultHeight,

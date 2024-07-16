@@ -28,13 +28,11 @@ class MovieDetailStackOnPoster extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       child: Stack(
         children: [
-          ZoomIn(
-            child: MoviePoster(
-              tagName: tagName,
-              posterPath: movie.posterPath,
-            ),
-          ),
           const PosterBackButton(),
+          MoviePoster(
+            tagName: tagName,
+            posterPath: movie.posterPath,
+          ),
           Positioned(
             bottom: 0,
             left: 0,
