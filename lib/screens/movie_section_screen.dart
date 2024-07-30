@@ -5,13 +5,12 @@ import 'package:filmmate_flutter_app/services/database_service.dart';
 import 'package:filmmate_flutter_app/util/functions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../screen_arguments/movie_section_screen_arguments.dart';
 import '../components/common/something_went_wrong.dart';
 import '../components/common/vertical_movie_section.dart';
 import '../components/layouts/main_layout.dart';
-import '../constants/colors.dart';
 import '../enums/movie_type.dart';
 
 class MovieSectionScreen extends StatefulWidget {
@@ -136,11 +135,8 @@ class _MovieSectionScreenState extends State<MovieSectionScreen> {
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.9,
               child: fetchingMovies
-                  ? Center(
-                      child: LoadingAnimationWidget.fourRotatingDots(
-                        color: kPrimaryColor,
-                        size: 50,
-                      ),
+                  ? const Skeletonizer(
+                      child: VerticalMovieSectionSkeletor(),
                     )
                   : hasError
                       ? SomethingWentWrong(

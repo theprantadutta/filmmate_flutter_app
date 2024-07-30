@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../components/layouts/main_layout.dart';
-import '../../enums/movie_type.dart';
 import '../../services/database_service.dart';
 import '../components/common/cached_future_handler.dart';
-import '../components/home/genres_section.dart';
 import '../components/home/home_header.dart';
-import '../components/home/movie_section.dart';
-import '../components/home/movie_section/movie_section_top_bar.dart';
+import '../components/home/home_screen_movie_list.dart';
 import '../models/home_screen_response.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -61,58 +59,12 @@ class HomeScreen extends StatelessWidget {
                     id: 'home-screen-movies',
                     defaultHeight: defaultHeight,
                     future: DatabaseService().getAllHomeScreenData,
-                    builder: (context, data) {
-                      final discoverMovies = data.discoverMovies;
-                      final nowPlayingMovies = data.nowPlayings;
-                      final popularMovies = data.popularMovies;
-                      final topRatedMovies = data.topRatedMovies;
-                      final upcomingMovies = data.upcomingMovies;
-                      final genres = data.genres;
-
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            const MovieSectionTopBar(
-                              title: 'Genres',
-                              movieType: MovieType.genreWise,
-                            ),
-                            GenresSection(
-                              genres: genres,
-                            ),
-                            const SizedBox(height: 10),
-                            MovieSection(
-                              title: 'Discover Movies',
-                              movies: discoverMovies.movies,
-                              movieType: MovieType.discover,
-                            ),
-                            const SizedBox(height: 10),
-                            MovieSection(
-                              title: 'Popular Movies',
-                              movies: popularMovies.movies,
-                              movieType: MovieType.popular,
-                            ),
-                            const SizedBox(height: 10),
-                            MovieSection(
-                              title: 'Now Playing Movies',
-                              movies: nowPlayingMovies.movies,
-                              movieType: MovieType.nowPlaying,
-                            ),
-                            const SizedBox(height: 10),
-                            MovieSection(
-                              title: 'Top Rated Movies',
-                              movies: topRatedMovies.movies,
-                              movieType: MovieType.topRated,
-                            ),
-                            const SizedBox(height: 10),
-                            MovieSection(
-                              title: 'Upcoming Movies',
-                              movies: upcomingMovies.movies,
-                              movieType: MovieType.upcoming,
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                    loadingWidget: const Skeletonizer(
+                      child: HomeScreenMovieListSkeletor(),
+                    ),
+                    builder: (context, data) => HomeScreenMovieList(
+                      data: data,
+                    ),
                   ),
                 ),
               ],

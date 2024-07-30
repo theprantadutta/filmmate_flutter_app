@@ -13,6 +13,7 @@ class CachedFutureHandler<T, K> extends HookWidget {
   final Widget Function(BuildContext, T) builder;
   final double defaultHeight;
   final int notificationDepth;
+  final Widget? loadingWidget;
 
   const CachedFutureHandler({
     super.key,
@@ -21,6 +22,7 @@ class CachedFutureHandler<T, K> extends HookWidget {
     required this.builder,
     this.defaultHeight = 100,
     this.notificationDepth = 0,
+    this.loadingWidget,
   });
 
   @override
@@ -32,12 +34,13 @@ class CachedFutureHandler<T, K> extends HookWidget {
       child: Builder(
         builder: (context) {
           if (data.isLoading) {
-            return Center(
-              child: SizedBox(
-                height: defaultHeight,
-                child: const LoadingFourDots(),
-              ),
-            );
+            return loadingWidget ??
+                Center(
+                  child: SizedBox(
+                    height: defaultHeight,
+                    child: const LoadingFourDots(),
+                  ),
+                );
           }
 
           if (data.isError) {

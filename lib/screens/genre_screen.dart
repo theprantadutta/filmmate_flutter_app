@@ -2,13 +2,12 @@ import 'package:filmmate_flutter_app/components/common/something_went_wrong.dart
 import 'package:filmmate_flutter_app/services/database_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../components/common/vertical_movie_section.dart';
 import '../../components/home/genres_section.dart';
 import '../../components/layouts/main_layout.dart';
 import '../components/common/main_layout_header.dart';
-import '../constants/colors.dart';
 import '../dtos/genre_dto.dart';
 import '../dtos/movie_dto.dart';
 import '../screen_arguments/genre_screen_arguments.dart';
@@ -117,26 +116,34 @@ class _GenreScreenState extends State<GenreScreen> {
               title: currentGenre != null ? currentGenre!.name : 'All Genre',
               fetching: fetchingAdditionalMovies,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 8.0,
-                horizontal: 10,
+            if (!fetchingMovies)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 10,
+                ),
+                child: GenresSection(
+                  genres: allGenres,
+                  selectedGenre: currentGenre,
+                  goWhenClicked: false,
+                  onPressed: changeCurrentGenre,
+                ),
               ),
-              child: GenresSection(
-                genres: allGenres,
-                selectedGenre: currentGenre,
-                goWhenClicked: false,
-                onPressed: changeCurrentGenre,
+            if (fetchingMovies)
+              const Skeletonizer(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 10,
+                  ),
+                  child: GenresSectionSkeletor(),
+                ),
               ),
-            ),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.8,
               child: fetchingMovies
-                  ? Center(
-                      child: LoadingAnimationWidget.fourRotatingDots(
-                        color: kPrimaryColor,
-                        size: 50,
-                      ),
+                  ? const Skeletonizer(
+                      child: VerticalMovieSectionSkeletor(),
                     )
                   : hasError
                       ? SomethingWentWrong(

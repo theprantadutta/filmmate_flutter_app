@@ -32,3 +32,26 @@ class MovieAverageVote extends StatelessWidget {
     );
   }
 }
+
+class MovieAverageVoteSkeletor extends StatelessWidget {
+  final bool isSmall;
+  const MovieAverageVoteSkeletor({super.key, required this.isSmall});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.25,
+        child: CircleAvatar(
+          radius: isSmall ? 15 : 25,
+          child: Text(
+            '99%',
+            style: TextStyle(
+              fontSize: isSmall ? 12 : 15,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

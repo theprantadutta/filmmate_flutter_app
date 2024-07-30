@@ -134,3 +134,64 @@ class MovieDetailOverview extends StatelessWidget {
     );
   }
 }
+
+class MovieDetailOverviewSkeletor extends StatelessWidget {
+  const MovieDetailOverviewSkeletor({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeInUp(
+      duration: const Duration(milliseconds: 400),
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 5.0,
+          right: 5.0,
+          bottom: 10.0,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              const Text(
+                'Some Movie Tagline',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w200,
+                ),
+              ),
+              const SizedBox(height: 10),
+              const MovieReviewsSkeletor(),
+              const SizedBox(height: 10),
+              const MovieOverviewSectionSkeletor(),
+              const MovieOverviewSectionSkeletor(),
+              const MovieOverviewSectionSkeletor(),
+              const MovieOverviewSectionSkeletor(),
+              const MovieOverviewSectionSkeletor(),
+              const MovieOverviewSectionSkeletor(),
+              const MovieOverviewSectionSkeletor(),
+              const Text(
+                'Overview',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                truncateText(
+                    'Wrote water woman of heart it total other. By in entirely securing suitable graceful at families improved. Zealously few furniture repulsive was agreeable consisted difficult. Collected breakfast estimable questions in to favourite it. Known he place worth words it as to. Spoke now noise off smart her ready.'),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w200,
+                ),
+              ),
+              const SizedBox(height: 10),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

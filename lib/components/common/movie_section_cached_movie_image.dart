@@ -52,3 +52,22 @@ class MovieSectionCachedMovieImage extends StatelessWidget {
   //   CachedNetworkImage.evictFromCache(imageUrl);
   // }
 }
+
+class MovieSectionCachedMovieImageSkeletor extends StatelessWidget {
+  const MovieSectionCachedMovieImageSkeletor({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MovieImageWrapper(
+      decoration: BoxDecoration(
+        image: const DecorationImage(
+          image: NetworkImage(
+            'https://lh3.googleusercontent.com/d_S5gxu_S1P6NR1gXeMthZeBzkrQMHdI5uvXrpn3nfJuXpCjlqhLQKH_hbOxTHxFhp5WugVOEcl4WDrv9rmKBDOMExhKU5KmmLFQVg',
+          ),
+          fit: BoxFit.cover,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+  }
+}

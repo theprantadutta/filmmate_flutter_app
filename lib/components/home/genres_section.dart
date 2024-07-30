@@ -64,3 +64,37 @@ class GenresSection extends StatelessWidget {
     );
   }
 }
+
+class GenresSectionSkeletor extends StatelessWidget {
+  const GenresSectionSkeletor({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.075,
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 5.0,
+                    vertical: 8.0,
+                  ),
+                  child: CustomOutlinedButton(
+                    title: 'Genre',
+                    selected: false,
+                    onPressed: () {},
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

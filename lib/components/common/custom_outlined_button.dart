@@ -28,7 +28,7 @@ class CustomOutlinedButton extends StatelessWidget {
         backgroundColor:
             selected ? kPrimaryColor.withOpacity(0.8) : Colors.transparent,
         side: BorderSide(
-          color: kPrimaryColor,
+          color: kPrimaryColor.withOpacity(0.3),
           width: selected ? 0 : 2,
         ),
       ),

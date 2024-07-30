@@ -63,3 +63,39 @@ class MovieSectionTopBar extends StatelessWidget {
     );
   }
 }
+
+class MovieSectionTopBarSkeletor extends StatelessWidget {
+  const MovieSectionTopBarSkeletor({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 5.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            'Title',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: Text(
+              'See All',
+              style: TextStyle(
+                fontSize: 16,
+                color:
+                    isDarkTheme ? Colors.grey.shade500 : Colors.grey.shade600,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -64,3 +64,38 @@ class MovieReviewSection extends StatelessWidget {
     );
   }
 }
+
+class MovieReviewsSkeletor extends StatelessWidget {
+  const MovieReviewsSkeletor({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        MovieReviewSectionSkeletor(),
+        MovieReviewSectionSkeletor(),
+        MovieReviewSectionSkeletor(),
+      ],
+    );
+  }
+}
+
+class MovieReviewSectionSkeletor extends StatelessWidget {
+  const MovieReviewSectionSkeletor({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        children: [
+          SizedBox(
+            height: MediaQuery.sizeOf(context).height * 0.08,
+            width: MediaQuery.sizeOf(context).width * 0.3,
+          ),
+          const Text('score'),
+        ],
+      ),
+    );
+  }
+}

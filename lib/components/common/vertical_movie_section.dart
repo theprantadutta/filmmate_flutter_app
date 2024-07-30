@@ -112,3 +112,53 @@ class _VerticalMovieSectionState extends State<VerticalMovieSection> {
     );
   }
 }
+
+class VerticalMovieSectionSkeletor extends StatelessWidget {
+  const VerticalMovieSectionSkeletor({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      padding: const EdgeInsets.only(
+        top: 10,
+        left: 0,
+        right: 0,
+        bottom: 10,
+      ),
+      childAspectRatio: 0.7,
+      crossAxisCount: 2,
+      mainAxisSpacing: 4,
+      crossAxisSpacing: 8,
+      children: [
+        for (var i = 0; i < 10; i++)
+          Column(
+            children: [
+              const Stack(
+                children: [
+                  MovieSectionCachedMovieImageSkeletor(),
+                  Positioned(
+                    top: 0,
+                    right: -10,
+                    child: MovieAverageVoteSkeletor(
+                      isSmall: true,
+                    ),
+                  ),
+                ],
+              ),
+              FadeInUp(
+                duration: Duration(milliseconds: (i + 1) * 200),
+                child: const Center(
+                  child: Text(
+                    'Some Really Long Title',
+                    softWrap: true,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                  ),
+                ),
+              ),
+            ],
+          ),
+      ],
+    );
+  }
+}

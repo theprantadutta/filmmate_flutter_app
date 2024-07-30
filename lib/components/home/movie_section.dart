@@ -101,3 +101,67 @@ class MovieSection extends StatelessWidget {
     );
   }
 }
+
+class MovieSectionSkeletor extends StatelessWidget {
+  const MovieSectionSkeletor({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        FadeInUp(
+          duration: const Duration(milliseconds: 500),
+          child: const MovieSectionTopBarSkeletor(),
+        ),
+        const SizedBox(height: 10),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.30,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return FadeInUp(
+                duration: const Duration(milliseconds: 700),
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: const MovieSectionCachedMovieImageSkeletor(),
+                        ),
+                        const Positioned(
+                          top: 8,
+                          right: -12,
+                          child: MovieAverageVote(
+                            voteAverage: 99,
+                            isSmall: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                    FadeInUp(
+                      duration: Duration(milliseconds: (index + 1) * 200),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.39,
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        child: const Center(
+                          child: Text(
+                            'Some Really Long Title',
+                            softWrap: true,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}

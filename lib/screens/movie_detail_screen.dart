@@ -1,13 +1,9 @@
+import 'package:filmmate_flutter_app/components/movie_detail/movie_detail_tab_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../components/common/cached_future_handler.dart';
 import '../components/layouts/main_layout.dart';
-import '../components/movie_detail/movie_detail_sections/movie_detail_casts.dart';
-import '../components/movie_detail/movie_detail_sections/movie_detail_notification.dart';
-import '../components/movie_detail/movie_detail_sections/movie_detail_overview/movie_detail_overview.dart';
-import '../components/movie_detail/movie_detail_sections/movie_detail_posters.dart';
-import '../components/movie_detail/movie_detail_sections/movie_detail_recommendations.dart';
-import '../components/movie_detail/movie_detail_sections/movie_detail_videos.dart';
 import '../components/movie_detail/movie_detail_sections/single_movie_detail_tabs.dart';
 import '../components/movie_detail/movie_detail_stack_on_poster.dart';
 import '../dtos/movie_detail_dto.dart';
@@ -89,31 +85,12 @@ class MovieDetailScreen extends StatelessWidget {
               id: 'movie-detail-${movie.id}',
               future: () =>
                   DatabaseService().getMovieDetailFromDatabase(movie.id),
-              builder: (context, data) {
-                final movieDetail = data;
-                return TabBarView(
-                  children: [
-                    MovieDetailOverview(
-                      movieDetail: movieDetail,
-                    ),
-                    MovieDetailCasts(
-                      casts: movieDetail.casts.toList(),
-                    ),
-                    MovieDetailVideos(
-                      videos: movieDetail.videos.toList(),
-                    ),
-                    MovieDetailRecommendations(
-                      recommendedMovies: movieDetail.recommendedMovies.toList(),
-                    ),
-                    MovieDetailNotification(
-                      movieId: movieDetail.id,
-                    ),
-                    MovieDetailPosters(
-                      posters: movieDetail.images.posters,
-                    ),
-                  ],
-                );
-              },
+              loadingWidget: const Skeletonizer(
+                child: MovieDetailTabBarSkeletor(),
+              ),
+              builder: (context, data) => MovieDetailTabBar(
+                movieDetail: data,
+              ),
             ),
           ),
         ),

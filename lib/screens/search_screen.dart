@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../components/common/main_layout_header.dart';
 import '../components/common/vertical_movie_section.dart';
@@ -85,13 +86,17 @@ class _SearchScreenState extends State<SearchScreen> {
             const SizedBox(height: 10),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.9,
-              child: hasError
-                  ? const Center(
-                      child: Text('Something Went Wrong'),
+              child: fetchingMovies
+                  ? const Skeletonizer(
+                      child: VerticalMovieSectionSkeletor(),
                     )
-                  : VerticalMovieSection(
-                      movies: searchedMovies,
-                    ),
+                  : hasError
+                      ? const Center(
+                          child: Text('Something Went Wrong'),
+                        )
+                      : VerticalMovieSection(
+                          movies: searchedMovies,
+                        ),
             ),
           ],
         ),
