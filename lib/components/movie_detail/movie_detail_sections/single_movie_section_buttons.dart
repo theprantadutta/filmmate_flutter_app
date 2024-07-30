@@ -5,7 +5,7 @@ import '../../../components/movie_detail/movie_detail_sections/movie_detail_post
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_recommendations.dart';
 import '../../../components/movie_detail/movie_detail_sections/movie_detail_videos.dart';
 import '../../../constants/colors.dart';
-import '../../../entities/movie_detail.dart';
+import '../../../dtos/movie_detail_dto.dart';
 import 'movie_detail_overview/movie_detail_overview.dart';
 
 final List<String> allSections = [
@@ -17,7 +17,7 @@ final List<String> allSections = [
 ];
 
 class SingleMovieSectionButtons extends StatefulWidget {
-  final MovieDetail movieDetail;
+  final MovieDetailDto movieDetail;
   const SingleMovieSectionButtons({
     super.key,
     required this.movieDetail,
@@ -118,9 +118,7 @@ class _SingleMovieSectionButtonsState extends State<SingleMovieSectionButtons> {
               videos: widget.movieDetail.videos.toList(),
             ),
             MovieDetailPosters(
-              posters: widget.movieDetail.images.value != null
-                  ? widget.movieDetail.images.value!.posters.toList()
-                  : [],
+              posters: widget.movieDetail.images.posters,
             ),
             MovieDetailRecommendations(
               recommendedMovies: widget.movieDetail.recommendedMovies.toList(),

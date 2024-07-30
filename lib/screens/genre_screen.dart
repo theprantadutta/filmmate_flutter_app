@@ -1,4 +1,5 @@
 import 'package:filmmate_flutter_app/components/common/something_went_wrong.dart';
+import 'package:filmmate_flutter_app/services/database_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -6,11 +7,10 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../components/common/vertical_movie_section.dart';
 import '../../components/home/genres_section.dart';
 import '../../components/layouts/main_layout.dart';
-import '../../services/isar_service.dart';
 import '../components/common/main_layout_header.dart';
 import '../constants/colors.dart';
-import '../entities/genre.dart';
-import '../entities/movie.dart';
+import '../dtos/genre_dto.dart';
+import '../dtos/movie_dto.dart';
 import '../screen_arguments/genre_screen_arguments.dart';
 import '../services/movie_service.dart';
 import '../util/default_entities.dart';
@@ -26,9 +26,9 @@ class GenreScreen extends StatefulWidget {
 }
 
 class _GenreScreenState extends State<GenreScreen> {
-  Genre? currentGenre = kDefaultGenre;
-  List<Genre> allGenres = [];
-  List<Movie> genreWiseMovies = [];
+  GenreDto? currentGenre = kDefaultGenre;
+  List<GenreDto> allGenres = [];
+  List<MovieDto> genreWiseMovies = [];
   bool fetchingMovies = false;
   bool fetchingAdditionalMovies = false;
   int pageNumber = 1;
@@ -50,18 +50,18 @@ class _GenreScreenState extends State<GenreScreen> {
   }
 
   getAllGenreFromDatabase() async {
-    final allGenresFromDb = await IsarService().getAllGenresFromLocalDb();
+    final allGenresFromDb = await DatabaseService().getAllGenresFromDatabase();
     setState(() => allGenres = allGenresFromDb);
   }
 
-  setGenreWiseMovies(Genre? genre) async {
+  setGenreWiseMovies(GenreDto? genre) async {
     setState(() => fetchingMovies = true);
     try {
       final genreWiseMoviesFromDb = await MovieService.getMoviesByGenreId(
         genre?.id,
       );
       setState(() {
-        genreWiseMovies = genreWiseMoviesFromDb;
+        genreWiseMovies = genreWiseMoviesFromDb.movies;
         hasError = false;
       });
     } catch (e) {
@@ -80,7 +80,7 @@ class _GenreScreenState extends State<GenreScreen> {
     }
   }
 
-  changeCurrentGenre(Genre selectedGenre) {
+  changeCurrentGenre(GenreDto selectedGenre) {
     setState(
       () => currentGenre = selectedGenre,
     );
@@ -99,10 +99,8 @@ class _GenreScreenState extends State<GenreScreen> {
       currentGenre?.id,
       pageNumber,
     );
-    final response =
-        await IsarService().saveSomeMovies(genreWiseMoviesFromDb.movies);
     setState(() {
-      genreWiseMovies.addAll(response);
+      genreWiseMovies.addAll(genreWiseMoviesFromDb.movies);
       fetchingAdditionalMovies = false;
       reachedEndOfMovies = !hasNextPage(genreWiseMoviesFromDb.pagination);
     });

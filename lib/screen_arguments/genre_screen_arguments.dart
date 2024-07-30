@@ -1,7 +1,7 @@
-import '../entities/genre.dart';
+import '../dtos/genre_dto.dart';
 
 class GenreScreenArguments {
-  final Genre? genre;
+  final GenreDto? genre;
 
   GenreScreenArguments({
     this.genre,

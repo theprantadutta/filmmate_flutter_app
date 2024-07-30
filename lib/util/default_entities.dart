@@ -1,5 +1,3 @@
-import '../entities/genre.dart';
+import '../dtos/genre_dto.dart';
 
-final kDefaultGenre = Genre()
-  ..id = 28
-  ..name = 'Action';
+final kDefaultGenre = GenreDto(id: 28, name: 'Action');

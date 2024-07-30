@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../entities/movie_detail.dart';
+import '../../../../dtos/movie_detail_dto.dart';
 import '../../../../util/functions.dart';
 import '../movie_overview_section.dart';
 import 'movie_reviews.dart';
@@ -12,7 +12,7 @@ class MovieDetailOverview extends StatelessWidget {
     required this.movieDetail,
   });
 
-  final MovieDetail movieDetail;
+  final MovieDetailDto movieDetail;
 
   String getNamesFromArray(List<String>? names) {
     if (names == null || names.isEmpty) {
@@ -81,28 +81,23 @@ class MovieDetailOverview extends StatelessWidget {
               const SizedBox(height: 10),
               MovieOverviewSection(
                 title: 'Directed By: ',
-                value:
-                    getNamesFromArray(movieDetail.movieCredit.value?.directors),
+                value: getNamesFromArray(movieDetail.movieCredit.directors),
               ),
               MovieOverviewSection(
                 title: 'Written By: ',
-                value:
-                    getNamesFromArray(movieDetail.movieCredit.value?.writers),
+                value: getNamesFromArray(movieDetail.movieCredit.writers),
               ),
               MovieOverviewSection(
                 title: 'Story By: ',
-                value:
-                    getNamesFromArray(movieDetail.movieCredit.value?.storyBy),
+                value: getNamesFromArray(movieDetail.movieCredit.storyBy),
               ),
               MovieOverviewSection(
                 title: 'Produced By: ',
-                value:
-                    getNamesFromArray(movieDetail.movieCredit.value?.producers),
+                value: getNamesFromArray(movieDetail.movieCredit.producers),
               ),
               MovieOverviewSection(
                 title: 'Music By: ',
-                value:
-                    getNamesFromArray(movieDetail.movieCredit.value?.musicBy),
+                value: getNamesFromArray(movieDetail.movieCredit.musicBy),
               ),
               MovieOverviewSection(
                 title: 'Budget: ',

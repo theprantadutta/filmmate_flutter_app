@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../constants/colors.dart';
-import '../../../entities/movie.dart';
+import '../../../dtos/movie_dto.dart';
 
 class PosterMiddlePart extends StatelessWidget {
   const PosterMiddlePart({
@@ -10,7 +10,7 @@ class PosterMiddlePart extends StatelessWidget {
     required this.movie,
   });
 
-  final Movie movie;
+  final MovieDto movie;
 
   String formatMovieRuntime(int? totalMinutes) {
     if (totalMinutes == null) {

@@ -1,7 +1,7 @@
-import '../entities/movie.dart';
+import '../dtos/movie_dto.dart';
 
 class MovieDetailScreenArguments {
-  final Movie movie;
+  final MovieDto movie;
   final String tagName;
 
   MovieDetailScreenArguments({

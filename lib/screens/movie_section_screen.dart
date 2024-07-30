@@ -1,7 +1,7 @@
 import 'package:filmmate_flutter_app/components/common/main_layout_header.dart';
 import 'package:filmmate_flutter_app/constants/urls.dart';
+import 'package:filmmate_flutter_app/dtos/movie_dto.dart';
 import 'package:filmmate_flutter_app/services/database_service.dart';
-import 'package:filmmate_flutter_app/services/isar_service.dart';
 import 'package:filmmate_flutter_app/util/functions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,6 @@ import '../components/common/something_went_wrong.dart';
 import '../components/common/vertical_movie_section.dart';
 import '../components/layouts/main_layout.dart';
 import '../constants/colors.dart';
-import '../entities/movie.dart';
 import '../enums/movie_type.dart';
 
 class MovieSectionScreen extends StatefulWidget {
@@ -24,7 +23,7 @@ class MovieSectionScreen extends StatefulWidget {
 }
 
 class _MovieSectionScreenState extends State<MovieSectionScreen> {
-  List<Movie> movieSectionMovies = [];
+  List<MovieDto> movieSectionMovies = [];
   bool fetchingMovies = false;
   bool fetchingAdditionalMovies = false;
   MovieType movieType = MovieType.discover;
@@ -32,7 +31,7 @@ class _MovieSectionScreenState extends State<MovieSectionScreen> {
   bool reachedEndOfMovies = false;
   bool hasError = false;
 
-  Future<List<Movie>> getMovieSectionMoviesFromLocalDb() async {
+  Future<List<MovieDto>> getMovieSectionMoviesFromLocalDb() async {
     final args = ModalRoute.of(context)!.settings.arguments
         as MovieSectionScreenArguments;
     switch (args.movieType) {
@@ -97,20 +96,18 @@ class _MovieSectionScreenState extends State<MovieSectionScreen> {
     });
   }
 
-  Future<List<Movie>> getSpecificMovieSectionData(String urlPath) async {
+  Future<List<MovieDto>> getSpecificMovieSectionData(String urlPath) async {
     try {
       final movieSectionResponse =
           await DatabaseService().getSomeMoviesFromDatabase(
         urlPath: urlPath,
         pageNumber: pageNumber,
       );
-      final response =
-          await IsarService().saveSomeMovies(movieSectionResponse.movies);
       setState(() {
         reachedEndOfMovies = !hasNextPage(movieSectionResponse.pagination);
         hasError = false;
       });
-      return response;
+      return movieSectionResponse.movies;
     } catch (e) {
       if (kDebugMode) {
         print(e);

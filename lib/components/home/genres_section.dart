@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../entities/genre.dart';
+import '../../dtos/genre_dto.dart';
 import '../../screen_arguments/genre_screen_arguments.dart';
 import '../../screens/genre_screen.dart';
 import '../common/custom_outlined_button.dart';
 
 class GenresSection extends StatelessWidget {
-  final Genre? selectedGenre;
+  final GenreDto? selectedGenre;
   final bool goWhenClicked;
 
-  final List<Genre> genres;
-  final void Function(Genre currentGenre)? onPressed;
+  final List<GenreDto> genres;
+  final void Function(GenreDto currentGenre)? onPressed;
 
   const GenresSection({
     super.key,

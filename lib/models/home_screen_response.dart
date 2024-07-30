@@ -1,13 +1,13 @@
-import '../entities/genre.dart';
-import '../entities/movie.dart';
+import 'package:filmmate_flutter_app/dtos/genre_dto.dart';
+import 'package:filmmate_flutter_app/dtos/movie_response_dto.dart';
 
 class HomeScreenResponse {
-  final List<Genre> genres;
-  final List<Movie> discoverMovies;
-  final List<Movie> nowPlayings;
-  final List<Movie> popularMovies;
-  final List<Movie> topRatedMovies;
-  final List<Movie> upcomingMovies;
+  final List<GenreDto> genres;
+  final MovieResponseDto discoverMovies;
+  final MovieResponseDto nowPlayings;
+  final MovieResponseDto popularMovies;
+  final MovieResponseDto topRatedMovies;
+  final MovieResponseDto upcomingMovies;
 
   HomeScreenResponse({
     required this.genres,

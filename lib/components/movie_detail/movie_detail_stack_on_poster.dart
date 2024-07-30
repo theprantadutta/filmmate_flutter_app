@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
-import '../../entities/movie.dart';
+import '../../dtos/movie_dto.dart';
 import 'movie_poster/movie_average_vote.dart';
 import 'movie_poster/movie_poster.dart';
 import 'movie_poster/movie_poster_genres.dart';
@@ -10,7 +10,7 @@ import 'movie_poster/poster_middle_part.dart';
 
 class MovieDetailStackOnPoster extends StatelessWidget {
   final String tagName;
-  final Movie movie;
+  final MovieDto movie;
 
   const MovieDetailStackOnPoster({
     super.key,

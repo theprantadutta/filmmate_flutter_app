@@ -1,7 +1,7 @@
 import 'package:filmmate_flutter_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../../entities/genre.dart';
+import '../../../dtos/genre_dto.dart';
 
 class MoviePosterGenres extends StatelessWidget {
   const MoviePosterGenres({
@@ -9,7 +9,7 @@ class MoviePosterGenres extends StatelessWidget {
     required this.genres,
   });
 
-  final List<Genre> genres;
+  final List<GenreDto> genres;
 
   @override
   Widget build(BuildContext context) {

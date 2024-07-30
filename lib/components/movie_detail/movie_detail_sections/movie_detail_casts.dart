@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
-import '../../../entities/cast.dart';
+import '../../../dtos/cast_dto.dart';
 
 class MovieDetailCasts extends StatelessWidget {
   const MovieDetailCasts({
@@ -10,7 +10,7 @@ class MovieDetailCasts extends StatelessWidget {
     required this.casts,
   });
 
-  final List<Cast> casts;
+  final List<CastDto> casts;
 
   // 'https://image.tmdb.org/t/p/w500/${cast.profilePath!}'
   List<Widget> _generateCastView(BuildContext context) {

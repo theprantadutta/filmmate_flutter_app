@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../components/common/movie_section_cached_movie_image.dart';
-import '../../entities/movie.dart';
+import '../../dtos/movie_dto.dart';
 import '../../enums/movie_type.dart';
 import '../../screen_arguments/movie_detail_screen_arguments.dart';
 import '../../screens/movie_detail_screen.dart';
@@ -12,7 +12,7 @@ import 'movie_section/movie_section_top_bar.dart';
 
 class MovieSection extends StatelessWidget {
   final String title;
-  final List<Movie> movies;
+  final List<MovieDto> movies;
   final MovieType movieType;
 
   const MovieSection({

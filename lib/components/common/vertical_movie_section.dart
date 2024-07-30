@@ -2,14 +2,14 @@ import 'package:animate_do/animate_do.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-import '../../entities/movie.dart';
+import '../../dtos/movie_dto.dart';
 import '../../screen_arguments/movie_detail_screen_arguments.dart';
 import '../../screens/movie_detail_screen.dart';
 import '../movie_detail/movie_poster/movie_average_vote.dart';
 import 'movie_section_cached_movie_image.dart';
 
 class VerticalMovieSection extends StatefulWidget {
-  final List<Movie> movies;
+  final List<MovieDto> movies;
   final void Function()? onLastItemReached;
 
   const VerticalMovieSection({

@@ -1,14 +1,13 @@
 import 'dart:async';
 
-import 'package:filmmate_flutter_app/components/common/main_layout_header.dart';
 import 'package:flutter/material.dart';
 
+import '../components/common/main_layout_header.dart';
 import '../components/common/vertical_movie_section.dart';
 import '../components/layouts/main_layout.dart';
 import '../constants/colors.dart';
-import '../entities/movie.dart';
+import '../dtos/movie_dto.dart';
 import '../services/database_service.dart';
-import '../services/isar_service.dart';
 
 class SearchScreen extends StatefulWidget {
   static const kRouteName = '/search';
@@ -25,7 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Timer? _debounce;
 
-  List<Movie> searchedMovies = [];
+  List<MovieDto> searchedMovies = [];
 
   Future<void> handleMovieSearch(String searchTerm) async {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
@@ -37,10 +36,9 @@ class _SearchScreenState extends State<SearchScreen> {
         });
         final movieSectionResponse =
             await DatabaseService().searchMoviesByTitle(searchTerm);
-        final movies =
-            await IsarService().saveSomeMovies(movieSectionResponse.movies);
+
         setState(() {
-          searchedMovies = movies;
+          searchedMovies = movieSectionResponse.movies;
           fetchingMovies = false;
           hasError = false;
         });

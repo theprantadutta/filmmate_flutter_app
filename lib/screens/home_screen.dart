@@ -1,4 +1,3 @@
-import 'package:filmmate_flutter_app/models/home_screen_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,6 +9,7 @@ import '../components/home/genres_section.dart';
 import '../components/home/home_header.dart';
 import '../components/home/movie_section.dart';
 import '../components/home/movie_section/movie_section_top_bar.dart';
+import '../models/home_screen_response.dart';
 
 class HomeScreen extends StatelessWidget {
   static const kRouteName = '/';
@@ -82,31 +82,31 @@ class HomeScreen extends StatelessWidget {
                             const SizedBox(height: 10),
                             MovieSection(
                               title: 'Discover Movies',
-                              movies: discoverMovies,
+                              movies: discoverMovies.movies,
                               movieType: MovieType.discover,
                             ),
                             const SizedBox(height: 10),
                             MovieSection(
                               title: 'Popular Movies',
-                              movies: popularMovies,
+                              movies: popularMovies.movies,
                               movieType: MovieType.popular,
                             ),
                             const SizedBox(height: 10),
                             MovieSection(
                               title: 'Now Playing Movies',
-                              movies: nowPlayingMovies,
+                              movies: nowPlayingMovies.movies,
                               movieType: MovieType.nowPlaying,
                             ),
                             const SizedBox(height: 10),
                             MovieSection(
                               title: 'Top Rated Movies',
-                              movies: topRatedMovies,
+                              movies: topRatedMovies.movies,
                               movieType: MovieType.topRated,
                             ),
                             const SizedBox(height: 10),
                             MovieSection(
                               title: 'Upcoming Movies',
-                              movies: upcomingMovies,
+                              movies: upcomingMovies.movies,
                               movieType: MovieType.upcoming,
                             ),
                           ],
