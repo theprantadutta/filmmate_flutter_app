@@ -1,17 +1,17 @@
-import 'package:filmmate_flutter_app/components/common/main_layout_header.dart';
-import 'package:filmmate_flutter_app/constants/urls.dart';
-import 'package:filmmate_flutter_app/dtos/movie_dto.dart';
-import 'package:filmmate_flutter_app/services/database_service.dart';
-import 'package:filmmate_flutter_app/util/functions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../screen_arguments/movie_section_screen_arguments.dart';
+import '../components/common/main_layout_header.dart';
 import '../components/common/something_went_wrong.dart';
 import '../components/common/vertical_movie_section.dart';
 import '../components/layouts/main_layout.dart';
+import '../constants/urls.dart';
+import '../dtos/movie_dto.dart';
 import '../enums/movie_type.dart';
+import '../services/database_service.dart';
+import '../util/functions.dart';
 
 class MovieSectionScreen extends StatefulWidget {
   static const kRouteName = '/movie-section';

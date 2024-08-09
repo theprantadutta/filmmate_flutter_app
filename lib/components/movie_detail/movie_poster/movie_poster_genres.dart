@@ -1,6 +1,6 @@
-import 'package:filmmate_flutter_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/colors.dart';
 import '../../../dtos/genre_dto.dart';
 
 class MoviePosterGenres extends StatelessWidget {

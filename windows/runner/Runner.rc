@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.pranta.filmmate" "\0"
-            VALUE "FileDescription", "filmmate_flutter_app" "\0"
+            VALUE "FileDescription", "filmmate" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "filmmate_flutter_app" "\0"
+            VALUE "InternalName", "filmmate" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.pranta.filmmate. All rights reserved." "\0"
-            VALUE "OriginalFilename", "filmmate_flutter_app.exe" "\0"
-            VALUE "ProductName", "filmmate_flutter_app" "\0"
+            VALUE "OriginalFilename", "filmmate.exe" "\0"
+            VALUE "ProductName", "filmmate" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

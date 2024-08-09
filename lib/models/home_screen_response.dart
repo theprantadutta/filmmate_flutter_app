@@ -1,5 +1,5 @@
-import 'package:filmmate_flutter_app/dtos/genre_dto.dart';
-import 'package:filmmate_flutter_app/dtos/movie_response_dto.dart';
+import '../dtos/genre_dto.dart';
+import '../dtos/movie_response_dto.dart';
 
 class HomeScreenResponse {
   final List<GenreDto> genres;

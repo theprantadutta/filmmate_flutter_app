@@ -1,7 +1,7 @@
-import 'package:filmmate_flutter_app/dtos/movie_detail_dto.dart';
 import 'package:flutter/foundation.dart';
 
 import '../dtos/genre_dto.dart';
+import '../dtos/movie_detail_dto.dart';
 import '../dtos/movie_response_dto.dart';
 import 'parser_service.dart';
 

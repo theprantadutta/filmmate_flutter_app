@@ -1,4 +1,3 @@
-import 'package:filmmate_flutter_app/components/movie_detail/movie_detail_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -6,6 +5,7 @@ import '../components/common/cached_future_handler.dart';
 import '../components/layouts/main_layout.dart';
 import '../components/movie_detail/movie_detail_sections/single_movie_detail_tabs.dart';
 import '../components/movie_detail/movie_detail_stack_on_poster.dart';
+import '../components/movie_detail/movie_detail_tab_bar.dart';
 import '../dtos/movie_detail_dto.dart';
 import '../screen_arguments/movie_detail_screen_arguments.dart';
 import '../services/database_service.dart';

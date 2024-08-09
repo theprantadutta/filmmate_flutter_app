@@ -1,5 +1,3 @@
-import 'package:filmmate_flutter_app/components/common/something_went_wrong.dart';
-import 'package:filmmate_flutter_app/services/database_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -8,9 +6,11 @@ import '../../components/common/vertical_movie_section.dart';
 import '../../components/home/genres_section.dart';
 import '../../components/layouts/main_layout.dart';
 import '../components/common/main_layout_header.dart';
+import '../components/common/something_went_wrong.dart';
 import '../dtos/genre_dto.dart';
 import '../dtos/movie_dto.dart';
 import '../screen_arguments/genre_screen_arguments.dart';
+import '../services/database_service.dart';
 import '../services/movie_service.dart';
 import '../util/default_entities.dart';
 import '../util/functions.dart';

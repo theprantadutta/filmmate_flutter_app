@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:filmmate_flutter_app/dtos/genre_dto.dart';
-import 'package:filmmate_flutter_app/dtos/movie_detail_dto.dart';
 import 'package:flutter/foundation.dart';
 
 import '../constants/urls.dart';
+import '../dtos/genre_dto.dart';
+import '../dtos/movie_detail_dto.dart';
 import '../dtos/movie_response_dto.dart';
 import '../models/home_screen_response.dart';
 import 'http_service.dart';

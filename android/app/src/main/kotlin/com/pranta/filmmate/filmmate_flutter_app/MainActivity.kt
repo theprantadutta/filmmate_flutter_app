@@ -1,4 +1,4 @@
-package com.pranta.filmmate.filmmate_flutter_app
+package com.pranta.filmmate
 
 import io.flutter.embedding.android.FlutterActivity
 

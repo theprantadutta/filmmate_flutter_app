@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.pranta.filmmate.filmmate_flutter_app"
+    namespace "com.pranta.filmmate"
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 

@@ -1,8 +1,8 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:filmmate_flutter_app/dtos/image_dto.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/common/movie_section_cached_movie_image.dart';
+import '../../../dtos/image_dto.dart';
 
 class MovieDetailPosters extends StatelessWidget {
   const MovieDetailPosters({

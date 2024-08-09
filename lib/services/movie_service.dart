@@ -1,7 +1,7 @@
-import 'package:filmmate_flutter_app/dtos/movie_response_dto.dart';
 import 'package:flutter/foundation.dart';
 
 import '../constants/urls.dart';
+import '../dtos/movie_response_dto.dart';
 import 'database_service.dart';
 
 class MovieService {

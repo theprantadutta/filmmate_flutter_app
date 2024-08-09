@@ -1,4 +1,4 @@
-# filmmate_flutter_app
+# filmmate
 
 Movie Recommendation App
 

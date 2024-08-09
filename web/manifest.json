@@ -1,6 +1,6 @@
 {
-    "name": "filmmate_flutter_app",
-    "short_name": "filmmate_flutter_app",
+    "name": "filmmate",
+    "short_name": "filmmate",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
