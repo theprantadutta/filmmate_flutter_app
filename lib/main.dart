@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fquery/fquery.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'constants/shared_preference_keys.dart';
 import 'screens/genre_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/movie_detail_screen.dart';
@@ -14,6 +16,7 @@ final queryClient = QueryClient(
 );
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     QueryClientProvider(
       queryClient: queryClient,
@@ -35,12 +38,31 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  SharedPreferences? _sharedPreferences;
+
   ThemeMode _themeMode = ThemeMode.system;
 
   void changeTheme(ThemeMode themeMode) {
     setState(() {
       _themeMode = themeMode;
+      _sharedPreferences?.setBool(kIsDarkModeKey, themeMode == ThemeMode.dark);
     });
+  }
+
+  void intializeSharedPreferences() async {
+    _sharedPreferences = await SharedPreferences.getInstance();
+    final isDarkMode = _sharedPreferences?.getBool(kIsDarkModeKey);
+    if (isDarkMode != null) {
+      setState(() {
+        _themeMode = isDarkMode ? ThemeMode.dark : ThemeMode.light;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    intializeSharedPreferences();
   }
 
   @override
