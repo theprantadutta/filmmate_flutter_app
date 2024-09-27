@@ -40,13 +40,15 @@ class MovieSectionTopBar extends StatelessWidget {
                   arguments: GenreScreenArguments(),
                 );
                 return;
-              } else {
-                Navigator.pushNamed(context, MovieSectionScreen.kRouteName,
-                    arguments: MovieSectionScreenArguments(
-                      movieType: movieType,
-                      title: title,
-                    ));
               }
+              Navigator.pushNamed(
+                context,
+                MovieSectionScreen.kRouteName,
+                arguments: MovieSectionScreenArguments(
+                  movieType: movieType,
+                  title: title,
+                ),
+              );
             },
             child: Text(
               'See All',

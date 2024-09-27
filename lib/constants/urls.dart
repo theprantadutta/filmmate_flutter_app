@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-const kApiProdUrl = 'https://filmmate-dotnet-api.onrender.com/api/v1.0';
-const kApiDevUrl = 'http://192.168.0.106:5291/api/v1.0';
-const kApiUrl = kDebugMode ? kApiDevUrl : kApiProdUrl;
+final kApiProdUrl = dotenv.env['PROD_API_URL'];
+final kApiDevUrl = dotenv.env['DEV_API_URL'];
+final kApiUrl = kDebugMode ? kApiDevUrl : kApiProdUrl;
 // const kApiUrl = kApiProdUrl;
 
 const kGetAllGenres = 'Movie/GetAllGenres';

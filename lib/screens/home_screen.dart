@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
     final defaultHeight = MediaQuery.sizeOf(context).height * 0.87;
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (didPop) return;
         _onWillPop(context);
       },

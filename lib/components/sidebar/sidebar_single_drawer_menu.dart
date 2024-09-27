@@ -4,8 +4,11 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
+import '../../enums/movie_type.dart';
 import '../../models/side_drawer_model.dart';
+import '../../screen_arguments/genre_screen_arguments.dart';
 import '../../screen_arguments/movie_section_screen_arguments.dart';
+import '../../screens/genre_screen.dart';
 import '../../screens/movie_section_screen.dart';
 
 class SidebarSingleDrawerMenu extends StatelessWidget {
@@ -33,14 +36,32 @@ class SidebarSingleDrawerMenu extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        onTap: () => Navigator.pushNamed(
-          context,
-          MovieSectionScreen.kRouteName,
-          arguments: MovieSectionScreenArguments(
-            movieType: drawer.movieType,
-            title: drawer.name,
-          ),
-        ),
+        // onTap: () => Navigator.pushNamed(
+        //   context,
+        //   MovieSectionScreen.kRouteName,
+        //   arguments: MovieSectionScreenArguments(
+        //     movieType: drawer.movieType,
+        //     title: drawer.name,
+        //   ),
+        // ),
+        onTap: () {
+          if (drawer.movieType == MovieType.genreWise) {
+            Navigator.pushNamed(
+              context,
+              GenreScreen.kRouteName,
+              arguments: GenreScreenArguments(),
+            );
+            return;
+          }
+          Navigator.pushNamed(
+            context,
+            MovieSectionScreen.kRouteName,
+            arguments: MovieSectionScreenArguments(
+              movieType: drawer.movieType,
+              title: drawer.name,
+            ),
+          );
+        },
       ),
     );
   }
