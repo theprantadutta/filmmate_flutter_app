@@ -36,15 +36,8 @@ class SidebarSingleDrawerMenu extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        // onTap: () => Navigator.pushNamed(
-        //   context,
-        //   MovieSectionScreen.kRouteName,
-        //   arguments: MovieSectionScreenArguments(
-        //     movieType: drawer.movieType,
-        //     title: drawer.name,
-        //   ),
-        // ),
         onTap: () {
+          Scaffold.of(context).closeDrawer();
           if (drawer.movieType == MovieType.genreWise) {
             Navigator.pushNamed(
               context,

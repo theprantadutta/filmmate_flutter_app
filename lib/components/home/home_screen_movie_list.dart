@@ -50,15 +50,15 @@ class HomeScreenMovieList extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           MovieSection(
-            title: 'Top Rated Movies',
-            movies: topRatedMovies.movies,
-            movieType: MovieType.topRated,
-          ),
-          const SizedBox(height: 10),
-          MovieSection(
             title: 'Upcoming Movies',
             movies: upcomingMovies.movies,
             movieType: MovieType.upcoming,
+          ),
+          const SizedBox(height: 10),
+          MovieSection(
+            title: 'Top Rated Movies',
+            movies: topRatedMovies.movies,
+            movieType: MovieType.topRated,
           ),
         ],
       ),
