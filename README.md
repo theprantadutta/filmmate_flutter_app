@@ -3,8 +3,8 @@
 FilmMate is a Flutter app designed for movie enthusiasts. It allows users to explore detailed information about various movies, including trailers, cast details, posters, reviews, and more. Built with data from TMDB and OMDB APIs, FilmMate provides a sleek and visually appealing interface for browsing the latest, most popular, and top-rated movies.
 
 <p align="center">
-  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_1_Light.jpg" width="45%" />
-  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_1_Dark.jpg" width="45%" />
+  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_1_light.jpg" width="45%" />
+  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_1_dark.jpg" width="45%" />
 </p>
 
 ## Features
@@ -17,38 +17,38 @@ FilmMate is a Flutter app designed for movie enthusiasts. It allows users to exp
 ## Screenshots
 
 <p align="center">
-  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_1_Light.jpg" width="45%" />
-  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_1_Dark.jpg" width="45%" />
+  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_1_light.jpg" width="45%" />
+  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_1_dark.jpg" width="45%" />
 </p>
 
 <p align="center">
-  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_2_Light.jpg" width="45%" />
-  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_2_Dark.jpg" width="45%" />
+  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_2_light.jpg" width="45%" />
+  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_2_dark.jpg" width="45%" />
 </p>
 
 <p align="center">
-  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_3_Light.jpg" width="45%" />
-  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_3_Dark.jpg" width="45%" />
+  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_3_light.jpg" width="45%" />
+  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_3_dark.jpg" width="45%" />
 </p>
 
 <p align="center">
   <img alt="Light Theme Screenshot" src="./screenshots/filmmate_4_Light.jpg" width="45%" />
-  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_4_Dark.jpg" width="45%" />
+  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_4_dark.jpg" width="45%" />
 </p>
 
 <p align="center">
-  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_5_Light.jpg" width="45%" />
-  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_5_Dark.jpg" width="45%" />
+  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_5_light.jpg" width="45%" />
+  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_5_dark.jpg" width="45%" />
 </p>
 
 <p align="center">
-  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_6_Light.jpg" width="45%" />
-  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_6_Dark.jpg" width="45%" />
+  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_6_light.jpg" width="45%" />
+  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_6_dark.jpg" width="45%" />
 </p>
 
 <p align="center">
-  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_7_Light.jpg" width="45%" />
-  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_7_Dark.jpg" width="45%" />
+  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_7_light.jpg" width="45%" />
+  <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_7_dark.jpg" width="45%" />
 </p>
 
 Here’s a beautiful and clean Markdown design for the **API Integration** section, using headers, bullet points, and additional styling to make it stand out:
