@@ -32,7 +32,7 @@ FilmMate is a Flutter app designed for movie enthusiasts. It allows users to exp
 </p>
 
 <p align="center">
-  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_4_Light.jpg" width="45%" />
+  <img alt="Light Theme Screenshot" src="./screenshots/filmmate_4_light.jpg" width="45%" />
   <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_4_dark.jpg" width="45%" />
 </p>
 
