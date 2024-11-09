@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fquery/fquery.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,9 +62,27 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  Future<void> setOptimalDisplayMode() async {
+    final List<DisplayMode> supported = await FlutterDisplayMode.supported;
+    final DisplayMode active = await FlutterDisplayMode.active;
+
+    final List<DisplayMode> sameResolution = supported
+        .where((DisplayMode m) =>
+            m.width == active.width && m.height == active.height)
+        .toList()
+      ..sort((DisplayMode a, DisplayMode b) =>
+          b.refreshRate.compareTo(a.refreshRate));
+
+    final DisplayMode mostOptimalMode =
+        sameResolution.isNotEmpty ? sameResolution.first : active;
+
+    await FlutterDisplayMode.setPreferredMode(mostOptimalMode);
+  }
+
   @override
   void initState() {
     super.initState();
+    setOptimalDisplayMode();
     intializeSharedPreferences();
   }
 

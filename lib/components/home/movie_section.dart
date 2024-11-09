@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -77,7 +79,8 @@ class MovieSection extends StatelessWidget {
                       ],
                     ),
                     FadeInUp(
-                      duration: Duration(milliseconds: (index + 1) * 200),
+                      duration:
+                          Duration(milliseconds: (min(index, 5) + 1) * 200),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.39,
                         height: MediaQuery.of(context).size.height * 0.05,
@@ -141,7 +144,8 @@ class MovieSectionSkeletor extends StatelessWidget {
                       ],
                     ),
                     FadeInUp(
-                      duration: Duration(milliseconds: (index + 1) * 200),
+                      duration:
+                          Duration(milliseconds: (min(index, 5) + 1) * 200),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.39,
                         height: MediaQuery.of(context).size.height * 0.05,
