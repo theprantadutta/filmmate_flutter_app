@@ -26,7 +26,7 @@ class SidebarSingleDrawerMenu extends StatelessWidget {
     return FadeInUp(
       duration: Duration(milliseconds: min(index, 5) * 200),
       child: ListTile(
-        splashColor: kPrimaryColor.withOpacity(0.2),
+        splashColor: kPrimaryColor.withValues(alpha: 0.2),
         leading: Icon(drawer.iconData),
         minTileHeight: MediaQuery.sizeOf(context).height * 0.065,
         title: Text(

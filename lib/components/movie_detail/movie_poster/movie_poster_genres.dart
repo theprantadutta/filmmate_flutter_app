@@ -26,7 +26,7 @@ class MoviePosterGenres extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: kPrimaryColor.withOpacity(0.1),
+                backgroundColor: kPrimaryColor.withValues(alpha: 0.1),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                   side: const BorderSide(

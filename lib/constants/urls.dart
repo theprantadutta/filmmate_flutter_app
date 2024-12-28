@@ -6,6 +6,8 @@ final kApiDevUrl = dotenv.env['DEV_API_URL'];
 final kApiUrl = kDebugMode ? kApiDevUrl : kApiProdUrl;
 // const kApiUrl = kApiProdUrl;
 
+const kAppUpdateInfo = 'Application/GetApplicationInfo';
+
 const kGetAllGenres = 'Movie/GetAllGenres';
 const kGetAllMoviesByGenre = 'Movie/GetGenreWiseMovies';
 

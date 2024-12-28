@@ -25,10 +25,11 @@ class CustomOutlinedButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
-        backgroundColor:
-            selected ? kPrimaryColor.withOpacity(0.8) : Colors.transparent,
+        backgroundColor: selected
+            ? kPrimaryColor.withValues(alpha: 0.8)
+            : Colors.transparent,
         side: BorderSide(
-          color: kPrimaryColor.withOpacity(0.3),
+          color: kPrimaryColor.withValues(alpha: 0.3),
           width: selected ? 0 : 2,
         ),
       ),

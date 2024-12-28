@@ -23,7 +23,7 @@ class MovieDetailCasts extends StatelessWidget {
         Container(
           height: 210,
           decoration: BoxDecoration(
-            color: kPrimaryColor.withOpacity(0.1),
+            color: kPrimaryColor.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(15),
           ),
           width: MediaQuery.of(context).size.width * 0.3,

@@ -49,7 +49,7 @@ class _MovieDetailNotificationState extends State<MovieDetailNotification> {
               color: Colors.white,
             ),
           ),
-          backgroundColor: kPrimaryColor.withOpacity(0.5),
+          backgroundColor: kPrimaryColor.withValues(alpha: 0.5),
         ),
       );
     }

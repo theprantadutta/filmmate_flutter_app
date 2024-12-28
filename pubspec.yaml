@@ -19,15 +19,22 @@ dependencies:
   flutter_cache_manager: ^3.3.2
   flutter_displaymode: ^0.6.0
   flutter_dotenv: ^5.1.0
+  flutter_exit_app: ^1.1.4
   flutter_hooks: ^0.20.5
   flutter_native_splash: ^2.4.0
   fquery: ^1.4.0-beta.1
   http: ^1.2.1
-  intl: ^0.19.0
+  intl: ^0.20.1
   json_annotation: ^4.9.0
   loading_animation_widget: ^1.2.1
+  motion_toast: ^2.11.0
+  open_file: ^3.5.10
+  package_info_plus: ^8.1.2
+  path_provider: ^2.1.5
+  permission_handler: ^11.3.1
   shared_preferences: ^2.3.1
   skeletonizer: ^1.4.1+1
+  url_launcher: ^6.3.1
   youtube_player_flutter: ^9.0.1
 
 dev_dependencies:

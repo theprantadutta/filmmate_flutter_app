@@ -50,7 +50,7 @@ class MovieDetailVideos extends StatelessWidget {
               horizontal: 10,
             ),
             decoration: BoxDecoration(
-              color: kPrimaryColor.withOpacity(0.05),
+              color: kPrimaryColor.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Column(

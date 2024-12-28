@@ -2,6 +2,8 @@
 
 FilmMate is a Flutter app designed for movie enthusiasts. It allows users to explore detailed information about various movies, including trailers, cast details, posters, reviews, and more. Built with data from TMDB and OMDB APIs, FilmMate provides a sleek and visually appealing interface for browsing the latest, most popular, and top-rated movies.
 
+[![Download Latest APK](https://img.shields.io/badge/Download-Latest%20APK-brightgreen?style=for-the-badge&logo=android)](https://github.com/theprantadutta/filmmate_flutter_app/releases/latest/download/filmmate.apk)
+
 <p align="center">
   <img alt="Light Theme Screenshot" src="./screenshots/filmmate_1_light.jpg" width="45%" />
   <img alt="Dark Theme Screenshot" src="./screenshots/filmmate_1_dark.jpg" width="45%" />

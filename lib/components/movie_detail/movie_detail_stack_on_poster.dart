@@ -22,8 +22,8 @@ class MovieDetailStackOnPoster extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     final bgColor = isDarkTheme
-        ? Colors.black.withOpacity(0.6)
-        : Colors.black.withOpacity(0.3);
+        ? Colors.black.withValues(alpha: 0.6)
+        : Colors.black.withValues(alpha: 0.3);
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: Stack(

@@ -46,7 +46,7 @@ class PosterMiddlePart extends StatelessWidget {
                     horizontal: 10,
                   ),
                   decoration: BoxDecoration(
-                    color: kPrimaryColor.withOpacity(0.8),
+                    color: kPrimaryColor.withValues(alpha: 0.8),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Center(

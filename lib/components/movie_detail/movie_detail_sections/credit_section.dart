@@ -41,7 +41,7 @@ class CreditSection extends StatelessWidget {
             horizontal: 20,
           ),
           decoration: BoxDecoration(
-            color: kPrimaryColor.withOpacity(0.2),
+            color: kPrimaryColor.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(15),
           ),
           child: Column(
