@@ -1,0 +1,2 @@
+F:/MyProjects/FilmMate/filmmate_flutter_app/android/app/.cxx/Debug/2m6n6g3v/arm64-v8a/CMakeFiles/edit_cache.dir
+F:/MyProjects/FilmMate/filmmate_flutter_app/android/app/.cxx/Debug/2m6n6g3v/arm64-v8a/CMakeFiles/rebuild_cache.dir

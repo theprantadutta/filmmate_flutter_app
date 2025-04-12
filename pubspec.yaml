@@ -8,7 +8,7 @@ environment:
   sdk: ">=3.4.1 <4.0.0"
 
 dependencies:
-  animate_do: ^3.3.4
+  animate_do: ^4.2.0
   cached_network_image: ^3.3.1
   collection: ^1.18.0
   cupertino_icons: ^1.0.6
@@ -20,7 +20,7 @@ dependencies:
   flutter_displaymode: ^0.6.0
   flutter_dotenv: ^5.1.0
   flutter_exit_app: ^1.1.4
-  flutter_hooks: ^0.20.5
+  flutter_hooks: ^0.21.2
   flutter_native_splash: ^2.4.0
   fquery: ^1.4.0-beta.1
   http: ^1.2.1
@@ -31,7 +31,7 @@ dependencies:
   open_file: ^3.5.10
   package_info_plus: ^8.1.2
   path_provider: ^2.1.5
-  permission_handler: ^11.3.1
+  permission_handler: ^12.0.0+1
   shared_preferences: ^2.3.1
   skeletonizer: ^1.4.1+1
   url_launcher: ^6.3.1
@@ -44,7 +44,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   husky: ^0.1.7
-  isar_generator: ^3.1.0+1
   json_serializable: ^6.8.0
   lint_staged: ^0.5.1
 
